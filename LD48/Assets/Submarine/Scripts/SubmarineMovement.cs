@@ -2,34 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubmarineMovement : MonoBehaviour
+namespace Assets.Submarine.Scripts
 {
-    [SerializeField]
-    Rigidbody rigidbody;
-
-    [SerializeField]
-    float moveSpeed;
-
-    void Update()
+    public class SubmarineMovement : MonoBehaviour
     {
-        if (Input.GetAxisRaw("Vertical") > 0)
-        { 
-            rigidbody.AddForce(new Vector2(0, moveSpeed));        
+        Rigidbody rb;
+
+        [SerializeField]
+        float moveSpeed;
+
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
         }
 
-        if (Input.GetAxisRaw("Vertical") < 0)
+        void Update()
         {
-            rigidbody.AddForce(new Vector2(0, -moveSpeed));
-        }
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                rb.AddForce(new Vector2(0, moveSpeed));
+            }
 
-        if (Input.GetAxisRaw("Horizontal") > 0)
-        {
-            rigidbody.AddForce(new Vector2(moveSpeed, 0));
-        }
+            if (Input.GetAxisRaw("Vertical") < 0)
+            {
+                rb.AddForce(new Vector2(0, -moveSpeed));
+            }
 
-        if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            rigidbody.AddForce(new Vector2(-moveSpeed, 0));
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                rb.AddForce(new Vector2(moveSpeed, 0));
+            }
+
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                rb.AddForce(new Vector2(-moveSpeed, 0));
+            }
         }
     }
 }

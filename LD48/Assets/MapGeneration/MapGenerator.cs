@@ -44,10 +44,8 @@ namespace Assets.MapGeneration
             map = new Map(mapConfiguration, paths);
             mapDrawer = new MapDrawer(map);
 
-            GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
-            GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
-
             GenerateNewPage(playerViewBuffer);
+            UpdatePageView();
         }
 
         private void Update()
