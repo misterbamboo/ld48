@@ -30,7 +30,8 @@ namespace Assets.MapGeneration
         {
             mesh = new Mesh();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-            GetComponent<MeshFilter>().mesh = mesh;
+            GetComponent<MeshFilter>().sharedMesh = mesh;
+            GetComponent<MeshCollider>().sharedMesh = mesh;
         }
 
         void Start()
@@ -141,6 +142,9 @@ namespace Assets.MapGeneration
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles.ToArray();
             mesh.RecalculateNormals();
+
+            GetComponent<MeshFilter>().sharedMesh = mesh;
+            GetComponent<MeshCollider>().sharedMesh = mesh;
         }
 
         private void DrawMap(int x, int y, ref int triangleIndex)
