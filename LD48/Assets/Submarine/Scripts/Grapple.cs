@@ -9,6 +9,9 @@ public class Grapple : MonoBehaviour
     GrapplingRope grapplingRope;
 
     [SerializeField]
+    Camera camera;
+
+    [SerializeField]
     Transform firePoint;
 
     Vector2 grapplePoint;
@@ -47,11 +50,6 @@ public class Grapple : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(grapplePoint, shootMaxDistance);
-    }
-
     public void PullTarget()
     {
         isPulling = true;
@@ -74,12 +72,14 @@ public class Grapple : MonoBehaviour
 
     private void SetGrapplePointAndGrappleDistance()
     {
-        Vector2 distanceVector = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
+        Vector3 direction = (camera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
+        direction = new Vector3(direction.x, direction.y, 0.0f);
 
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, distanceVector);
-        if (hit.collider != null)
+        RaycastHit hit;
+        if (Physics.Raycast(firePoint.transform.position, direction, out hit, shootMaxDistance))
         {
-            if (Vector2.Distance(hit.point, firePoint.position) <= shootMaxDistance)
+            print(hit.collider.name);
+            if (Vector3.Distance(hit.point, firePoint.position) <= shootMaxDistance)
             {
                 grapplePoint = hit.point;
                 grapplingDistance = grapplePoint - (Vector2)firePoint.position;
@@ -88,6 +88,7 @@ public class Grapple : MonoBehaviour
 
                 grapplingRope.enabled = true;
             }
-        }       
+        }
+
     }
 }
