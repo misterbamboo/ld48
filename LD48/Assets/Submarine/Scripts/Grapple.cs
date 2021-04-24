@@ -89,6 +89,5 @@ public class Grapple : MonoBehaviour
                 grapplingRope.enabled = true;
             }
         }
-
     }
 }

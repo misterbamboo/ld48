@@ -7,79 +7,104 @@ public class SubAnimations : MonoBehaviour
 {
     private const float flipRight = 0f;
     private const float flipLeft = 180f;
+    private const float inclineBack = 10f;
 
-    [SerializeField] private Transform bodyToAnimate;
+    [SerializeField] private Transform bodyToFlip;
+    [SerializeField] private Transform bodyToIncline;
 
-    private Vector3 lastPosition;
     private bool? shouldFaceRight;
     private bool? shouldInclineBack;
 
-    private Quaternion wrantedAngle;
+    private float wrantedYAngle;
+    private float wantedIncline;
 
     private void Start()
     {
-        wrantedAngle = bodyToAnimate.rotation;
+        wrantedYAngle = 0f;
+        wantedIncline = 0f;
     }
 
     void Update()
     {
-        var movement = bodyToAnimate.position - lastPosition;
-        AnalyseMovement(movement);
-        ComputeWantedRotation();
+        AnalyseMovement();
 
         ComputeWantedFlip();
         LerpUpdateFlip();
 
-        lastPosition = bodyToAnimate.position;
+        ComputeWantedIncline();
+        LerpUpdateIncline();
     }
 
     private void ComputeWantedFlip()
     {
         if (shouldFaceRight.HasValue && shouldFaceRight.Value)
         {
-            var current = bodyToAnimate.rotation.eulerAngles;
-            current.y = flipRight;
-            wrantedAngle = Quaternion.Euler(current);
+            wrantedYAngle = flipRight;
         }
         else if (shouldFaceRight.HasValue && !shouldFaceRight.Value)
         {
-            var current = bodyToAnimate.rotation.eulerAngles;
-            current.y = flipLeft;
-            wrantedAngle = Quaternion.Euler(current);
+            wrantedYAngle = flipLeft;
         }
     }
 
     private void LerpUpdateFlip()
     {
-        var currentAngle = bodyToAnimate.rotation;
-        bodyToAnimate.rotation = Quaternion.Lerp(currentAngle, wrantedAngle, 4f * Time.deltaTime);
+        var currentAngle = bodyToFlip.rotation;
+
+        var wantedEuler = currentAngle.eulerAngles;
+        wantedEuler.y = wrantedYAngle;
+        var wantedAngle = Quaternion.Euler(wantedEuler);
+
+        bodyToFlip.rotation = Quaternion.Lerp(currentAngle, wantedAngle, 4f * Time.deltaTime);
     }
 
-    private void ComputeWantedRotation()
+    private void ComputeWantedIncline()
     {
+        wantedIncline = 0;
+        if (shouldInclineBack.HasValue && shouldInclineBack.Value)
+        {
+            wantedIncline = inclineBack;
+        }
+        else if (shouldInclineBack.HasValue && !shouldInclineBack.Value)
+        {
+            wantedIncline = -inclineBack;
+        }
     }
 
-    private void AnalyseMovement(Vector3 movement)
+    private void LerpUpdateIncline()
+    {
+        var currentAngle = bodyToIncline.rotation;
+
+        var wantedEuler = currentAngle.eulerAngles;
+        wantedEuler.z = wantedIncline;
+        var wantedAngle = Quaternion.Euler(wantedEuler);
+
+        bodyToIncline.rotation = Quaternion.Lerp(currentAngle, wantedAngle, 4f * Time.deltaTime);
+    }
+
+    private void AnalyseMovement()
     {
         shouldFaceRight = null;
         shouldInclineBack = null;
 
-        if (movement.x > 0)
-        {
-            shouldFaceRight = true;
-        }
-        else if (movement.x < 0)
-        {
-            shouldFaceRight = false;
-        }
-
-        if (movement.y > 0)
+        var vertical = Input.GetAxisRaw("Vertical");
+        if (vertical > 0)
         {
             shouldInclineBack = true;
         }
-        else if (movement.y < 0)
+        else if (vertical < 0)
         {
             shouldInclineBack = false;
+        }
+
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        if (horizontal > 0)
+        {
+            shouldFaceRight = true;
+        }
+        else if (horizontal < 0)
+        {
+            shouldFaceRight = false;
         }
     }
 }
