@@ -73,7 +73,10 @@ public class GrapplingRope : MonoBehaviour
     {
         if (!straightLine)
         {
-            if (lineRenderer.GetPosition(precision - 1).x == grapple.GetGrapplePoint().x)
+            var lineRendererXPos = Mathf.Round(lineRenderer.GetPosition(precision - 1).x);
+            var getGrapplePointXPos = Mathf.Round(grapple.GetGrapplePoint().x);
+
+            if (lineRendererXPos == getGrapplePointXPos)
             {
                 straightLine = true;
             }

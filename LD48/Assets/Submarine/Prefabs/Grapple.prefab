@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grapple: {fileID: 2618058356308027381}
   lineRenderer: {fileID: 556871636014539163}
-  percision: 40
+  precision: 40
   straightenLineSpeed: 10
   ropeAnimationCurve:
     serializedVersion: 2
@@ -491,7 +491,6 @@ MonoBehaviour:
   grapplingRope: {fileID: 4676212657947879710}
   firePoint: {fileID: 5686913089331546548}
   shootMaxDistance: 100
-  launchToPoint: 1
 --- !u!114 &584168556027815024
 MonoBehaviour:
   m_ObjectHideFlags: 0
