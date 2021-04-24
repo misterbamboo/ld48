@@ -8,67 +8,68 @@ namespace Assets.MapGeneration
 {
     public class Path
     {
-        private int height;
+        private int Height => path.Count;
         private int width;
 
         private List<int> path;
         private List<int> pathSize;
         private int minPathSize;
         private int maxPathSize;
-        private int currentGenPathSize;
         private int pathGenBufferBeforeReducing = 10;
 
-        public Path(int initialHeight, int width, int minPathSize, int maxPathSize)
+        private int currentPathX;
+        private int currentGenPathSize;
+
+        public Path(int width, int minPathSize, int maxPathSize)
         {
-            height = initialHeight;
             this.width = width;
             currentGenPathSize = width;
+            currentPathX = 0;
 
             this.minPathSize = minPathSize;
             this.maxPathSize = maxPathSize;
 
-            path = new List<int>(height);
-            pathSize = new List<int>(height);
+            path = new List<int>();
+            pathSize = new List<int>();
         }
 
-        public void Generate()
+        public void Generate(int count)
         {
-            int pathX = Random.Range(0, width - currentGenPathSize);
-            for (int y = 0; y < height; y++)
+            for (int c = 0; c < count; c++)
             {
-                path.Add(pathX);
+                path.Add(currentPathX);
                 pathSize.Add(currentGenPathSize);
 
                 AdjustPathGenSize();
-                MovePathX(ref pathX);
+                MovePathX();
             }
         }
 
         public bool Overlap(int x, int y)
         {
             if (x < 0 || y < 0) return false;
-            if (x >= width || y >= height) return false;
+            if (x >= width || y >= Height) return false;
 
             int leftPathX = path[y];
             int rightPathX = leftPathX + pathSize[y];
             return x >= leftPathX && x <= rightPathX;
         }
 
-        private void MovePathX(ref int pathX)
+        private void MovePathX()
         {
             int maxPathX = width - currentGenPathSize;
 
             int move = Random.Range(-2, 3); // -2 to 2 (inclusive)
-            if (move < 0 && pathX <= 0)
+            if (move < 0 && currentPathX <= 0)
             {
                 move = 0;
             }
-            else if (move > 0 && pathX >= maxPathX)
+            else if (move > 0 && currentPathX >= maxPathX)
             {
                 move = 0;
             }
 
-            pathX += move;
+            currentPathX += move;
         }
 
         private void AdjustPathGenSize()

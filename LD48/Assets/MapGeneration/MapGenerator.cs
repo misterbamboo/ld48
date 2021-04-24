@@ -1,142 +1,111 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Assets.Ressources;
 
 namespace Assets.MapGeneration
 {
     public class MapGenerator : MonoBehaviour
     {
-        [SerializeField] private int numberofpaths = 3;
-        [SerializeField] private int minPathSize = 2;
-        [SerializeField] private int maxPathSize = 15;
+        [SerializeField] private MapConfig mapConfiguration;
+        [SerializeField] private int numberOfPaths = 5;
+        [SerializeField] private int minPathSize = 5;
+        [SerializeField] private int maxPathSize = 20;
 
+        [SerializeField] private int playerViewBuffer = 100;
         [SerializeField] private Transform playerPosition;
-        [SerializeField] private int underPlayerGenerationBuffer = 25;
 
-        private Mesh mesh;
+        // Invert Y, because in Unity world, the player is going deeper and deeper
+        // so the Y position will become more and more negative
+        // but in MapGeneration context, the Y position is always positive
+        private int TranslatedPlayerPosition => (int)-playerPosition.position.y;
 
-        private List<Vector3> vertices = new List<Vector3>();
-
-        private List<int> triangles = new List<int>();
 
         private Map map;
 
         private Path[] paths;
 
-        private int mapWidth = 100;
-        private int mapInitialHeight = 50;
+        private MapDrawer mapDrawer;
+
+        private int lastPlayerPageIndex;
 
         void Start()
         {
             Init();
-            GeneratePoints(1000);
-
-            mesh = new Mesh();
-            GetComponent<MeshFilter>().mesh = mesh;
-
-            ConvertMapToMesh();
-
-            mesh.Clear();
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-            mesh.RecalculateNormals();
         }
 
         private void Init()
         {
-            map = new Map(mapWidth, mapInitialHeight);
-            paths = new Path[numberofpaths];
-            for (int i = 0; i < numberofpaths; i++)
+            paths = new Path[numberOfPaths];
+            for (int i = 0; i < numberOfPaths; i++)
             {
-                paths[i] = new Path(mapInitialHeight, mapWidth, minPathSize, maxPathSize);
-                paths[i].Generate();
+                paths[i] = new Path(mapConfiguration.width, minPathSize, maxPathSize);
             }
-        }
+            map = new Map(mapConfiguration, paths);
+            mapDrawer = new MapDrawer(map);
 
-        private void GeneratePoints(int numberOfPoints)
-        {
-            for (int i = 0; i < numberOfPoints; i++)
-            {
-                int x = Random.Range(0, mapWidth);
-                int y = Random.Range(0, mapInitialHeight);
-                int radius = Random.Range(3, 10);
-                PlaceCircle(x, y, radius);
-            }
-        }
-
-        private void PlaceCircle(int x, int y, int radius)
-        {
-            for (int r = 0; r <= radius; r++)
-            {
-                float fullAngle = Mathf.PI * 2;
-                for (float a = 0; a < fullAngle; a += fullAngle / 100f)
-                {
-                    int xDiff = (int)(r * Mathf.Cos(a));
-                    int yDiff = (int)(r * Mathf.Sin(a));
-                    PlacePoint(x + xDiff, y + yDiff);
-                }
-            }
-        }
-
-        private void PlacePoint(int x, int y)
-        {
-            if (OverlapPath(x, y)) return;
-            map.Place(x, y);
-        }
-
-        private bool OverlapPath(int x, int y)
-        {
-            return paths.Any(p => p.Overlap(x, y));
+            GenerateNewPage(playerViewBuffer);
+            UpdatePageView();
         }
 
         private void Update()
         {
-            int position = GetPlayerPosition();
-            int generationPosition = position + underPlayerGenerationBuffer;
-
-            if(map.Height < generationPosition)
+            if (ShouldGenerateNewPage())
             {
-
+                GenerateNewPage(playerViewBuffer);
+                UpdatePageView();
+            }
+            else if (IsPlayerChangedViewPage())
+            {
+                UpdatePageView();
             }
         }
 
-        private int GetPlayerPosition()
+        private bool ShouldGenerateNewPage()
         {
-            // Invert Y, because in Unity world, the player is going deeper and deeper
-            // so the Y position will become more and more negative
-            // but in MapGeneration context, the Y position is always positive
-            return (int)-playerPosition.position.y;
+            int generationPosition = GetGenerationPosition();
+            return map.Height < generationPosition;
         }
 
-        private void ConvertMapToMesh()
+        private void GenerateNewPage(int pageSize)
         {
-            int index = 0;
-            for (int x = 0; x < mapWidth; x++)
+            foreach (var path in paths)
             {
-                for (int y = 0; y < mapInitialHeight; y++)
-                {
-                    if (!map.IsEmpty(x, y))
-                    {
-                        DrawMap(x, -y, ref index);
-                    }
-                }
+                path.Generate(pageSize);
             }
+            map.Generate(pageSize);
         }
 
-        private void DrawMap(int x, int y, ref int triangleIndex)
+        private bool IsPlayerChangedViewPage()
         {
-            vertices.Add(new Vector2(x, y));
-            vertices.Add(new Vector2(x + 1, y));
-            vertices.Add(new Vector2(x + 1, y - 1));
-            vertices.Add(new Vector2(x, y - 1));
+            int pageIndex = GetCurrentPlayerPageIndex();
+            if (lastPlayerPageIndex != pageIndex)
+            {
+                return true;
+            }
+            return false;
+        }
 
-            triangles.Add(triangleIndex);
-            triangles.Add(triangleIndex + 1);
-            triangles.Add(triangleIndex + 3);
-            triangles.Add(triangleIndex + 1);
-            triangles.Add(triangleIndex + 2);
-            triangles.Add(triangleIndex + 3);
-            triangleIndex += 4;
+        private void UpdatePageView()
+        {
+            lastPlayerPageIndex = GetCurrentPlayerPageIndex();
+
+            var fromY = (lastPlayerPageIndex - 1) * playerViewBuffer;
+            var toY = (lastPlayerPageIndex + 2) * playerViewBuffer;
+
+            mapDrawer.Redraw(fromY, toY);
+            GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
+            GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
+        }
+
+        private int GetCurrentPlayerPageIndex()
+        {
+            return TranslatedPlayerPosition / playerViewBuffer;
+        }
+
+        private int GetGenerationPosition()
+        {
+            return TranslatedPlayerPosition + playerViewBuffer;
         }
     }
 }
