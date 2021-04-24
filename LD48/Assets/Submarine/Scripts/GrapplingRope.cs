@@ -74,9 +74,12 @@ public class GrapplingRope : MonoBehaviour
         if (!straightLine)
         {
             var lineRendererXPos = Mathf.Round(lineRenderer.GetPosition(precision - 1).x);
-            var getGrapplePointXPos = Mathf.Round(grapple.GetGrapplePoint().x);
+            var grapplePointXPos = Mathf.Round(grapple.GetGrapplePoint().x);
 
-            if (lineRendererXPos == getGrapplePointXPos)
+            var lineRendererYPos = Mathf.Round(lineRenderer.GetPosition(precision - 1).y);
+            var grapplePointYPos = Mathf.Round(grapple.GetGrapplePoint().y);
+
+            if (lineRendererXPos == grapplePointXPos && lineRendererYPos == grapplePointYPos)
             {
                 straightLine = true;
             }
@@ -90,6 +93,7 @@ public class GrapplingRope : MonoBehaviour
             if (!isGrappling)
             {               
                 isGrappling = true;
+                grapple.PullTarget();
             }
             if (waveSize > 0)
             {
@@ -133,5 +137,4 @@ public class GrapplingRope : MonoBehaviour
         lineRenderer.SetPosition(0, grapple.GetFirePoint());
         lineRenderer.SetPosition(1, grapple.GetGrapplePoint());
     }
-
 }

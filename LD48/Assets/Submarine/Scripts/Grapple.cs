@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,12 @@ public class Grapple : MonoBehaviour
     [SerializeField]
     float shootMaxDistance = 100.0f;
 
+    float pullSpeed = 5.0f;
+
+    bool isPulling = false;
+
+    GameObject objectToPull;
+
     void Start()
     {
         grapplingRope.enabled = false;
@@ -29,13 +36,25 @@ public class Grapple : MonoBehaviour
         }
         else if (Input.GetButtonUp("Fire1"))
         {
+            isPulling = false;
             grapplingRope.enabled = false;
+        }
+
+        if (isPulling && grapplingRope.IsGrappling())
+        {
+            grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);
+            objectToPull.transform.position = grapplePoint;
         }
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(grapplePoint, shootMaxDistance);
+    }
+
+    public void PullTarget()
+    {
+        isPulling = true;
     }
 
     public Vector2 GetGrapplingDistance()
@@ -64,8 +83,11 @@ public class Grapple : MonoBehaviour
             {
                 grapplePoint = hit.point;
                 grapplingDistance = grapplePoint - (Vector2)firePoint.position;
+
+                objectToPull = hit.collider.gameObject;
+
                 grapplingRope.enabled = true;
             }
-        }
+        }       
     }
 }
