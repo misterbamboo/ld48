@@ -14,5 +14,7 @@ namespace Assets.MapGeneration
         public int circleMinRadius = 4;
         public int circleMaxRadius = 12;
         public int circleRadiusAddedNoise = 5;
+
+        public float ressourceGenerationCopperPercent = 0.05f;
     }
 }

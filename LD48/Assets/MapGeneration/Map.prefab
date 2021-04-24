@@ -103,11 +103,13 @@ MonoBehaviour:
     circleMinRadius: 4
     circleMaxRadius: 12
     circleRadiusAddedNoise: 5
+    ressourceGenerationCopperPercent: 0.03
   numberOfPaths: 5
   minPathSize: 5
   maxPathSize: 20
   playerPosition: {fileID: 0}
   playerViewBuffer: 100
+  CopperPrefab: {fileID: 4008060087431541605, guid: 751edd90f5ef0f74da61f37daae84607, type: 3}
 --- !u!64 &8127990872566132136
 MeshCollider:
   m_ObjectHideFlags: 0

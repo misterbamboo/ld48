@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Assets.Ressources;
 
 namespace Assets.MapGeneration
 {
@@ -11,28 +12,22 @@ namespace Assets.MapGeneration
         [SerializeField] private int minPathSize = 5;
         [SerializeField] private int maxPathSize = 20;
 
-        [SerializeField] private Transform playerPosition;
         [SerializeField] private int playerViewBuffer = 100;
+        [SerializeField] private Transform playerPosition;
 
-        private Mesh mesh;
+        // Invert Y, because in Unity world, the player is going deeper and deeper
+        // so the Y position will become more and more negative
+        // but in MapGeneration context, the Y position is always positive
+        private int TranslatedPlayerPosition => (int)-playerPosition.position.y;
 
-        private List<Vector3> vertices = new List<Vector3>();
-
-        private List<int> triangles = new List<int>();
 
         private Map map;
 
         private Path[] paths;
 
-        private int lastPlayerPageIndex;
+        private MapDrawer mapDrawer;
 
-        private void Awake()
-        {
-            mesh = new Mesh();
-            mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-            GetComponent<MeshFilter>().sharedMesh = mesh;
-            GetComponent<MeshCollider>().sharedMesh = mesh;
-        }
+        private int lastPlayerPageIndex;
 
         void Start()
         {
@@ -47,6 +42,10 @@ namespace Assets.MapGeneration
                 paths[i] = new Path(mapConfiguration.width, minPathSize, maxPathSize);
             }
             map = new Map(mapConfiguration, paths);
+            mapDrawer = new MapDrawer(map);
+
+            GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
+            GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
 
             GenerateNewPage(playerViewBuffer);
         }
@@ -56,18 +55,27 @@ namespace Assets.MapGeneration
             if (ShouldGenerateNewPage())
             {
                 GenerateNewPage(playerViewBuffer);
+                UpdatePageView();
             }
-
-            if (IsPlayerChangedViewPage())
+            else if (IsPlayerChangedViewPage())
             {
                 UpdatePageView();
             }
         }
 
-        private void UpdatePageView()
+        private bool ShouldGenerateNewPage()
         {
-            lastPlayerPageIndex = GetCurrentPlayerPageIndex();
-            GenerateMeshFromMapView();
+            int generationPosition = GetGenerationPosition();
+            return map.Height < generationPosition;
+        }
+
+        private void GenerateNewPage(int pageSize)
+        {
+            foreach (var path in paths)
+            {
+                path.Generate(pageSize);
+            }
+            map.Generate(pageSize);
         }
 
         private bool IsPlayerChangedViewPage()
@@ -80,87 +88,26 @@ namespace Assets.MapGeneration
             return false;
         }
 
+        private void UpdatePageView()
+        {
+            lastPlayerPageIndex = GetCurrentPlayerPageIndex();
+
+            var fromY = (lastPlayerPageIndex - 1) * playerViewBuffer;
+            var toY = (lastPlayerPageIndex + 2) * playerViewBuffer;
+
+            mapDrawer.Redraw(fromY, toY);
+            GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
+            GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
+        }
+
         private int GetCurrentPlayerPageIndex()
         {
-            var pos = GetPlayerPosition();
-            int pageIndex = pos / playerViewBuffer;
-            return pageIndex;
-        }
-
-        private void GenerateNewPage(int pageSize)
-        {
-            foreach (var path in paths)
-            {
-                path.Generate(pageSize);
-            }
-            map.Generate(pageSize);
-            GenerateMeshFromMapView();
-        }
-
-        private bool ShouldGenerateNewPage()
-        {
-            int generationPosition = GetGenerationPosition();
-            return map.Height < generationPosition;
+            return TranslatedPlayerPosition / playerViewBuffer;
         }
 
         private int GetGenerationPosition()
         {
-            int position = GetPlayerPosition();
-            int generationPosition = position + playerViewBuffer;
-            return generationPosition;
-        }
-
-        private int GetPlayerPosition()
-        {
-            // Invert Y, because in Unity world, the player is going deeper and deeper
-            // so the Y position will become more and more negative
-            // but in MapGeneration context, the Y position is always positive
-            return (int)-playerPosition.position.y;
-        }
-
-        private void GenerateMeshFromMapView()
-        {
-            vertices.Clear();
-            triangles.Clear();
-
-            int index = 0;
-            for (int x = 0; x < mapConfiguration.width; x++)
-            {
-                var min = (GetCurrentPlayerPageIndex() - 1) * playerViewBuffer;
-                var max = (GetCurrentPlayerPageIndex() + 2) * playerViewBuffer;
-
-                for (int y = min; y < max; y++)
-                {
-                    if (!map.IsEmpty(x, y))
-                    {
-                        DrawMap(x, -y, ref index);
-                    }
-                }
-            }
-
-            mesh.Clear();
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-            mesh.RecalculateNormals();
-
-            GetComponent<MeshFilter>().sharedMesh = mesh;
-            GetComponent<MeshCollider>().sharedMesh = mesh;
-        }
-
-        private void DrawMap(int x, int y, ref int triangleIndex)
-        {
-            vertices.Add(new Vector2(x, y));
-            vertices.Add(new Vector2(x + 1, y));
-            vertices.Add(new Vector2(x + 1, y - 1));
-            vertices.Add(new Vector2(x, y - 1));
-
-            triangles.Add(triangleIndex);
-            triangles.Add(triangleIndex + 1);
-            triangles.Add(triangleIndex + 3);
-            triangles.Add(triangleIndex + 1);
-            triangles.Add(triangleIndex + 2);
-            triangles.Add(triangleIndex + 3);
-            triangleIndex += 4;
+            return TranslatedPlayerPosition + playerViewBuffer;
         }
     }
 }

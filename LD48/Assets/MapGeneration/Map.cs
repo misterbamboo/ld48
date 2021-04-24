@@ -8,8 +8,10 @@ namespace Assets.MapGeneration
 {
     public class Map
     {
-        private List<bool[]> mapRows;
+        public MapConfig Configuration => config;
         private MapConfig config;
+
+        private List<MapCellType[]> mapRows;
         private readonly IEnumerable<Path> paths;
 
         public int Height => mapRows.Count;
@@ -18,34 +20,35 @@ namespace Assets.MapGeneration
         {
             this.config = config;
             this.paths = paths;
-            mapRows = new List<bool[]>();
+            mapRows = new List<MapCellType[]>();
         }
 
         public bool IsEmpty(int x, int y)
         {
             if (x < 0 || y < 0) return true;
             if (x >= config.width || y >= Height) return true;
-            return !mapRows[y][x];
+            return mapRows[y][x] == MapCellType.Empty;
         }
 
         public void Generate(int count)
         {
             for (int c = 0; c < count; c++)
             {
-                mapRows.Add(new bool[config.width]);
+                mapRows.Add(new MapCellType[config.width]);
             }
             var topY = Height - count;
             var bottomY = Height;
-            GenerateCircles(config.circlesPerGeneration, topY, bottomY);
+            GenerateCircles(topY, bottomY);
+            GenerateRessources(topY, bottomY);
         }
 
-        private void GenerateCircles(int numberOfPoints, int topY, int bottomY)
+        private void GenerateCircles(int topY, int bottomY)
         {
             int radius = Random.Range(config.circleMinRadius, config.circleMaxRadius);
             int lastX = Random.Range(0, config.width);
             int lastY = Random.Range(topY + radius, bottomY - radius);
 
-            for (int i = 0; i < numberOfPoints; i++)
+            for (int i = 0; i < config.circlesPerGeneration; i++)
             {
                 radius = Random.Range(config.circleMinRadius, config.circleMaxRadius);
 
@@ -103,15 +106,15 @@ namespace Assets.MapGeneration
                 {
                     int xDiff = (int)(r * Mathf.Cos(a));
                     int yDiff = (int)(r * Mathf.Sin(a));
-                    PlacePoint(x + xDiff, y + yDiff);
+                    PlaceTerrain(x + xDiff, y + yDiff);
                 }
             }
         }
 
-        private void PlacePoint(int x, int y)
+        private void PlaceTerrain(int x, int y)
         {
             if (OverlapPath(x, y)) return;
-            Place(x, y);
+            PlaceCellType(x, y, MapCellType.Terrain);
         }
 
         private bool OverlapPath(int x, int y)
@@ -119,11 +122,35 @@ namespace Assets.MapGeneration
             return paths.Any(p => p.Overlap(x, y));
         }
 
-        private void Place(int x, int y)
+        private void PlaceCellType(int x, int y, MapCellType mapCellType)
         {
             if (x < 0 || y < 0) return;
             if (x >= config.width || y >= Height) return;
-            mapRows[y][x] = true;
+            mapRows[y][x] = mapCellType;
+        }
+
+        private void GenerateRessources(int topY, int bottomY)
+        {
+            for (int x = 0; x < config.width; x++)
+            {
+                for (int y = topY; y < bottomY; y++)
+                {
+                    if (mapRows[y][x] == MapCellType.Terrain)
+                    {
+                        var randomValue = Random.value;
+                        bool spawnCopper = randomValue < config.ressourceGenerationCopperPercent;
+                        if (spawnCopper)
+                        {
+                            mapRows[y][x] = MapCellType.Copper;
+                        }
+                    }
+                }
+            }
+        }
+
+        public bool IsRessource(int x, int y, MapCellType mapCellType)
+        {
+            return mapRows[y][x] == mapCellType;
         }
     }
 }
