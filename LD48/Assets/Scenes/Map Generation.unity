@@ -344,6 +344,10 @@ PrefabInstance:
       propertyPath: playerPosition
       value: 
       objectReference: {fileID: 1066342355}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: underPlayerGenerationBuffer
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8191157266962886884, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
       propertyPath: m_RootOrder
       value: 2

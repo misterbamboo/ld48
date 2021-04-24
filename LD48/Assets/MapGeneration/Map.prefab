@@ -94,3 +94,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4240b5333516f3e40891dd482780807b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapConfiguration:
+    width: 100
+    circlesPerGeneration: 50
+    circlesGenerationDispersionMin: 3
+    circlesGenerationDispersionMax: 8
+    circleMinRadius: 4
+    circleMaxRadius: 12
+  numberOfPaths: 5
+  minPathSize: 5
+  maxPathSize: 20
+  playerPosition: {fileID: 0}
+  playerViewBuffer: 100

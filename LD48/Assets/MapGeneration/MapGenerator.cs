@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Parabox.CSG;
 using System.Linq;
 
 namespace Assets.MapGeneration
 {
     public class MapGenerator : MonoBehaviour
     {
-        [SerializeField] private int numberofpaths = 3;
-        [SerializeField] private int minPathSize = 2;
-        [SerializeField] private int maxPathSize = 15;
+        [SerializeField] private MapConfig mapConfiguration;
+        [SerializeField] private int numberOfPaths = 5;
+        [SerializeField] private int minPathSize = 5;
+        [SerializeField] private int maxPathSize = 20;
 
         [SerializeField] private Transform playerPosition;
-        [SerializeField] private int underPlayerGenerationBuffer = 25;
+        [SerializeField] private int playerViewBuffer = 100;
 
         private Mesh mesh;
 
@@ -24,81 +24,89 @@ namespace Assets.MapGeneration
 
         private Path[] paths;
 
-        private int mapWidth = 100;
-        private int mapInitialHeight = 50;
+        private int lastPlayerPageIndex;
+
+        private void Awake()
+        {
+            mesh = new Mesh();
+            mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            GetComponent<MeshFilter>().mesh = mesh;
+        }
 
         void Start()
         {
             Init();
-            GeneratePoints(1000);
-
-            mesh = new Mesh();
-            GetComponent<MeshFilter>().mesh = mesh;
-
-            ConvertMapToMesh();
-
-            mesh.Clear();
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-            mesh.RecalculateNormals();
         }
 
         private void Init()
         {
-            map = new Map(mapWidth, mapInitialHeight);
-            paths = new Path[numberofpaths];
-            for (int i = 0; i < numberofpaths; i++)
+            paths = new Path[numberOfPaths];
+            for (int i = 0; i < numberOfPaths; i++)
             {
-                paths[i] = new Path(mapInitialHeight, mapWidth, minPathSize, maxPathSize);
-                paths[i].Generate();
+                paths[i] = new Path(mapConfiguration.width, minPathSize, maxPathSize);
             }
-        }
+            map = new Map(mapConfiguration, paths);
 
-        private void GeneratePoints(int numberOfPoints)
-        {
-            for (int i = 0; i < numberOfPoints; i++)
-            {
-                int x = Random.Range(0, mapWidth);
-                int y = Random.Range(0, mapInitialHeight);
-                int radius = Random.Range(3, 10);
-                PlaceCircle(x, y, radius);
-            }
-        }
-
-        private void PlaceCircle(int x, int y, int radius)
-        {
-            for (int r = 0; r <= radius; r++)
-            {
-                float fullAngle = Mathf.PI * 2;
-                for (float a = 0; a < fullAngle; a += fullAngle / 100f)
-                {
-                    int xDiff = (int)(r * Mathf.Cos(a));
-                    int yDiff = (int)(r * Mathf.Sin(a));
-                    PlacePoint(x + xDiff, y + yDiff);
-                }
-            }
-        }
-
-        private void PlacePoint(int x, int y)
-        {
-            if (OverlapPath(x, y)) return;
-            map.Place(x, y);
-        }
-
-        private bool OverlapPath(int x, int y)
-        {
-            return paths.Any(p => p.Overlap(x, y));
+            GenerateNewPage(playerViewBuffer);
         }
 
         private void Update()
         {
-            int position = GetPlayerPosition();
-            int generationPosition = position + underPlayerGenerationBuffer;
-
-            if(map.Height < generationPosition)
+            if (ShouldGenerateNewPage())
             {
-
+                GenerateNewPage(playerViewBuffer);
             }
+
+            if (IsPlayerChangedViewPage())
+            {
+                UpdatePageView();
+            }
+        }
+
+        private void UpdatePageView()
+        {
+            lastPlayerPageIndex = GetCurrentPlayerPageIndex();
+            GenerateMeshFromMapView();
+        }
+
+        private bool IsPlayerChangedViewPage()
+        {
+            int pageIndex = GetCurrentPlayerPageIndex();
+            if (lastPlayerPageIndex != pageIndex)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private int GetCurrentPlayerPageIndex()
+        {
+            var pos = GetPlayerPosition();
+            int pageIndex = pos / playerViewBuffer;
+            return pageIndex;
+        }
+
+        private void GenerateNewPage(int pageSize)
+        {
+            foreach (var path in paths)
+            {
+                path.Generate(pageSize);
+            }
+            map.Generate(pageSize);
+            GenerateMeshFromMapView();
+        }
+
+        private bool ShouldGenerateNewPage()
+        {
+            int generationPosition = GetGenerationPosition();
+            return map.Height < generationPosition;
+        }
+
+        private int GetGenerationPosition()
+        {
+            int position = GetPlayerPosition();
+            int generationPosition = position + playerViewBuffer;
+            return generationPosition;
         }
 
         private int GetPlayerPosition()
@@ -109,12 +117,18 @@ namespace Assets.MapGeneration
             return (int)-playerPosition.position.y;
         }
 
-        private void ConvertMapToMesh()
+        private void GenerateMeshFromMapView()
         {
+            vertices.Clear();
+            triangles.Clear();
+
             int index = 0;
-            for (int x = 0; x < mapWidth; x++)
+            for (int x = 0; x < mapConfiguration.width; x++)
             {
-                for (int y = 0; y < mapInitialHeight; y++)
+                var min = (GetCurrentPlayerPageIndex() - 1) * playerViewBuffer;
+                var max = (GetCurrentPlayerPageIndex() + 2) * playerViewBuffer;
+
+                for (int y = min; y < max; y++)
                 {
                     if (!map.IsEmpty(x, y))
                     {
@@ -122,6 +136,11 @@ namespace Assets.MapGeneration
                     }
                 }
             }
+
+            mesh.Clear();
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = triangles.ToArray();
+            mesh.RecalculateNormals();
         }
 
         private void DrawMap(int x, int y, ref int triangleIndex)
