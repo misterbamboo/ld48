@@ -25,27 +25,21 @@ public class CollisionManager : MonoBehaviour
         if (collision.CompareTag("Gem")) //Ici on vas changer pour IRessource
         {
             GameObject itemCollided = collision.gameObject;
-            
+
             inventory.Add(itemCollided);
-            
-            if(itemCollided.name.Equals("item1"))//Ici on vas utiliser genre getName() de IRessource
+
+            if (itemCollided.name.Equals("item1"))//Ici on vas utiliser genre getName() de IRessource
             {
                 numberOfGemType1++;
                 itemtext1.GetComponent<Text>().text = "GemType1: " + numberOfGemType1;
             }
-            else if(itemCollided.name.Equals("item2"))
+            else if (itemCollided.name.Equals("item2"))
             {
                 numberOfGemType2++;
                 itemtext2.GetComponent<Text>().text = "GemType2: " + numberOfGemType2;
             }
-            
+
             Destroy(collision.gameObject);
         }
-            
-            
-        }
-        
-
-        
     }
-
+}
