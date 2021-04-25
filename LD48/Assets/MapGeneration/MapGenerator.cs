@@ -95,13 +95,13 @@ namespace Assets.MapGeneration
             mapDrawer.Redraw(fromY, toY);
             GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
             //GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
-            var poly = GetComponent<PolygonCollider2D>();
-            poly.points = new Vector2[] 
-            {
-                new Vector2(0, 0),
-                new Vector2(1, 1),
-                new Vector2(2, 0),
-            };
+            //var poly = GetComponent<PolygonCollider2D>();
+            //poly.points = new Vector2[] 
+            //{
+            //    new Vector2(0, 0),
+            //    new Vector2(1, 1),
+            //    new Vector2(2, 0),
+            //};
         }
 
         private int GetCurrentPlayerPageIndex()
