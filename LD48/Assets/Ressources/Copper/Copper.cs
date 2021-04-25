@@ -19,12 +19,11 @@ namespace Assets.Ressources
 
         public bool IsConsume()
         {
-            return !enabled;
+            return !gameObject.activeSelf;
         }
 
         public void Consume(bool value)
         {
-            enabled = !value;
             gameObject.SetActive(!value);
         }
     }
