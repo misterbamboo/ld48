@@ -37,12 +37,8 @@ public class Grapple : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplingRequirement();
-            /*
-            if (HaveObjectToPull())
-            {
-                StartHooking();
-            }
-            */
+
+            StartHooking();
         }
         else if (Input.GetButtonUp("Fire1"))
         {
@@ -147,7 +143,5 @@ public class Grapple : MonoBehaviour
 
         grapplingDistance = (Vector2)firePoint.position - grapplePoint;
         grapplingRope.enabled = true;
-
-        StartHooking();
     }
 }
