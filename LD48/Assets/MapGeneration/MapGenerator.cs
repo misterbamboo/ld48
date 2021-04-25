@@ -20,7 +20,6 @@ namespace Assets.MapGeneration
         // but in MapGeneration context, the Y position is always positive
         private int TranslatedPlayerPosition => (int)-playerPosition.position.y;
 
-
         private Map map;
 
         private Path[] paths;
@@ -29,7 +28,7 @@ namespace Assets.MapGeneration
 
         private int lastPlayerPageIndex;
 
-        void Start()
+        private void Start()
         {
             Init();
         }
