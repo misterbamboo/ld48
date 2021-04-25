@@ -1,3 +1,4 @@
+using Assets.Ressources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ public class Grapple : MonoBehaviour
     GrapplingRope grapplingRope;
 
     [SerializeField]
-    Camera camera;
+    Hook hook;
 
     [SerializeField]
     Transform firePoint;
@@ -18,7 +19,7 @@ public class Grapple : MonoBehaviour
     Vector2 grapplingDistance;
 
     [SerializeField]
-    float shootMaxDistance = 100.0f;
+    float shootMaxDistance = 10.0f;
 
     float pullSpeed = 5.0f;
 
@@ -28,26 +29,33 @@ public class Grapple : MonoBehaviour
 
     void Start()
     {
-        grapplingRope.enabled = false;
+        ResetGrapplingRequirement();
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            SetGrapplePointAndGrappleDistance();
+            SetGrapplingRequirement();
+
+            StartHooking();
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            isPulling = false;
-            grapplingRope.enabled = false;
+            ResetGrapplingRequirement();
         }
 
-        if (isPulling && grapplingRope.IsGrappling())
+        if (IsPullingObject())
         {
-            grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);
-            objectToPull.transform.position = grapplePoint;
+            MoveObjectTowardSubmarine();
+
+            if (HaveReachSubmarine())
+            {
+                ResetGrapplingRequirement();
+            }
         }
+
+        MoveHookTipOfRope();
     }
 
     public void PullTarget()
@@ -70,24 +78,70 @@ public class Grapple : MonoBehaviour
         return firePoint.position;
     }
 
-    private void SetGrapplePointAndGrappleDistance()
+    void StartHooking()
     {
-        Vector3 direction = (camera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
-        direction = new Vector3(direction.x, direction.y, 0.0f);
+        grapplingRope.enabled = true;
+        hook.SetTarget(grapplePoint);
+        hook.Active(true);
+    }
 
-        RaycastHit hit;
-        if (Physics.Raycast(firePoint.transform.position, direction, out hit, shootMaxDistance))
+    void MoveHookTipOfRope()
+    {
+        if (hook.IsActive())
         {
-            print(hit.collider.name);
-            if (Vector3.Distance(hit.point, firePoint.position) <= shootMaxDistance)
-            {
-                grapplePoint = hit.point;
-                grapplingDistance = grapplePoint - (Vector2)firePoint.position;
-
-                objectToPull = hit.collider.gameObject;
-
-                grapplingRope.enabled = true;
-            }
+            hook.transform.position = grapplingRope.GetLastPosition();
         }
+    }
+
+    void MoveObjectTowardSubmarine()
+    {
+        grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);                
+        objectToPull.transform.position = grapplePoint;
+    }
+
+    bool IsPullingObject()
+    {
+        return isPulling && grapplingRope.IsGrappling() && objectToPull != null;
+    }
+
+    void ResetGrapplingRequirement()
+    {
+        isPulling = false;
+        grapplingRope.enabled = false;
+        hook.Active(false);
+
+        objectToPull = null;
+        grapplePoint = Vector3.zero;
+        grapplingDistance = Vector3.zero;
+    }
+
+    bool HaveReachSubmarine()
+    {
+        return objectToPull.GetComponent<IRessource>().IsConsume();        
+    }
+
+    void SetGrapplingRequirement()
+    {
+        int layerMask = 1 << LayerMask.NameToLayer("Ressource");
+        var clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 directionVector = (clickPos - firePoint.position).normalized;
+
+        Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
+
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance, layerMask);
+        var ressource = hit.collider?.gameObject.GetComponent<IRessource>();
+        if (hit.collider != null && ressource != null && !ressource.IsConsume())
+        {
+            objectToPull = hit.collider.gameObject;
+            grapplePoint = hit.point;
+        }
+        else
+        {
+            Vector2 newPos = firePoint.transform.position + (directionVector * shootMaxDistance);
+            grapplePoint = newPos;
+        }
+
+        grapplingDistance = (Vector2)firePoint.position - grapplePoint;
+        grapplingRope.enabled = true;
     }
 }

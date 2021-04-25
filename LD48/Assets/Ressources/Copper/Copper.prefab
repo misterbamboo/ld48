@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3671779904432845315}
-  - component: {fileID: 7228291595535750893}
-  - component: {fileID: 7549927050189754502}
-  m_Layer: 0
+  - component: {fileID: -3291948042840447845}
+  - component: {fileID: 6304141870461777587}
+  m_Layer: 6
   m_Name: Copper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,20 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7228291595535750893
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4008060087431541605}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 1}
-  m_Center: {x: 0.5, y: -0.5, z: 0}
---- !u!114 &7549927050189754502
+--- !u!114 &-3291948042840447845
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,6 +45,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8cf89c864956d4ba0b2734ab057dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sellPrice: 10
+  buyPrice: 15
+--- !u!58 &6304141870461777587
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008060087431541605}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: -0.5}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &4442582656859247638
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7922893204450285840}
   - component: {fileID: 8064065631589148914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +133,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
   m_Color: {r: 0.8773585, g: 0.64837664, b: 0.24417053, a: 1}
   m_FlipX: 0

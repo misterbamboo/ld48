@@ -13,5 +13,9 @@ namespace Assets.Ressources
         int SellPrice { get; }
 
         int BuyPrice { get; }
+
+        bool IsConsume();
+
+        void Consume(bool value);
     }
 }
