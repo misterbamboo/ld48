@@ -530,6 +530,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grapplingRope: {fileID: 4676212657947879710}
   hook: {fileID: 1867494953533351251}
-  mainCamera: {fileID: 0}
   firePoint: {fileID: 5686913089331546548}
-  shootMaxDistance: 20
+  shootMaxDistance: 10

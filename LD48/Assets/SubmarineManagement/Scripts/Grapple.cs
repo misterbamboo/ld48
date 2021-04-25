@@ -37,11 +37,12 @@ public class Grapple : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplingRequirement();
-
+            /*
             if (HaveObjectToPull())
             {
                 StartHooking();
             }
+            */
         }
         else if (Input.GetButtonUp("Fire1"))
         {
@@ -50,17 +51,15 @@ public class Grapple : MonoBehaviour
 
         if (IsPullingObject())
         {
-            MoveHookAndObjectTowardSubmarine();
+            MoveObjectTowardSubmarine();
 
             if (HaveReachSubmarine())
             {
                 ResetGrapplingRequirement();
             }
         }
-        else if (HaveObjectToPull())
-        {
-            MoveHookTipOfRope();
-        }
+
+        MoveHookTipOfRope();
     }
 
     public void PullTarget()
@@ -92,19 +91,16 @@ public class Grapple : MonoBehaviour
 
     void MoveHookTipOfRope()
     {
-        hook.transform.position = grapplingRope.GetLastPosition();
+        if (hook.IsActive())
+        {
+            hook.transform.position = grapplingRope.GetLastPosition();
+        }
     }
 
-    void MoveHookAndObjectTowardSubmarine()
+    void MoveObjectTowardSubmarine()
     {
-        grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);
+        grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);                
         objectToPull.transform.position = grapplePoint;
-        hook.transform.position = grapplePoint;
-    }
-
-    bool HaveObjectToPull()
-    {
-        return objectToPull != null;
     }
 
     bool IsPullingObject()
@@ -130,54 +126,28 @@ public class Grapple : MonoBehaviour
 
     void SetGrapplingRequirement()
     {
-        if (!HaveClickOnRessource())
-        {
-            return;
-        }
-
         int layerMask = 1 << LayerMask.NameToLayer("Ressource");
         var clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 directionVector = (clickPos - firePoint.position).normalized;
 
-        var clickDistance = Vector2.Distance(firePoint.transform.position, clickPos);
-        if (clickDistance > shootMaxDistance)
+        Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
+
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance, layerMask);
+        var ressource = hit.collider?.gameObject.GetComponent<IRessource>();
+        if (hit.collider != null && ressource != null && !ressource.IsConsume())
         {
-            return;
-        }
-
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, clickDistance, layerMask);
-
-        if (hit.collider != null)
-        {
-            Debug.DrawRay(firePoint.transform.position, directionVector, Color.green, 10.0f);
-
-            var ressource = hit.collider.gameObject.GetComponent<IRessource>();
-            if (ressource != null && !ressource.IsConsume())
-            {
-                grapplePoint = hit.point;
-                grapplingDistance = grapplePoint - (Vector2)firePoint.position;
-
-                objectToPull = hit.collider.gameObject;
-
-                grapplingRope.enabled = true;
-            }
+            objectToPull = hit.collider.gameObject;
+            grapplePoint = hit.point;
         }
         else
         {
-            Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
+            Vector2 newPos = firePoint.transform.position + (directionVector * shootMaxDistance);
+            grapplePoint = newPos;
         }
-    }
 
-    bool HaveClickOnRessource()
-    {
-        RaycastHit2D hitRessource = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hitRessource.collider != null)
-        {
-            if (hitRessource.collider.gameObject.GetComponent<IRessource>() != null)
-            {
-                return true;
-            }
-        }
-        return false;
+        grapplingDistance = (Vector2)firePoint.position - grapplePoint;
+        grapplingRope.enabled = true;
+
+        StartHooking();
     }
 }
