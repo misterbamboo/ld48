@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1970728936159663975}
   - component: {fileID: 1867494953533351251}
   m_Layer: 0
-  m_Name: GrappleCanon
+  m_Name: Hook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
