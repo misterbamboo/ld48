@@ -1,3 +1,4 @@
+using Assets.Ressources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -103,7 +104,7 @@ public class Grapple : MonoBehaviour
 
     bool HaveReachSubmarine()
     {
-        return objectToPull == null;
+        return objectToPull.GetComponent<IRessource>().IsConsume();        
     }
 
     private void SetGrapplingRequirement()
@@ -122,12 +123,16 @@ public class Grapple : MonoBehaviour
 
             if (Vector2.Distance(hit.point, firePoint.position) <= shootMaxDistance)
             {
-                grapplePoint = hit.point;
-                grapplingDistance = grapplePoint - (Vector2)firePoint.position;
+                var ressource = hit.collider.gameObject.GetComponent<IRessource>();
+                if (ressource != null && !ressource.IsConsume())
+                {
+                    grapplePoint = hit.point;
+                    grapplingDistance = grapplePoint - (Vector2)firePoint.position;
 
-                objectToPull = hit.collider.gameObject;
+                    objectToPull = hit.collider.gameObject;
 
-                grapplingRope.enabled = true;
+                    grapplingRope.enabled = true;
+                }
             }
         }
         else

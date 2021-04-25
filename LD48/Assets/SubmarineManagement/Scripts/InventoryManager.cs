@@ -19,8 +19,8 @@ public class InventoryManager : MonoBehaviour
         var ressource = collider2D.GetComponent<IRessource>();
         if (ressource != null) 
         {      
+            ressource.Consume(true);
             inventory.Add(ressource);
-            Destroy(collider2D.gameObject);
         }
     }
 }

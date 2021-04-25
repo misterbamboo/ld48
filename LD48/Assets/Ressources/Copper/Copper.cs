@@ -16,5 +16,16 @@ namespace Assets.Ressources
 
         [SerializeField] private int buyPrice = 15;
         public int BuyPrice => buyPrice;
+
+        public bool IsConsume()
+        {
+            return !enabled;
+        }
+
+        public void Consume(bool value)
+        {
+            enabled = !value;
+            gameObject.SetActive(!value);
+        }
     }
 }
