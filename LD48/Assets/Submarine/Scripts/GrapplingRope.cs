@@ -5,7 +5,7 @@ using UnityEngine;
 public class GrapplingRope : MonoBehaviour
 {
     [SerializeField]
-    Grapple grapple; 
+    Grapple grapple;
 
     [SerializeField]
     LineRenderer lineRenderer;
@@ -67,6 +67,17 @@ public class GrapplingRope : MonoBehaviour
     public bool IsGrappling()
     {
         return isGrappling;
+    }
+
+    public Vector3 GetLastPosition()
+    {
+        if (lineRenderer.positionCount > 0)
+        {
+            var linePos = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
+            return linePos;
+        }
+
+        return Vector3.zero;
     }
 
     void DrawRope()

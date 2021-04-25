@@ -24,7 +24,7 @@ public class BoatStore : MonoBehaviour
             textSellInventory.SetActive(true);
             if (Input.GetKey(KeyCode.E))
             {
-                sellInventory();
+                // sellInventory();
             }
         }
     }
@@ -37,14 +37,15 @@ public class BoatStore : MonoBehaviour
         }
     }
 
+    /*
     private void sellInventory()
     {
         print("Sold inventory!");
         //Boucle sur l'inventaire
-        for (int i = 0; i < CollisionManager.inventory.Count; i++)
+        for (int i = 0; i < InventoryManager.inventory.Count; i++)
         {
             
         }
-
     }
+    */
 }

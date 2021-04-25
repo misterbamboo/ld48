@@ -9,7 +9,10 @@ public class Grapple : MonoBehaviour
     GrapplingRope grapplingRope;
 
     [SerializeField]
-    Camera camera;
+    Hook hook;
+
+    [SerializeField]
+    Camera mainCamera;
 
     [SerializeField]
     Transform firePoint;
@@ -18,7 +21,7 @@ public class Grapple : MonoBehaviour
     Vector2 grapplingDistance;
 
     [SerializeField]
-    float shootMaxDistance = 100.0f;
+    float shootMaxDistance = 10.0f;
 
     float pullSpeed = 5.0f;
 
@@ -29,24 +32,41 @@ public class Grapple : MonoBehaviour
     void Start()
     {
         grapplingRope.enabled = false;
+        hook.Active(false);
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            SetGrapplePointAndGrappleDistance();
+            SetGrapplingRequirement();
+
+            if (objectToPull != null)
+            {
+                grapplingRope.enabled = true;
+                hook.SetTarget(grapplePoint);
+                hook.Active(true);
+            }    
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            isPulling = false;
-            grapplingRope.enabled = false;
+            ResetGrapplingRequirement();
         }
 
-        if (isPulling && grapplingRope.IsGrappling())
+        if (isPulling && grapplingRope.IsGrappling() && objectToPull != null)
         {
             grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);
             objectToPull.transform.position = grapplePoint;
+            hook.transform.position = grapplePoint;
+
+            if (HaveReachSubmarine())
+            {
+                ResetGrapplingRequirement();
+            }
+        }
+        else if(objectToPull != null)
+        {
+            hook.transform.position = grapplingRope.GetLastPosition();
         }
     }
 
@@ -70,23 +90,38 @@ public class Grapple : MonoBehaviour
         return firePoint.position;
     }
 
-    private void SetGrapplePointAndGrappleDistance()
+    private void ResetGrapplingRequirement()
     {
-        Vector3 direction = (camera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
+        isPulling = false;
+        grapplingRope.enabled = false;
+        hook.Active(false);
+
+        objectToPull = null;
+        grapplePoint = Vector3.zero;
+        grapplingDistance = Vector3.zero;
+    }
+
+    bool HaveReachSubmarine()
+    {
+        return objectToPull == null;
+    }
+
+    private void SetGrapplingRequirement()
+    {
+        Vector3 direction = (mainCamera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
         direction = new Vector3(direction.x, direction.y, 0.0f);
 
+        int layerMask = LayerMask.GetMask("Ressource");
+
         RaycastHit hit;
-        if (Physics.Raycast(firePoint.transform.position, direction, out hit, shootMaxDistance))
+        if (Physics.Raycast(firePoint.transform.position, direction, out hit, shootMaxDistance, layerMask))
         {
-            print(hit.collider.name);
             if (Vector3.Distance(hit.point, firePoint.position) <= shootMaxDistance)
             {
                 grapplePoint = hit.point;
                 grapplingDistance = grapplePoint - (Vector2)firePoint.position;
 
                 objectToPull = hit.collider.gameObject;
-
-                grapplingRope.enabled = true;
             }
         }
     }
