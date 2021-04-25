@@ -128,6 +128,6 @@ public class InventoryManager : MonoBehaviour
         textIronInventory.GetComponent<Text>().text = ironQuantity.ToString();
         textDiamondInventory.GetComponent<Text>().text = diamondQuantity.ToString();
         
-        textCash.GetComponent<Text>().text = "Cash: " + inventoryReward;
+        textCash.GetComponent<Text>().text = "$" + inventoryReward;
     }
 }
