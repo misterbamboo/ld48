@@ -114,7 +114,6 @@ public class Grapple : MonoBehaviour
 
         Vector3 directionVector = (new Vector3(ray.x, ray.y, ray.z) - firePoint.position).normalized;
 
-
         RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance, layerMask);
 
         if (hit.collider != null)
@@ -126,27 +125,7 @@ public class Grapple : MonoBehaviour
                 grapplePoint = hit.point;
                 grapplingDistance = grapplePoint - (Vector2)firePoint.position;
 
-                grapplingRope.enabled = true;
-            }
-        }
-        else
-        {
-            Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
-        }
-
-        /*
-        Vector3 directionVector = mainCamera.ScreenToWorldPoint(Input.mousePosition - firePoint.position).normalized;
-
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance, layerMask);
-                
-        if (hit.collider != null)
-        {
-            Debug.DrawRay(firePoint.transform.position, directionVector, Color.green, 10.0f);
-            
-            if(Vector2.Distance(hit.point, firePoint.position) <= shootMaxDistance)
-            {
-                grapplePoint = hit.point;
-                grapplingDistance = grapplePoint - (Vector2) firePoint.position;
+                objectToPull = hit.collider.gameObject;
 
                 grapplingRope.enabled = true;
             }
@@ -155,6 +134,5 @@ public class Grapple : MonoBehaviour
         {
             Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
         }
-        */
     }
 }

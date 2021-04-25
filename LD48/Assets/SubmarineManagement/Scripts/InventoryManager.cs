@@ -9,20 +9,18 @@ public class InventoryManager : MonoBehaviour
 {
     static List<IRessource> inventory;
 
-    private void Start()
+    void Start()
     {
         inventory = new List<IRessource>();
     }
 
-    private void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter2D(Collider2D collider2D)
     {    
-        print("testestest");
-        var ressource = collision.GetComponent<IRessource>();
+        var ressource = collider2D.GetComponent<IRessource>();
         if (ressource != null) 
         {      
-            print(collision.gameObject.name);
             inventory.Add(ressource);
-            Destroy(collision.gameObject);
+            Destroy(collider2D.gameObject);
         }
     }
 }
