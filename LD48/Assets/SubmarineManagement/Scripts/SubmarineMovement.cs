@@ -16,7 +16,7 @@ namespace Assets.SubmarineManagement.Scripts
             rb = GetComponent<Rigidbody2D>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (Input.GetAxisRaw("Vertical") > 0)
             {

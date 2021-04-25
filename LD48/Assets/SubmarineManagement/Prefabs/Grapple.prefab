@@ -532,4 +532,4 @@ MonoBehaviour:
   hook: {fileID: 1867494953533351251}
   mainCamera: {fileID: 0}
   firePoint: {fileID: 5686913089331546548}
-  shootMaxDistance: 10
+  shootMaxDistance: 20

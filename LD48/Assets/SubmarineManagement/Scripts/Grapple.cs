@@ -109,25 +109,22 @@ public class Grapple : MonoBehaviour
     private void SetGrapplingRequirement()
     {
         int layerMask = 1 << LayerMask.NameToLayer("Ressource");
-        
-        
-        
-        Vector2 directionVector =
-            mainCamera.ScreenToWorldPoint((Input.mousePosition) - firePoint.position).normalized;
 
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance,layerMask);
+        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        
-        
+        Vector3 directionVector = (new Vector3(ray.x, ray.y, ray.z) - firePoint.position).normalized;
+
+
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance, layerMask);
+
         if (hit.collider != null)
         {
             Debug.DrawRay(firePoint.transform.position, directionVector, Color.green, 10.0f);
-            
-            print(hit.collider.name);
-            if(Vector2.Distance(hit.point, firePoint.position)<= shootMaxDistance)
+
+            if (Vector2.Distance(hit.point, firePoint.position) <= shootMaxDistance)
             {
                 grapplePoint = hit.point;
-                grapplingDistance = grapplePoint - (Vector2) firePoint.position;
+                grapplingDistance = grapplePoint - (Vector2)firePoint.position;
 
                 grapplingRope.enabled = true;
             }
@@ -138,21 +135,25 @@ public class Grapple : MonoBehaviour
         }
 
         /*
-        Vector3 direction = (mainCamera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
-        direction = new Vector3(direction.x, direction.y, 0.0f);
+        Vector3 directionVector = mainCamera.ScreenToWorldPoint(Input.mousePosition - firePoint.position).normalized;
 
-        int layerMask = LayerMask.GetMask("Ressource");
-
-        RaycastHit hit;
-        if (Physics.Raycast(firePoint.transform.position, direction, out hit, shootMaxDistance, layerMask))
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance, layerMask);
+                
+        if (hit.collider != null)
         {
-            if (Vector3.Distance(hit.point, firePoint.position) <= shootMaxDistance)
+            Debug.DrawRay(firePoint.transform.position, directionVector, Color.green, 10.0f);
+            
+            if(Vector2.Distance(hit.point, firePoint.position) <= shootMaxDistance)
             {
                 grapplePoint = hit.point;
-                grapplingDistance = grapplePoint - (Vector2)firePoint.position;
+                grapplingDistance = grapplePoint - (Vector2) firePoint.position;
 
-                objectToPull = hit.collider.gameObject;
+                grapplingRope.enabled = true;
             }
+        }
+        else
+        {
+            Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
         }
         */
     }
