@@ -100,6 +100,9 @@ namespace Assets.MapGeneration
 
             var currentPageFromY = (lastPlayerPageIndex) * playerViewBuffer;
             var currentPageToY = (lastPlayerPageIndex + 1) * playerViewBuffer;
+
+            mapDrawer.ReplaceRessources(currentPageFromY, currentPageToY);
+
             BoxCollider2DPooler.Instance.RecycleOutOfRange(currentPageFromY, currentPageToY);
 
             var poligons = mapCollider.GetCollisionPoints(currentPageFromY, currentPageToY);

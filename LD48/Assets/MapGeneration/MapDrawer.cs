@@ -30,8 +30,6 @@ namespace Assets.MapGeneration
 
         public void Redraw(int fromY, int toY)
         {
-            RessourcePooler.Instance.RecycleOutOfRange(fromY, toY);
-
             vertices.Clear();
             triangles.Clear();
 
@@ -43,7 +41,6 @@ namespace Assets.MapGeneration
                     if (!map.IsEmpty(x, y))
                     {
                         DrawMap(x, y, ref index);
-                        DrawRessource(x, y);
                     }
                 }
             }
@@ -70,6 +67,22 @@ namespace Assets.MapGeneration
             triangles.Add(triangleIndex + 2);
             triangles.Add(triangleIndex + 3);
             triangleIndex += 4;
+        }
+
+        public void ReplaceRessources(int fromY, int toY)
+        {
+            RessourcePooler.Instance.RecycleOutOfRange(fromY, toY);
+
+            for (int x = 0; x < map.Configuration.width; x++)
+            {
+                for (int y = fromY; y < toY; y++)
+                {
+                    if (!map.IsEmpty(x, y))
+                    {
+                        DrawRessource(x, y);
+                    }
+                }
+            }
         }
 
         private void DrawRessource(int x, int y)

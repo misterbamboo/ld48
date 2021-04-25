@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Ressources
@@ -21,11 +19,17 @@ namespace Assets.Ressources
         [Header("Prefabs")]
         [SerializeField] private GameObject CopperPrefab;
 
+        [SerializeField] private int CopperPoolerSize = 200;
+
         private Dictionary<MapCellType, List<GameObject>> generated;
 
         private void Awake()
         {
             generated = new Dictionary<MapCellType, List<GameObject>>();
+            for (int i = 0; i < CopperPoolerSize; i++)
+            {
+                GetOne(MapCellType.Copper).SetActive(false);
+            }
             Instance = this;
         }
 
