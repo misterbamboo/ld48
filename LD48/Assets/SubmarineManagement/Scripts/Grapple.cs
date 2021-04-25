@@ -34,20 +34,20 @@ public class Grapple : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !isPulling)
         {
             SetGrapplingRequirement();
 
             StartHooking();
         }
         else if (Input.GetButtonUp("Fire1"))
-        {
-            ResetGrapplingRequirement();
+        {            
+            isPulling = true;
         }
 
-        if (IsPullingObject())
+        if (isPulling)
         {
-            MoveObjectTowardSubmarine();
+            MoveTowardSubmarine();
 
             if (HaveReachSubmarine())
             {
@@ -93,15 +93,14 @@ public class Grapple : MonoBehaviour
         }
     }
 
-    void MoveObjectTowardSubmarine()
+    void MoveTowardSubmarine()
     {
-        grapplePoint = Vector2.Lerp(objectToPull.transform.position, firePoint.position, Time.deltaTime * pullSpeed);                
-        objectToPull.transform.position = grapplePoint;
-    }
+        grapplePoint = Vector2.Lerp(grapplePoint, firePoint.position, Time.deltaTime * pullSpeed);
 
-    bool IsPullingObject()
-    {
-        return isPulling && grapplingRope.IsGrappling() && objectToPull != null;
+        if (objectToPull != null)
+        {
+            objectToPull.transform.position = grapplePoint;
+        }
     }
 
     void ResetGrapplingRequirement()
@@ -117,7 +116,11 @@ public class Grapple : MonoBehaviour
 
     bool HaveReachSubmarine()
     {
-        return objectToPull.GetComponent<IRessource>().IsConsume();        
+        var hookPos = hook.gameObject.transform.position;
+
+        var distanceRemaining = Vector2.Distance(firePoint.position, hookPos);
+
+        return distanceRemaining < 0.5 || (objectToPull != null && objectToPull.GetComponent<IRessource>().IsConsume());        
     }
 
     void SetGrapplingRequirement()

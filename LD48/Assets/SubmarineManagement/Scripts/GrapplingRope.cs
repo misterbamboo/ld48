@@ -104,8 +104,8 @@ public class GrapplingRope : MonoBehaviour
             if (!isGrappling)
             {               
                 isGrappling = true;
-                grapple.PullTarget();
             }
+
             if (waveSize > 0)
             {
                 waveSize -= Time.deltaTime * straightenLineSpeed;
