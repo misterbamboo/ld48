@@ -28,10 +28,10 @@ namespace Assets.WaterSurfaceManagement
 
         private void FollowPlayer()
         {
-            if (Submarine.Submarine.Instance.Deepness > followDistance)
+            if (Submarine.Instance.Deepness > followDistance)
             {
                 var pos = transform.position;
-                pos.y = -Submarine.Submarine.Instance.Deepness + followDistance;
+                pos.y = -Submarine.Instance.Deepness + followDistance;
                 transform.position = pos;
             }
             else
