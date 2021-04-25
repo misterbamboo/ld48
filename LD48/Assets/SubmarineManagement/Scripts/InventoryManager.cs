@@ -16,9 +16,11 @@ public class InventoryManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {    
+        print("testestest");
         var ressource = collision.GetComponent<IRessource>();
         if (ressource != null) 
-        {            
+        {      
+            print(collision.gameObject.name);
             inventory.Add(ressource);
             Destroy(collision.gameObject);
         }

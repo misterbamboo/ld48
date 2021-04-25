@@ -108,6 +108,36 @@ public class Grapple : MonoBehaviour
 
     private void SetGrapplingRequirement()
     {
+        int layerMask = 1 << LayerMask.NameToLayer("Ressource");
+        
+        
+        
+        Vector2 directionVector =
+            mainCamera.ScreenToWorldPoint((Input.mousePosition) - firePoint.position).normalized;
+
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, directionVector, shootMaxDistance,layerMask);
+
+        
+        
+        if (hit.collider != null)
+        {
+            Debug.DrawRay(firePoint.transform.position, directionVector, Color.green, 10.0f);
+            
+            print(hit.collider.name);
+            if(Vector2.Distance(hit.point, firePoint.position)<= shootMaxDistance)
+            {
+                grapplePoint = hit.point;
+                grapplingDistance = grapplePoint - (Vector2) firePoint.position;
+
+                grapplingRope.enabled = true;
+            }
+        }
+        else
+        {
+            Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
+        }
+
+        /*
         Vector3 direction = (mainCamera.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
         direction = new Vector3(direction.x, direction.y, 0.0f);
 
@@ -124,5 +154,6 @@ public class Grapple : MonoBehaviour
                 objectToPull = hit.collider.gameObject;
             }
         }
+        */
     }
 }

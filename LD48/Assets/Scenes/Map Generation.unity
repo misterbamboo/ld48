@@ -167,11 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CopperPrefab: {fileID: 4008060087431541605, guid: 751edd90f5ef0f74da61f37daae84607, type: 3}
---- !u!20 &1394487134 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 983696343, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-  m_PrefabInstance: {fileID: 1956466348}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1956466348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,10 +174,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2285847853736722987, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1394487134}
     - target: {fileID: 2578727465922228801, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_Name
       value: Submarine
@@ -230,10 +221,6 @@ PrefabInstance:
     - target: {fileID: 8793803319481557486, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8929015268720013641, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.021
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
