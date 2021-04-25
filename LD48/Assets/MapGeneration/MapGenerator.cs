@@ -26,7 +26,9 @@ namespace Assets.MapGeneration
 
         private MapDrawer mapDrawer;
 
-        private int lastPlayerPageIndex;
+        private MapCollider mapCollider;
+
+        private int lastPlayerPageIndex = int.MinValue;
 
         private void Start()
         {
@@ -42,6 +44,7 @@ namespace Assets.MapGeneration
             }
             map = new Map(mapConfiguration, paths);
             mapDrawer = new MapDrawer(map);
+            mapCollider = new MapCollider(map);
 
             GenerateNewPage(playerViewBuffer);
             UpdatePageView();
@@ -94,14 +97,18 @@ namespace Assets.MapGeneration
 
             mapDrawer.Redraw(fromY, toY);
             GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
-            //GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
-            //var poly = GetComponent<PolygonCollider2D>();
-            //poly.points = new Vector2[] 
-            //{
-            //    new Vector2(0, 0),
-            //    new Vector2(1, 1),
-            //    new Vector2(2, 0),
-            //};
+
+            var currentPageFromY = (lastPlayerPageIndex) * playerViewBuffer;
+            var currentPageToY = (lastPlayerPageIndex + 1) * playerViewBuffer;
+            BoxCollider2DPooler.Instance.RecycleOutOfRange(currentPageFromY, currentPageToY);
+
+            var poligons = mapCollider.GetCollisionPoints(currentPageFromY, currentPageToY);
+            for (int i = 0; i < poligons.Count(); i++)
+            {
+                var polygon = poligons.ElementAt(i);
+                var boxCollider = BoxCollider2DPooler.Instance.GetOne();
+                boxCollider.transform.position = polygon[0];
+            }
         }
 
         private int GetCurrentPlayerPageIndex()
