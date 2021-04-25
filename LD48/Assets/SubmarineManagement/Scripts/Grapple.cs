@@ -130,7 +130,12 @@ public class Grapple : MonoBehaviour
 
     void SetGrapplingRequirement()
     {
-        int layerMask = 1 << LayerMask.NameToLayer("Ressource");        
+        if (!HaveClickOnRessource())
+        {
+            return;
+        }
+
+        int layerMask = 1 << LayerMask.NameToLayer("Ressource");
         var clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 directionVector = (clickPos - firePoint.position).normalized;
 
@@ -155,11 +160,24 @@ public class Grapple : MonoBehaviour
                 objectToPull = hit.collider.gameObject;
 
                 grapplingRope.enabled = true;
-            }            
+            }
         }
         else
         {
             Debug.DrawRay(firePoint.transform.position, directionVector, Color.red, 10.0f);
         }
+    }
+
+    bool HaveClickOnRessource()
+    {
+        RaycastHit2D hitRessource = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hitRessource.collider != null)
+        {
+            if (hitRessource.collider.gameObject.GetComponent<IRessource>() != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
