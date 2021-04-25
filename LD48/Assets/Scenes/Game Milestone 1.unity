@@ -240,6 +240,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2587966323876664075, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2587966323876664077, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
       propertyPath: m_Name
       value: Shop
