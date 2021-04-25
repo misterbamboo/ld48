@@ -143,13 +143,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9491702e10822094a83b3b9e267405ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textGoldInventory: {fileID: 0}
-  textPlatinumInventory: {fileID: 0}
-  textCopperInventory: {fileID: 0}
-  textDiamondInventory: {fileID: 0}
-  textIronInventory: {fileID: 0}
-  textSellInventory: {fileID: 0}
-  textCash: {fileID: 0}
+  goldQuantity: 0
+  platinumQuantity: 0
+  copperQuantity: 0
+  diamondQuantity: 0
+  ironQuantity: 0
+  inventoryReward: 0
+  hasInventory: 0
+  canSell: 0
 --- !u!1 &2578727465922228801
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +265,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &2600009436886374461
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +304,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2600009436886374461}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -569,7 +570,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8399477209215675615}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

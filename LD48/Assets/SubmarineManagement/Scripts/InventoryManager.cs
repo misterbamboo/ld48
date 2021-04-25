@@ -7,42 +7,35 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     static List<IRessource> inventory;
-    [SerializeField] private GameObject textGoldInventory;
-    [SerializeField] private GameObject textPlatinumInventory;
-    [SerializeField] private GameObject textCopperInventory;
-    [SerializeField] private GameObject textDiamondInventory;
-    [SerializeField] private GameObject textIronInventory;
-    
-    [SerializeField] private GameObject textSellInventory;
+   
+    public float goldQuantity;
+    public float platinumQuantity;
+    public float copperQuantity;
+    public float diamondQuantity;
+    public float ironQuantity;
+    public float inventoryReward;
+    public bool hasInventory;
+    public bool canSell;
 
-    [SerializeField] private GameObject textCash; 
-
-    private float goldQuantity;
-    private float platinumQuantity;
-    private float copperQuantity;
-    private float diamondQuantity;
-    private float ironQuantity;
-    
-    private float inventoryReward;
-
-    private bool hasInventory = false;
-    
     void Start()
     {
         inventory = new List<IRessource>();
 
         inventoryReward = 0;
-        
-        resetInventory();
-        
-        textSellInventory.SetActive(false);
 
+        resetInventory();
     }
 
     void OnTriggerEnter2D(Collider2D collider2D)
-    {    
-        
+    {
         var ressource = collider2D.GetComponent<IRessource>();
         if (ressource != null)
         {
@@ -70,21 +63,22 @@ public class InventoryManager : MonoBehaviour
                 ironQuantity++;
             }
 
-            refreshQuantities();
             inventory.Add(ressource);
-            Destroy(collider2D.gameObject);
+
+            // unactive ressource will be recycle
+            collider2D.gameObject.SetActive(false);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-       
         if (collision.CompareTag("BoatStore"))
         {
-            textSellInventory.SetActive(true);
+            canSell = true;
+            
             if (Input.GetKey(KeyCode.E) && hasInventory)
             {
-               sellInventory();
-               hasInventory = false;
+                sellInventory();
+                hasInventory = false;
             }
         }
     }
@@ -93,7 +87,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (collision.CompareTag("BoatStore"))
         {
-            textSellInventory.SetActive(false);
+            canSell = false;
         }
     }
 
@@ -103,10 +97,8 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryReward += inventory[i].SellPrice;
         }
-        
+
         resetInventory();
-        refreshQuantities();
-        
     }
 
     private void resetInventory()
@@ -117,17 +109,5 @@ public class InventoryManager : MonoBehaviour
         copperQuantity = 0;
         diamondQuantity = 0;
         ironQuantity = 0;
-
-    }
-
-    private void refreshQuantities()
-    {
-        textGoldInventory.GetComponent<Text>().text = goldQuantity.ToString();
-        textPlatinumInventory.GetComponent<Text>().text = platinumQuantity.ToString();
-        textCopperInventory.GetComponent<Text>().text = copperQuantity.ToString();
-        textIronInventory.GetComponent<Text>().text = ironQuantity.ToString();
-        textDiamondInventory.GetComponent<Text>().text = diamondQuantity.ToString();
-        
-        textCash.GetComponent<Text>().text = "$" + inventoryReward;
     }
 }
