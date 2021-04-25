@@ -8,6 +8,8 @@ namespace Assets.MapGeneration
 {
     public class Map
     {
+        public static Map Instance { get; private set; }
+
         public MapConfig Configuration => config;
         private MapConfig config;
 
@@ -21,6 +23,8 @@ namespace Assets.MapGeneration
             this.config = config;
             this.paths = paths;
             mapRows = new List<MapCellType[]>();
+
+            Instance = this;
         }
 
         public bool IsEmpty(int x, int y)
