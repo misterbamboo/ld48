@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Submarine.Scripts
+namespace Assets.SubmarineManagement.Scripts
 {
     public class SubmarineMovement : MonoBehaviour
     {
-        Rigidbody rb;
+        Rigidbody2D rb;
 
         [SerializeField]
         float moveSpeed;
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         void Update()

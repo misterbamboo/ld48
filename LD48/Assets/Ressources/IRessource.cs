@@ -8,5 +8,10 @@ namespace Assets.Ressources
 {
     interface IRessource
     {
+        string Name { get; }
+
+        int SellPrice { get; }
+
+        int BuyPrice { get; }
     }
 }
