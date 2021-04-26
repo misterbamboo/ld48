@@ -5,18 +5,18 @@ namespace Assets.OxygenManagement
 {
     public class StatsHudController : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI oxygenText;
+        [SerializeField] private RectTransform oxygenBarImage;
         [SerializeField] private TextMeshProUGUI deepnessText;
 
         void Start()
         {
-            oxygenText.text = "0";
+            oxygenBarImage.localScale = new Vector3(0, 1, 1);
             deepnessText.text = "0";
         }
 
         void FixedUpdate()
         {
-            oxygenText.text = $"{Oxygen.Instance.Quantity:0.00}";
+            oxygenBarImage.localScale = new Vector3(Oxygen.Instance.Quantity / Oxygen.Instance.Capacity, 1, 1);
             deepnessText.text = $"{Submarine.Instance.Deepness}";
         }
     }
