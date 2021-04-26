@@ -18,6 +18,8 @@ namespace Assets
         bool OxygenUpgradeBought { get; set; }
         
         bool LifeUpgradeBought { get; set; }
+        
+        bool LightUpgradeBought { get; set; }
     }
 
     public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
@@ -33,6 +35,8 @@ namespace Assets
         public bool SpeedUpgradeBought { get; set; } = false;
         public bool OxygenUpgradeBought { get; set; }
         public bool LifeUpgradeBought { get; set; }
+        
+        public bool LightUpgradeBought { get; set; }
         
         private Rigidbody rb;
 
@@ -57,7 +61,7 @@ namespace Assets
         }
         private void IncreaseLight()
         {
-            
+            LightUpgradeBought = true;
         }
         private void IncreaseSpeed()
         {
@@ -79,7 +83,6 @@ namespace Assets
                     break;
                
             }
-            Debug.Log("Bought item : " + upgradeType);
         }
 
         public bool TrySpendMoneyAmount(int spendMoneyAmount)
