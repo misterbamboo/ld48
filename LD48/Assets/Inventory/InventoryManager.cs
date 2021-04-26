@@ -1,3 +1,4 @@
+using Assets.MapGeneration;
 using Assets.Ressources;
 using System;
 using System.Collections;
@@ -21,6 +22,7 @@ public class InventoryManager : MonoBehaviour
     public float copperQuantity;
     public float diamondQuantity;
     public float ironQuantity;
+    
     public float inventoryReward;
     public bool hasInventory;
     public bool canSell;
@@ -40,7 +42,6 @@ public class InventoryManager : MonoBehaviour
         if (ressource != null)
         {
             hasInventory = true;
-            print("ressource name: " + ressource.Name);
 
             if (ressource.Name.Equals("Gold"))
             {
@@ -67,6 +68,7 @@ public class InventoryManager : MonoBehaviour
             inventory.Add(ressource);
 
             // unactive ressource will be recycle
+            Map.Instance.RemoveRessource(ressource);
             collider2D.gameObject.SetActive(false);
         }
     }

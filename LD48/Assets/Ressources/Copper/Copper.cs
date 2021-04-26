@@ -17,6 +17,9 @@ namespace Assets.Ressources
         [SerializeField] private int buyPrice = 15;
         public int BuyPrice => buyPrice;
 
+        public int SpawnX { get; set; }
+        public int SpawnY { get; set; }
+
         public bool IsConsume()
         {
             return !gameObject.activeSelf;

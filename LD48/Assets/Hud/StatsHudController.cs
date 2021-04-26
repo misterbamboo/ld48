@@ -6,15 +6,13 @@ namespace Assets.OxygenManagement
 {
     public class StatsHudController : MonoBehaviour
     {
+        [SerializeField] private GameObject invincibleIndicator;
         [SerializeField] private RectTransform lifeBarImage;
         [SerializeField] private RectTransform oxygenBarImage;
         [SerializeField] private TextMeshProUGUI deepnessText;
         [SerializeField] private Image hurtPanel;
 
-        private float lastLifeQuantity;
         private bool lastLosingLife;
-
-        private float totalTime;
         private float timeSinceHurting;
 
         void Start()
@@ -26,11 +24,9 @@ namespace Assets.OxygenManagement
 
         void FixedUpdate()
         {
-            totalTime += Time.deltaTime;
             CheckHurt();
 
-            lastLifeQuantity = Life.Instance.Quantity;
-
+            invincibleIndicator.SetActive(Game.Instance.Invincible);
             lifeBarImage.localScale = new Vector3(Life.Instance.Quantity / Life.Instance.Capacity, 1, 1);
             oxygenBarImage.localScale = new Vector3(Oxygen.Instance.Quantity / Oxygen.Instance.Capacity, 1, 1);
             deepnessText.text = $"{Submarine.Instance.Deepness}";

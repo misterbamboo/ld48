@@ -10,6 +10,10 @@ namespace Assets.MapGeneration
     {
         Empty = 0,
         Terrain,
-        Copper
+        Iron,
+        Copper,
+        Gold,
+        Diamond,
+        Platinum,
     }
 }

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicWaterSurface : MonoBehaviour
+public class WaterSurfaceDuplication : MonoBehaviour
 {
     public void Init(Mesh mesh)
     {
