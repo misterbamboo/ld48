@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryHudController : MonoBehaviour
 {
-    [SerializeField] private Text textGoldInventory;
-    [SerializeField] private Text textPlatinumInventory;
-    [SerializeField] private Text textCopperInventory;
-    [SerializeField] private Text textDiamondInventory;
-    [SerializeField] private Text textIronInventory;
+    [SerializeField] private TextMeshProUGUI textGoldInventory;
+    [SerializeField] private TextMeshProUGUI textPlatinumInventory;
+    [SerializeField] private TextMeshProUGUI textCopperInventory;
+    [SerializeField] private TextMeshProUGUI textDiamondInventory;
+    [SerializeField] private TextMeshProUGUI textIronInventory;
 
-    [SerializeField] private Text textSellInventory;
+    [SerializeField] private TextMeshProUGUI textSellInventory;
 
-    [SerializeField] private Text textCash;
+    [SerializeField] private TextMeshProUGUI textCash;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class InventoryHudController : MonoBehaviour
         textCopperInventory.text = InventoryManager.Instance.copperQuantity.ToString();
         textIronInventory.text = InventoryManager.Instance.ironQuantity.ToString();
         textDiamondInventory.text = InventoryManager.Instance.diamondQuantity.ToString();
-        textCash.text = "$" + InventoryManager.Instance.inventoryReward;
+        textCash.text = InventoryManager.Instance.inventoryReward.ToString();
     }
 
     private void ShowCanSellLabel()
