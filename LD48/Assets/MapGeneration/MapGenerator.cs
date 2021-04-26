@@ -31,6 +31,7 @@ namespace Assets.MapGeneration
         private MapCollider mapCollider;
 
         private int lastPlayerPageIndex = int.MinValue;
+        private List<GameObject> mapShapeGenerated = new List<GameObject>();
 
         private void Start()
         {
@@ -105,12 +106,20 @@ namespace Assets.MapGeneration
             }
             else
             {
+                // Clean old
+                foreach (var mapShapeGO in mapShapeGenerated)
+                {
+                    Destroy(mapShapeGO);
+                }
+                mapShapeGenerated.Clear();
+
                 for (int i = 0; i < mapDrawer.Mesh.Length; i++)
                 {
                     var mesh = mapDrawer.Mesh[i];
                     var mapShape = mapDrawer.MapShapes[i];
 
                     var mapShapeGameObject = Instantiate(mapShapeMeshPrefab);
+                    mapShapeGenerated.Add(mapShapeGameObject);
                     mapShapeGameObject.transform.position = new Vector3(0, 0, 0);
                     mapShapeGameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
                     mapShapeGameObject.GetComponent<PolygonCollider2D>().points = mapShape.OrderedVectors.ToArray();

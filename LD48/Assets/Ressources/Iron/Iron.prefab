@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sellPrice: 10
-  buyPrice: 15
+  buyPrice: 20
 --- !u!1 &4442582656859247638
 GameObject:
   m_ObjectHideFlags: 0

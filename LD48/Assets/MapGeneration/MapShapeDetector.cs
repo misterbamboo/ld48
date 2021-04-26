@@ -79,14 +79,22 @@ namespace Assets.MapGeneration
         private void ScanShapes(int fromY, int toY)
         {
             var height = toY - fromY;
-            for (int mapY = fromY; mapY < toY; mapY++)
+            for (int y = 0; y < height; y++)
             {
-                var y = height - (height - mapY);
+                int mapY = fromY + y;
                 for (int x = 0; x < map.Configuration.width; x++)
                 {
                     if (!map.IsEmpty(x, mapY))
                     {
-                        redrawShapes[x][y] = GetShapeId(x, y);
+                        try
+                        {
+                            redrawShapes[x][y] = GetShapeId(x, y);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.Log(e);
+                        }
+
                         CheckMergeShapes(x, y, redrawShapes[x][y]);
                         FillHoles(x, y, redrawShapes[x][y]);
                     }
