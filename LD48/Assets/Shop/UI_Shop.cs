@@ -45,8 +45,8 @@ public class UI_Shop : MonoBehaviour
         Transform shopUpgradeTransform = Instantiate(shopUpgradeTemplate, container);
         RectTransform shopUpgradeRectTransform = shopUpgradeTransform.GetComponent<RectTransform>();
 
-        float shopUpgradeHeight = 150f;
-        shopUpgradeRectTransform.anchoredPosition = new Vector2(0, (-shopUpgradeHeight * positionIndex)+300);
+        float shopUpgradeHeight = 100f;
+        shopUpgradeRectTransform.anchoredPosition = new Vector2(0, (-shopUpgradeHeight * positionIndex)+200);
         
         shopUpgradeTransform.Find("nameText").GetComponent<TextMeshProUGUI>().SetText(upgradeName);
 
