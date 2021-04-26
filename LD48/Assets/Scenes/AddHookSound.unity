@@ -532,9 +532,25 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1808959857162661880, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 2578727465922228801, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_Name
       value: Submarine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685634805133485019, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
+      propertyPath: deepnessRequire
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921317608833809648, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 8365957835393084205, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8793803319481557486, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_RootOrder
