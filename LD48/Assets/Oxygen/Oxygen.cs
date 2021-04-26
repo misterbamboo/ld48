@@ -54,10 +54,12 @@ namespace Assets.OxygenManagement
 
         private void UpdateOxygen()
         {
+            
             if (Submarine.Instance.OxygenUpdateBought)
             {
                 Capacity += 50;
             }
+            
         }
     }
 }

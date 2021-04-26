@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Assets.OxygenManagement;
 using UnityEngine;
 
 namespace Assets
@@ -11,6 +10,9 @@ namespace Assets
     public interface ISubmarine
     {
         int Deepness { get; }
+
+        float SensitiveDeepness { get; }
+        
         bool SpeedUpgradeBought { get; }
         
         bool OxygenUpdateBought { get; }
@@ -18,23 +20,23 @@ namespace Assets
 
     public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
     {
-
         public static ISubmarine Instance { get; private set; }
 
-        public int Deepness => (int)(-Mathf.Clamp(transform.position.y, float.MinValue, 0));
+        public static GameObject GameObject { get; private set; }
 
+        public int Deepness => (int)SensitiveDeepness;
 
+        public float SensitiveDeepness => -Mathf.Clamp(transform.position.y, float.MinValue, 0);
 
         public bool SpeedUpgradeBought { get; set; } = false;
         public bool OxygenUpdateBought { get; set; }
-
+        
         private Rigidbody rb;
 
-       
-        
         private void Awake()
         {
             Instance = this;
+            GameObject = gameObject;
         }
 
         private void Start()
@@ -64,14 +66,14 @@ namespace Assets
 
             switch (upgradeType)
             {
-               case Upgrade.UpgradeType.OxygenUpgrade:  IncreaseOxygen();
-                   break;
-               case Upgrade.UpgradeType.HealthUpgrade:  IncreaseHealth();
-                   break;
-               case Upgrade.UpgradeType.LightUpgrade:  IncreaseLight();
-                   break;
-               case Upgrade.UpgradeType.SpeedUpgrade:  IncreaseSpeed();
-                   break;
+                case Upgrade.UpgradeType.OxygenUpgrade:  IncreaseOxygen();
+                    break;
+                case Upgrade.UpgradeType.HealthUpgrade:  IncreaseHealth();
+                    break;
+                case Upgrade.UpgradeType.LightUpgrade:  IncreaseLight();
+                    break;
+                case Upgrade.UpgradeType.SpeedUpgrade:  IncreaseSpeed();
+                    break;
                
             }
             Debug.Log("Bought item : " + upgradeType);

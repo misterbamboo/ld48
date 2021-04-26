@@ -55,10 +55,12 @@ namespace Assets.SubmarineManagement.Scripts
 
         private void UpdateSpeed()
         {
+            
             if (Submarine.Instance.SpeedUpgradeBought)
             {
-                moveSpeed += 2;
+                moveSpeed += 1;
             }
+            
         }
 
         private void OutsideWaterForce()
