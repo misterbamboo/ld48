@@ -15,6 +15,8 @@ namespace Assets.MapGeneration
         [SerializeField] private int playerViewBuffer = 100;
         [SerializeField] private Transform playerPosition;
 
+        [SerializeField] private GameObject mapShapeMeshPrefab;
+
         // Invert Y, because in Unity world, the player is going deeper and deeper
         // so the Y position will become more and more negative
         // but in MapGeneration context, the Y position is always positive
@@ -96,7 +98,24 @@ namespace Assets.MapGeneration
             var toY = (lastPlayerPageIndex + 2) * playerViewBuffer;
 
             mapDrawer.Redraw(fromY, toY);
-            GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
+
+            if (mapDrawer.Mesh.Length == 1)
+            {
+                GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh[0];
+            }
+            else
+            {
+                for (int i = 0; i < mapDrawer.Mesh.Length; i++)
+                {
+                    var mesh = mapDrawer.Mesh[i];
+                    var mapShape = mapDrawer.MapShapes[i];
+
+                    var mapShapeGameObject = Instantiate(mapShapeMeshPrefab);
+                    mapShapeGameObject.transform.position = new Vector3(0, 0, 0);
+                    mapShapeGameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
+                    mapShapeGameObject.GetComponent<PolygonCollider2D>().points = mapShape.OrderedVectors.ToArray();
+                }
+            }
 
             var currentPageFromY = (lastPlayerPageIndex) * playerViewBuffer;
             var currentPageToY = (lastPlayerPageIndex + 1) * playerViewBuffer;
@@ -105,12 +124,16 @@ namespace Assets.MapGeneration
 
             BoxCollider2DPooler.Instance.RecycleOutOfRange(currentPageFromY, currentPageToY);
 
-            var poligons = mapCollider.GetCollisionPoints(currentPageFromY, currentPageToY);
-            for (int i = 0; i < poligons.Count(); i++)
+            bool oldGen = false;
+            if (oldGen)
             {
-                var polygon = poligons.ElementAt(i);
-                var boxCollider = BoxCollider2DPooler.Instance.GetOne();
-                boxCollider.transform.position = polygon[0];
+                var poligons = mapCollider.GetCollisionPoints(currentPageFromY, currentPageToY);
+                for (int i = 0; i < poligons.Count(); i++)
+                {
+                    var polygon = poligons.ElementAt(i);
+                    var boxCollider = BoxCollider2DPooler.Instance.GetOne();
+                    boxCollider.transform.position = polygon[0];
+                }
             }
         }
 

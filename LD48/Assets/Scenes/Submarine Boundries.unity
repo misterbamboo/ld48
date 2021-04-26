@@ -575,9 +575,45 @@ PrefabInstance:
       value: Map
       objectReference: {fileID: 0}
     - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: maxPathSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: minPathSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: numberOfPaths
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
       propertyPath: playerPosition
       value: 
       objectReference: {fileID: 1956466349}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: playerViewBuffer
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: mapConfiguration.circleMaxRadius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: mapConfiguration.circleMinRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: mapConfiguration.circlesPerGeneration
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: mapConfiguration.circlesGenerationDispersionMax
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902191141770456818, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
+      propertyPath: mapConfiguration.circlesGenerationDispersionMin
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8191157266962886884, guid: 20df3e4fd2b498b43b751409abcf3697, type: 3}
       propertyPath: m_RootOrder
       value: 1
