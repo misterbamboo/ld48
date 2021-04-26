@@ -12,7 +12,7 @@ namespace Assets.OxygenManagement
         [SerializeField] private Image hurtPanel;
 
         private float lastLifeQuantity;
-        private bool lastLifeIsDroping;
+        private bool lastLosingLife;
 
         private float totalTime;
         private float timeSinceHurting;
@@ -38,27 +38,31 @@ namespace Assets.OxygenManagement
 
         private void CheckHurt()
         {
-            var lifeIsDroping = Life.Instance.Quantity < lastLifeQuantity;
-            if (lifeIsDroping && !lastLifeIsDroping)
-            {
-                StartHurtFlashing();
-            }
-            lastLifeIsDroping = lifeIsDroping;
+            CheckIfStartHurting();
 
-            if (lastLifeIsDroping)
+            if (Life.Instance.LosingLife)
             {
                 HurtFlashing();
             }
             else
             {
-                var color = hurtPanel.color;
-                color.a = 0;
-                hurtPanel.color = color;
+                StopFlashing();
             }
+        }
+
+        private void CheckIfStartHurting()
+        {
+            var lifeIsDroping = Life.Instance.Quantity < lastLifeQuantity;
+            if (Life.Instance.LosingLife && !lastLosingLife)
+            {
+                StartHurtFlashing();
+            }
+            lastLosingLife = lifeIsDroping;
         }
 
         private void StartHurtFlashing()
         {
+            hurtPanel.gameObject.SetActive(true);
             timeSinceHurting = 0;
         }
 
@@ -78,6 +82,14 @@ namespace Assets.OxygenManagement
                 color.a = (Mathf.Clamp(Mathf.Sin(flashCursor), 0, 1) * 100) / 255;
                 hurtPanel.color = color;
             }
+        }
+
+        private void StopFlashing()
+        {
+            hurtPanel.gameObject.SetActive(false);
+            var color = hurtPanel.color;
+            color.a = 0;
+            hurtPanel.color = color;
         }
     }
 }
