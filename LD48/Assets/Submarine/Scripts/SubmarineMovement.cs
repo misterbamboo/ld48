@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Assets.SubmarineManagement.Scripts
 {
@@ -11,6 +12,9 @@ namespace Assets.SubmarineManagement.Scripts
 
         [SerializeField]
         float moveSpeed;
+     
+        [SerializeField]
+        Light2D pointLight;
 
         private void Start()
         {
@@ -49,8 +53,7 @@ namespace Assets.SubmarineManagement.Scripts
                 rb.AddForce(new Vector2(-moveSpeed, 0));
             }
 
-            UpdateSpeed();
-            
+            UpdateSpeed();            
         }
 
         private void UpdateSpeed()

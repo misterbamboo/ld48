@@ -60,7 +60,6 @@ public class UI_Shop : MonoBehaviour
         {
             TryBuyUpgrade(upgradeType);
         };
-
     }
 
     private void TryBuyUpgrade(Upgrade.UpgradeType upgradeType)
@@ -68,21 +67,20 @@ public class UI_Shop : MonoBehaviour
         if (shopCustomer.TrySpendMoneyAmount(Upgrade.getCost(upgradeType)))
         {
             shopCustomer.BoughtUpgrade(upgradeType);
-        }
-
-
-        
+        }        
     }
 
     public void Show(IShopCustomer shopCustomer)
     {
         this.shopCustomer = shopCustomer;
         gameObject.SetActive(true);
+        Game.Instance.InShopMenu = true;
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
+        Game.Instance.InShopMenu = false;
     }
 
 }
