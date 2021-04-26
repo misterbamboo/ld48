@@ -123,6 +123,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &770973899
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2041716657, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852544349151785970, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4749924367987343613, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371751264477732281, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8884371912744925839, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567816, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567819, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Name
+      value: BoundariesManagement
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438600556567819, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438601197124601, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939438601231628813, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c798efd906feb946b0ea981f7729e15, type: 3}
 --- !u!1 &830805488
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2587966323876664073, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.55
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2587966323876664073, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -469,7 +542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8793803319481557486, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8793803319481557486, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_LocalPosition.y

@@ -9759,7 +9759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8939438600556567816}
   - component: {fileID: 8273994107594255880}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BoundariesManagement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
