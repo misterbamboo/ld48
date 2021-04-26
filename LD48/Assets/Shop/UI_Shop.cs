@@ -33,6 +33,7 @@ public class UI_Shop : MonoBehaviour
         createUpgradeButton(Upgrade.UpgradeType.OxygenUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.OxygenUpgrade), "Oxygen upgrade", Upgrade.getCost(Upgrade.UpgradeType.OxygenUpgrade),1);
         createUpgradeButton(Upgrade.UpgradeType.LightUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.LightUpgrade), "Light upgrade", Upgrade.getCost(Upgrade.UpgradeType.LightUpgrade),2);
         createUpgradeButton(Upgrade.UpgradeType.SpeedUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.SpeedUpgrade), "Speed upgrade", Upgrade.getCost(Upgrade.UpgradeType.SpeedUpgrade),3);
+        createUpgradeButton(Upgrade.UpgradeType.HookUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HookUpgrade), "Hook upgrade", Upgrade.getCost(Upgrade.UpgradeType.HookUpgrade),4);
         
         shopUpgradeTemplate.gameObject.SetActive(false);
         
@@ -45,7 +46,7 @@ public class UI_Shop : MonoBehaviour
         RectTransform shopUpgradeRectTransform = shopUpgradeTransform.GetComponent<RectTransform>();
 
         float shopUpgradeHeight = 150f;
-        shopUpgradeRectTransform.anchoredPosition = new Vector2(0, (-shopUpgradeHeight * positionIndex)+200);
+        shopUpgradeRectTransform.anchoredPosition = new Vector2(0, (-shopUpgradeHeight * positionIndex)+300);
         
         shopUpgradeTransform.Find("nameText").GetComponent<TextMeshProUGUI>().SetText(upgradeName);
 

@@ -10,7 +10,9 @@ public class Upgrade
         SpeedUpgrade,
         OxygenUpgrade,
         HealthUpgrade,
-        LightUpgrade
+        LightUpgrade,
+        HookUpgrade
+        
     }
 
     public static int getCost(UpgradeType upgradeType)
@@ -23,6 +25,7 @@ public class Upgrade
             case UpgradeType.LightUpgrade: return 25;
             case UpgradeType.OxygenUpgrade: return 50;
             case UpgradeType.SpeedUpgrade: return 40;
+             case UpgradeType.HookUpgrade: return 40;
             
         }
     }
@@ -36,6 +39,7 @@ public class Upgrade
             case UpgradeType.LightUpgrade: return GameAssets.instance.lightUpgradeImage;
             case UpgradeType.OxygenUpgrade: return GameAssets.instance.oxygenUpgradeImage;
             case UpgradeType.SpeedUpgrade: return GameAssets.instance.speedUpgradeImage;
+            case UpgradeType.HookUpgrade: return GameAssets.instance.hookUpgradeImage;
         }
     }
 }

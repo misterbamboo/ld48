@@ -2,6 +2,7 @@ using Assets.Ressources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 
 public class Grapple : MonoBehaviour
@@ -38,6 +39,8 @@ public class Grapple : MonoBehaviour
     void Update()
     {
         HandleGrapple();
+
+        UpdateLenght();
     }
 
     private void HandleGrapple()
@@ -175,5 +178,15 @@ public class Grapple : MonoBehaviour
 
         grapplingDistance = (Vector2)firePoint.position - grapplePoint;
         grapplingRope.enabled = true;
+    }
+
+    private void UpdateLenght()
+    {
+        if (Submarine.Instance.HookUpgradeBought)
+        {
+            print("hook upgraded");
+            shootMaxDistance += 10f;
+            Submarine.Instance.HookUpgradeBought = false;
+        }
     }
 }

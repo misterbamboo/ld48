@@ -10,6 +10,7 @@ public class GameAssets : MonoBehaviour
     [SerializeField] public Sprite lightUpgradeImage;
     [SerializeField] public Sprite oxygenUpgradeImage;
     [SerializeField] public Sprite speedUpgradeImage;
+    [SerializeField] public Sprite hookUpgradeImage;
    
     
     private void Awake()
@@ -17,29 +18,5 @@ public class GameAssets : MonoBehaviour
         instance = this;
     }
     
-    /*
-    public static GameAssets getInstance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = Instantiate(Resources.Load<GameAssets>("GameAssets"));
-                
-            }
-            return instance;
-        }
-    }
-    */
     
-    /*
-    public static GameAssets i
-    {
-        get
-        {
-            if (instance == null) instance = Instantiate(Resources.Load<GameAssets>("GameAssets"));
-            return instance;
-        }
-    }
-    */
 }

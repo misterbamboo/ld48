@@ -20,6 +20,7 @@ namespace Assets
         bool LifeUpgradeBought { get; set; }
         
         bool LightUpgradeBought { get; set; }
+        bool HookUpgradeBought { get; set; }
     }
 
     public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
@@ -37,6 +38,8 @@ namespace Assets
         public bool LifeUpgradeBought { get; set; }
         
         public bool LightUpgradeBought { get; set; }
+
+        public bool HookUpgradeBought { get; set; }
         
         private Rigidbody rb;
 
@@ -67,6 +70,10 @@ namespace Assets
         {
             SpeedUpgradeBought = true;
         }
+        private void IncreaseHook()
+        {
+            HookUpgradeBought = true;
+        }
 
         public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
         {
@@ -80,6 +87,8 @@ namespace Assets
                 case Upgrade.UpgradeType.LightUpgrade:  IncreaseLight();
                     break;
                 case Upgrade.UpgradeType.SpeedUpgrade:  IncreaseSpeed();
+                    break;
+                case Upgrade.UpgradeType.HookUpgrade:  IncreaseHook();
                     break;
                
             }
