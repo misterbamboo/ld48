@@ -11,7 +11,8 @@ public class Upgrade
         OxygenUpgrade,
         HealthUpgrade,
         LightUpgrade,
-        HookUpgrade
+        HookUpgrade,
+        HullUpgrade
         
     }
 
@@ -26,6 +27,7 @@ public class Upgrade
             case UpgradeType.OxygenUpgrade: return 50;
             case UpgradeType.SpeedUpgrade: return 40;
              case UpgradeType.HookUpgrade: return 40;
+             case UpgradeType.HullUpgrade: return 20;
             
         }
     }
@@ -40,6 +42,7 @@ public class Upgrade
             case UpgradeType.OxygenUpgrade: return GameAssets.instance.oxygenUpgradeImage;
             case UpgradeType.SpeedUpgrade: return GameAssets.instance.speedUpgradeImage;
             case UpgradeType.HookUpgrade: return GameAssets.instance.hookUpgradeImage;
+            case UpgradeType.HullUpgrade: return GameAssets.instance.hullUpgradeImage;
         }
     }
 }
