@@ -185,7 +185,7 @@ public class Grapple : MonoBehaviour
         if (Submarine.Instance.HookUpgradeBought)
         {
             print("hook upgraded");
-            shootMaxDistance += 10f;
+            shootMaxDistance += 2f;
             Submarine.Instance.HookUpgradeBought = false;
         }
     }
