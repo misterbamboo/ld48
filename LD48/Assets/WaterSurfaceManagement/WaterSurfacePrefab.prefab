@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4743857659459488955}
   - component: {fileID: 4743857659459488948}
   - component: {fileID: 4743857659459488949}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: WaterSurfacePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5370536ac4d9a354c870e5ca3e92ea18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followDistance: 30
 --- !u!33 &4743857659459488948
 MeshFilter:
   m_ObjectHideFlags: 0
