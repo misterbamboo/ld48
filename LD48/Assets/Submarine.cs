@@ -11,6 +11,9 @@ namespace Assets
     public interface ISubmarine
     {
         int Deepness { get; }
+        bool SpeedUpgradeBought { get; }
+        
+        bool OxygenUpdateBought { get; }
     }
 
     public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
@@ -20,8 +23,15 @@ namespace Assets
 
         public int Deepness => (int)(-Mathf.Clamp(transform.position.y, float.MinValue, 0));
 
+
+
+        public bool SpeedUpgradeBought { get; set; } = false;
+        public bool OxygenUpdateBought { get; set; }
+
         private Rigidbody rb;
 
+       
+        
         private void Awake()
         {
             Instance = this;
@@ -32,9 +42,21 @@ namespace Assets
             rb = GetComponent<Rigidbody>();
         }
 
+        private void IncreaseOxygen()
+        {
+            OxygenUpdateBought = true;
+        }
         private void IncreaseHealth()
         {
             
+        }
+        private void IncreaseLight()
+        {
+            
+        }
+        private void IncreaseSpeed()
+        {
+            SpeedUpgradeBought = true;
         }
 
         public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
@@ -42,7 +64,13 @@ namespace Assets
 
             switch (upgradeType)
             {
+               case Upgrade.UpgradeType.OxygenUpgrade:  IncreaseOxygen();
+                   break;
                case Upgrade.UpgradeType.HealthUpgrade:  IncreaseHealth();
+                   break;
+               case Upgrade.UpgradeType.LightUpgrade:  IncreaseLight();
+                   break;
+               case Upgrade.UpgradeType.SpeedUpgrade:  IncreaseSpeed();
                    break;
                
             }

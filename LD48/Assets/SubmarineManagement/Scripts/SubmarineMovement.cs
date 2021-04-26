@@ -37,6 +37,17 @@ namespace Assets.SubmarineManagement.Scripts
             {
                 rb.AddForce(new Vector2(-moveSpeed, 0));
             }
+
+            UpdateSpeed();
+            
+        }
+
+        private void UpdateSpeed()
+        {
+            if (Submarine.Instance.SpeedUpgradeBought)
+            {
+                moveSpeed += 2;
+            }
         }
     }
 }

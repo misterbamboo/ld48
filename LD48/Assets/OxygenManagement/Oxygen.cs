@@ -9,7 +9,7 @@ namespace Assets.OxygenManagement
     {
         float Quantity { get; }
 
-        float Capacity { get; }
+        float Capacity { get;  }
     }
 
     public class Oxygen : MonoBehaviour, IOxygen
@@ -48,11 +48,16 @@ namespace Assets.OxygenManagement
             }
 
             Quantity = Mathf.Clamp(Quantity, 0, Capacity);
+
+            UpdateOxygen();
         }
 
-        public void increaseOxygenCapacity()
+        private void UpdateOxygen()
         {
-            startingCapacity += 50;
+            if (Submarine.Instance.OxygenUpdateBought)
+            {
+                Capacity += 50;
+            }
         }
     }
 }
