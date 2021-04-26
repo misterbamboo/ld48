@@ -14,8 +14,9 @@ namespace Assets
 
     public class Submarine : MonoBehaviour, ISubmarine
     {
-
         public static ISubmarine Instance { get; private set; }
+
+        public static GameObject GameObject { get; private set; }
 
         public int Deepness => (int)(-Mathf.Clamp(transform.position.y, float.MinValue, 0));
 
@@ -24,6 +25,7 @@ namespace Assets
         private void Awake()
         {
             Instance = this;
+            GameObject = gameObject;
         }
 
         private void Start()
