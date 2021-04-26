@@ -45,7 +45,7 @@ public class Life : MonoBehaviour, ILife
     void Update()
     {
         var losingLife = false;
-        if (Oxygen.Instance.Quantity <= 0)
+        if (Oxygen.Instance.Quantity <= 0 && !Game.Instance.Invincible)
         {
             Quantity -= Time.deltaTime * reductionPerSecWhenNoOxy;
             losingLife = true;

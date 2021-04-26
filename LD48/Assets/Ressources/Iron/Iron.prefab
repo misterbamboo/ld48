@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3671779904432845315}
   - component: {fileID: 6304141870461777587}
-  - component: {fileID: -3291948042840447845}
+  - component: {fileID: 9198464457822271229}
   m_Layer: 6
-  m_Name: Copper
+  m_Name: Iron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ CircleCollider2D:
   m_Offset: {x: 0.5, y: -0.5}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &-3291948042840447845
+--- !u!114 &9198464457822271229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4008060087431541605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8cf89c864956d4ba0b2734ab057dfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 506e0fdfe8d30124785be64fceb725e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sellPrice: 10
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 36f019246ac104f46b02f13c63bf510c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7848005e6d9d80c44ad9c3895b290888, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
