@@ -130,30 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6141862705656726032, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
-      propertyPath: hookUpgradeImage
-      value: 
-      objectReference: {fileID: 21300000, guid: d0d0ff462425a3648a0beb4635b9536d, type: 3}
-    - target: {fileID: 6141862705656726032, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
-      propertyPath: hullUpgradeImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 4eccb838c7d030c48b5ee32b81f129bc, type: 3}
-    - target: {fileID: 6141862705656726032, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
-      propertyPath: lightUpgradeImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 7ee299b9851251645b8b8132b70bfb44, type: 3}
-    - target: {fileID: 6141862705656726032, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
-      propertyPath: speedUpgradeImage
-      value: 
-      objectReference: {fileID: 21300000, guid: ede5f753e1bba7348b7d6a0a4bdbfbba, type: 3}
-    - target: {fileID: 6141862705656726032, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
-      propertyPath: healthUpgradeImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 6c6b0658102fc314eb1aa419452e9bad, type: 3}
-    - target: {fileID: 6141862705656726032, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
-      propertyPath: oxygenUpgradeImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 2f0643363b722854586023a06c473a21, type: 3}
     - target: {fileID: 6141862705656726033, guid: 900511ecd51c410489aba8e3a8f752f6, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -587,10 +563,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2587966323876664075, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2587966323876664077, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
       propertyPath: m_Name
       value: Shop
@@ -978,10 +950,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4743857659459488949, guid: 74dae6a8406dd144aa547bde67af476f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ee4556b6fdbeff8488f9b0069b838e7d, type: 2}
     - target: {fileID: 4743857659459488952, guid: 74dae6a8406dd144aa547bde67af476f, type: 3}
       propertyPath: m_Name
       value: WaterSurface
