@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  pointLight: {fileID: 0}
 --- !u!114 &2912121704120155252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10258,7 +10259,6 @@ GameObject:
   - component: {fileID: 7757854252167216015}
   - component: {fileID: 4328043521473930191}
   - component: {fileID: 1616862552}
-  - component: {fileID: 506382844378453014}
   m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
@@ -10343,18 +10343,6 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &1616862552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140209072506776384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b59fe3f0e9e448d42872dd14f98e09dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &506382844378453014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
