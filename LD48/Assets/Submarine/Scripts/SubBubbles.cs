@@ -1,7 +1,12 @@
+using Assets;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class SubBubbles : MonoBehaviour
 {
+    [SerializeField]
+    int deepnessRequire;
+
     private ParticleSystem leftbubbles;
     private ParticleSystem rightbubbles;
     private bool shouldEmit = false;
@@ -36,6 +41,11 @@ public class SubBubbles : MonoBehaviour
 
     private void EmitBubblesWhenPressingKeys()
     {
+        if (Submarine.Instance.Deepness <= deepnessRequire)
+        {
+            ForceStop();
+        }
+
         if (!SubIsMoving())
         {
             TurnOffBubbles();
@@ -44,6 +54,12 @@ public class SubBubbles : MonoBehaviour
         {
             ToggleBubbles();
         }
+    }
+
+    private void ForceStop()
+    {
+        leftbubbles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        rightbubbles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
     private void ToggleBubbles()

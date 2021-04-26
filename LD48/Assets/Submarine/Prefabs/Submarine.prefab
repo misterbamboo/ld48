@@ -320,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbea3b8c64566414d8d2e4b9dee7ca82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deepnessRequire: 2
 --- !u!114 &6098531709533376574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +474,7 @@ GameObject:
   - component: {fileID: 7943756892102829272}
   - component: {fileID: 8365957835393084205}
   - component: {fileID: 1808959857162661880}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Right Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5277,7 +5278,7 @@ GameObject:
   - component: {fileID: 1475402266220324931}
   - component: {fileID: 3896978412620279940}
   - component: {fileID: 4921317608833809648}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Left Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
