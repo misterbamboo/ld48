@@ -11,11 +11,8 @@ public class DeepnessLighting : MonoBehaviour
     [SerializeField]
     Light2D globalLight;
 
-    [SerializeField]
-    Light2D pointLight;
-
     public static Color whiteLight = HexToColor("#ffffff");
-    public static Color surfaceLight = HexToColor("#96fff5");
+    public static Color surfaceLight = HexToColor("#87fff4");
     public static Color lowInWater = HexToColor("#7ed1de");
     public static Color mildInWater = HexToColor("#4e82c7");
     public static Color farInWater = HexToColor("#2b2d8f");
@@ -23,6 +20,19 @@ public class DeepnessLighting : MonoBehaviour
     public static Color reallyDeepInWater = HexToColor("#130a3d");
     public static Color sooooooDeepInWater = HexToColor("#140430");
     public static Color deeperAndDeaperInWater = HexToColor("#070014");
+
+
+    public static Dictionary<int, float> globalLightByDeepness = new Dictionary<int, float>()
+    {
+        { 0, 1.0f },
+        { 50, 1.0f },
+        { 100, 0.75f },
+        { 150, 0.75f },
+        { 200, 0.50f },
+        { 250, 0.25f },
+        { 300, 0.0f },
+        { 350, 0.0f },
+    };
 
     public static Dictionary<int, Color> waterColorByDeepness = new Dictionary<int, Color>()
     {
@@ -67,7 +77,6 @@ public class DeepnessLighting : MonoBehaviour
 
     void Start()
     {
-        /*
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
         RenderSettings.ambientSkyColor = Color.white;
         RenderSettings.ambientEquatorColor = Color.white;
@@ -78,19 +87,17 @@ public class DeepnessLighting : MonoBehaviour
         {
             subarineMaterial.color = whiteLight;
         }
-        */
     }
 
     void Update()
     {        
-        /*
         var deepness = Submarine.Instance.Deepness;
         if (lastDeepness != deepness)
         {
             DeepnessChanged(deepness);
+            globalLight.intensity = GetLightIntensityByDeepness(globalLightByDeepness, deepness);
             lastDeepness = deepness;
         }
-        */
     }
 
     private void DeepnessChanged(int deepness)
@@ -100,9 +107,6 @@ public class DeepnessLighting : MonoBehaviour
         RenderSettings.ambientEquatorColor = color;
         RenderSettings.ambientGroundColor = color;
         Camera.main.backgroundColor = color;
-
-        //globalLight.color = color;
-        //pointLight.color = color;
 
         if (subarineMaterial != null)
         {
@@ -117,6 +121,24 @@ public class DeepnessLighting : MonoBehaviour
         float progressionInStage = GetProgression(deepness, previousDeepnessStage, nextDeepnessStage);
         Color currentColor = FindTransitionColor(deepnessColors, previousDeepnessStage, nextDeepnessStage, progressionInStage);
         return currentColor;
+    }
+
+    private static float GetLightIntensityByDeepness(Dictionary<int, float> intensityByDeepness, int deepness)
+    {
+        float intensity = intensityByDeepness.Values.First();
+
+        int nextDeepnessStage;
+        nextDeepnessStage = intensityByDeepness.Keys.Max();
+
+        foreach (var key in intensityByDeepness.Keys.OrderBy(k => k))
+        {
+            if (key < deepness)
+            {
+                intensity = intensityByDeepness[key];
+            }
+        }
+
+        return intensity;
     }
 
     private static void GetPreviousAndNextDeepness(Dictionary<int, Color> deepnessColors, int deepness, out int previousDeepnessStage, out int nextDeepnessStage)

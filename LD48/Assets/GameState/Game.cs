@@ -8,6 +8,8 @@ public interface IGame
     bool GameOver { get; }
 
     bool Invincible { get; }
+
+    bool InShopMenu { get; set; }
 }
 
 public class Game : MonoBehaviour, IGame
@@ -17,6 +19,8 @@ public class Game : MonoBehaviour, IGame
     public bool GameOver { get; private set; }
 
     public bool Invincible { get; private set; }
+
+    public bool InShopMenu { get; set; }
 
     private void Awake()
     {

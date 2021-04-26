@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.07692929, g: 0.0102349585, b: 0.4339623, a: 1}
   m_AmbientGroundColor: {r: 0.007993889, g: 0, b: 0.05660379, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -314,6 +314,14 @@ PrefabInstance:
     - target: {fileID: 5369559043735529035, guid: df2ae822783fff843a6110499334934c, type: 3}
       propertyPath: m_Name
       value: ShopCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369559043735529035, guid: df2ae822783fff843a6110499334934c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369559043865800028, guid: df2ae822783fff843a6110499334934c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df2ae822783fff843a6110499334934c, type: 3}
@@ -635,14 +643,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2587966323876664074, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2587966323876664074, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 2587966323876664075, guid: bfa12e9858ec2db4ebcc262c39c82d4c, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -994,26 +994,6 @@ PrefabInstance:
     - target: {fileID: 2578727465922228801, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_Name
       value: Submarine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2671197095629880195, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2671197095629880195, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: m_Color.g
-      value: 0.9781105
-      objectReference: {fileID: 0}
-    - target: {fileID: 2671197095629880195, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7688679
-      objectReference: {fileID: 0}
-    - target: {fileID: 2671197095629880195, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: m_PointLightInnerRadius
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2671197095629880195, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3631344185322769542, guid: 88e832cb5e78fef4a88fb8f5a6b37e88, type: 3}
       propertyPath: m_IsActive
