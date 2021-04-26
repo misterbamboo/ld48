@@ -33,6 +33,11 @@ namespace Assets.SubmarineManagement.Scripts
 
         private void Move()
         {
+            if (transform.position.y > 0)
+            {
+                return;
+            }
+
             if (Input.GetAxisRaw("Vertical") > 0)
             {
                 rb.AddForce(new Vector2(0, moveSpeed));
