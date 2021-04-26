@@ -1,4 +1,5 @@
 using Assets.OxygenManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class Life : MonoBehaviour, ILife
 
     [SerializeField] private float startingQuantity = 100;
     [SerializeField] private float startingCapacity = 100;
-    [SerializeField] private float reductionPerSecWhenNoOxy = 3f + 1f / 3f; // 30 seconds
+    [SerializeField] private float reductionPerSecWhenNoOxy = 20f; // 5 seconds
 
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class Life : MonoBehaviour, ILife
 
     void Update()
     {
-        if(Oxygen.Instance.Quantity <= 0)
+        if (Oxygen.Instance.Quantity <= 0)
         {
             Quantity -= Time.deltaTime * reductionPerSecWhenNoOxy;
         }
