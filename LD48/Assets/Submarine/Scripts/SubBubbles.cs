@@ -15,8 +15,15 @@ public class SubBubbles : MonoBehaviour
 
     void Update()
     {
-        side = GetSide(Input.GetAxisRaw("Horizontal"));
-        EmitBubblesWhenPressingKeys();
+        if (!Game.Instance.GameOver)
+        {
+            side = GetSide(Input.GetAxisRaw("Horizontal"));
+            EmitBubblesWhenPressingKeys();
+        }
+        else
+        {
+            TurnOffBubbles();
+        }
     }
 
     private Sides GetSide(float input)
@@ -33,11 +40,10 @@ public class SubBubbles : MonoBehaviour
         {
             TurnOffBubbles();
         }
-        else 
+        else
         {
             ToggleBubbles();
         }
-
     }
 
     private void ToggleBubbles()
@@ -72,7 +78,7 @@ public class SubBubbles : MonoBehaviour
     private void HandleRightSideBubbles()
     {
         TurnOffBubbles(leftbubbles);
-        TurnOnBubbles(rightbubbles);    
+        TurnOnBubbles(rightbubbles);
     }
 
     private void TurnOnBubbles(ParticleSystem bubbles)

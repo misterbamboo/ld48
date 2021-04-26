@@ -23,12 +23,12 @@ public class InventoryHudController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        refreshQuantities();
+        ShowCanSellLabel();
+        ShowInventory();
     }
 
-    private void refreshQuantities()
+    private void ShowInventory()
     {
-        textSellInventory.gameObject.SetActive(InventoryManager.Instance.canSell);
 
         textGoldInventory.text = InventoryManager.Instance.goldQuantity.ToString();
         textPlatinumInventory.text = InventoryManager.Instance.platinumQuantity.ToString();
@@ -36,5 +36,11 @@ public class InventoryHudController : MonoBehaviour
         textIronInventory.text = InventoryManager.Instance.ironQuantity.ToString();
         textDiamondInventory.text = InventoryManager.Instance.diamondQuantity.ToString();
         textCash.text = "$" + InventoryManager.Instance.inventoryReward;
+    }
+
+    private void ShowCanSellLabel()
+    {
+        bool showLabel = InventoryManager.Instance.canSell && !Game.Instance.GameOver;
+        textSellInventory.gameObject.SetActive(showLabel);
     }
 }

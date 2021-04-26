@@ -26,13 +26,46 @@ public class SubAnimations : MonoBehaviour
 
     void Update()
     {
-        AnalyseMovement();
+        if (!Game.Instance.GameOver)
+        {
+            AnalyseMovement();
+            ComputeWantedFlip();
+            ComputeWantedIncline();
+        }
+        else
+        {
+            // wrantedYAngle = 0f; (don't change flip on gameover)
+            wantedIncline = 0f; // stop incline
+        }
 
-        ComputeWantedFlip();
         LerpUpdateFlip();
-
-        ComputeWantedIncline();
         LerpUpdateIncline();
+    }
+
+    private void AnalyseMovement()
+    {
+        shouldFaceRight = null;
+        shouldInclineBack = null;
+
+        var vertical = Input.GetAxisRaw("Vertical");
+        if (vertical > 0)
+        {
+            shouldInclineBack = true;
+        }
+        else if (vertical < 0)
+        {
+            shouldInclineBack = false;
+        }
+
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        if (horizontal > 0)
+        {
+            shouldFaceRight = true;
+        }
+        else if (horizontal < 0)
+        {
+            shouldFaceRight = false;
+        }
     }
 
     private void ComputeWantedFlip()
@@ -80,31 +113,5 @@ public class SubAnimations : MonoBehaviour
         var wantedAngle = Quaternion.Euler(wantedEuler);
 
         bodyToIncline.rotation = Quaternion.Lerp(currentAngle, wantedAngle, 4f * Time.deltaTime);
-    }
-
-    private void AnalyseMovement()
-    {
-        shouldFaceRight = null;
-        shouldInclineBack = null;
-
-        var vertical = Input.GetAxisRaw("Vertical");
-        if (vertical > 0)
-        {
-            shouldInclineBack = true;
-        }
-        else if (vertical < 0)
-        {
-            shouldInclineBack = false;
-        }
-
-        var horizontal = Input.GetAxisRaw("Horizontal");
-        if (horizontal > 0)
-        {
-            shouldFaceRight = true;
-        }
-        else if (horizontal < 0)
-        {
-            shouldFaceRight = false;
-        }
     }
 }

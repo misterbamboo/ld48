@@ -40,7 +40,7 @@ namespace Assets.OxygenManagement
         {
             CheckIfStartHurting();
 
-            if (Life.Instance.LosingLife)
+            if (!Life.Instance.IsDead && Life.Instance.LosingLife)
             {
                 HurtFlashing();
             }
@@ -52,12 +52,11 @@ namespace Assets.OxygenManagement
 
         private void CheckIfStartHurting()
         {
-            var lifeIsDroping = Life.Instance.Quantity < lastLifeQuantity;
             if (Life.Instance.LosingLife && !lastLosingLife)
             {
                 StartHurtFlashing();
             }
-            lastLosingLife = lifeIsDroping;
+            lastLosingLife = Life.Instance.LosingLife;
         }
 
         private void StartHurtFlashing()
@@ -86,10 +85,10 @@ namespace Assets.OxygenManagement
 
         private void StopFlashing()
         {
-            hurtPanel.gameObject.SetActive(false);
             var color = hurtPanel.color;
             color.a = 0;
             hurtPanel.color = color;
+            hurtPanel.gameObject.SetActive(false);
         }
     }
 }
