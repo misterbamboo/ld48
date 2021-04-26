@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 using CodeMonkey.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,12 +20,15 @@ public class UI_Shop : MonoBehaviour
     {
         container = transform.Find("container");
         shopUpgradeTemplate = container.Find("shopItemTemplate");
-        //shopUpgradeTemplate.gameObject.SetActive(false);
+        
+        
            
     }
 
     private void Start()
     {
+        
+        
         createUpgradeButton(Upgrade.UpgradeType.HealthUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HealthUpgrade), "Health upgrade", Upgrade.getCost(Upgrade.UpgradeType.HealthUpgrade),0);
         createUpgradeButton(Upgrade.UpgradeType.OxygenUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.OxygenUpgrade), "Oxygen upgrade", Upgrade.getCost(Upgrade.UpgradeType.OxygenUpgrade),1);
         createUpgradeButton(Upgrade.UpgradeType.LightUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.LightUpgrade), "Light upgrade", Upgrade.getCost(Upgrade.UpgradeType.LightUpgrade),2);
@@ -59,7 +63,13 @@ public class UI_Shop : MonoBehaviour
 
     private void TryBuyUpgrade(Upgrade.UpgradeType upgradeType)
     {
-        shopCustomer.BoughtUpgrade(upgradeType);
+        
+        if (shopCustomer != null)
+        {
+            shopCustomer.BoughtUpgrade(upgradeType);
+        }
+
+        
     }
 
     public void Show(IShopCustomer shopCustomer)

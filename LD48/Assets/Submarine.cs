@@ -38,6 +38,8 @@ namespace Assets
 
         public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
         {
+          //  print("asdfasdf" + upgradeType);
+            
             Debug.Log("Bought item : " + upgradeType);
         }
     }

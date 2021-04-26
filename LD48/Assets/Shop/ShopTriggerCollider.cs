@@ -12,13 +12,23 @@ public class ShopTriggerCollider : MonoBehaviour
         
         IShopCustomer shopCustomer = collider.GetComponent<IShopCustomer>();
         
-        uiShop.Show(shopCustomer);
+        if (shopCustomer != null)
+        {
+            uiShop.Show(shopCustomer);
+        }
+
+        
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
         IShopCustomer shopCustomer = collider.GetComponent<IShopCustomer>();
+
+        if (shopCustomer != null)
+        {
+            uiShop.Hide();
+        }
+
         
-        uiShop.Hide();
     }
 }
