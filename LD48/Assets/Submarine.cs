@@ -10,6 +10,8 @@ namespace Assets
     public interface ISubmarine
     {
         int Deepness { get; }
+
+        float SensitiveDeepness { get; }
     }
 
     public class Submarine : MonoBehaviour, ISubmarine
@@ -18,7 +20,9 @@ namespace Assets
 
         public static GameObject GameObject { get; private set; }
 
-        public int Deepness => (int)(-Mathf.Clamp(transform.position.y, float.MinValue, 0));
+        public int Deepness => (int)SensitiveDeepness;
+
+        public float SensitiveDeepness => -Mathf.Clamp(transform.position.y, float.MinValue, 0);
 
         private Rigidbody rb;
 
