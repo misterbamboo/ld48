@@ -4,9 +4,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class DeepnessLighting : MonoBehaviour
 {
+    [SerializeField]
+    Light2D globalLight;
+
+    [SerializeField]
+    Light2D pointLight;
+
     public static Color whiteLight = HexToColor("#ffffff");
     public static Color surfaceLight = HexToColor("#96fff5");
     public static Color lowInWater = HexToColor("#7ed1de");
@@ -60,27 +67,30 @@ public class DeepnessLighting : MonoBehaviour
 
     void Start()
     {
+        /*
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
         RenderSettings.ambientSkyColor = Color.white;
         RenderSettings.ambientEquatorColor = Color.white;
         RenderSettings.ambientGroundColor = Color.white;
-        RenderSettings.ambientIntensity = 1;
-
+        RenderSettings.ambientIntensity = 1;      
         Camera.main.backgroundColor = surfaceLight;
         if (subarineMaterial != null)
         {
             subarineMaterial.color = whiteLight;
         }
+        */
     }
 
     void Update()
-    {
+    {        
+        /*
         var deepness = Submarine.Instance.Deepness;
         if (lastDeepness != deepness)
         {
             DeepnessChanged(deepness);
             lastDeepness = deepness;
         }
+        */
     }
 
     private void DeepnessChanged(int deepness)
@@ -90,6 +100,9 @@ public class DeepnessLighting : MonoBehaviour
         RenderSettings.ambientEquatorColor = color;
         RenderSettings.ambientGroundColor = color;
         Camera.main.backgroundColor = color;
+
+        //globalLight.color = color;
+        //pointLight.color = color;
 
         if (subarineMaterial != null)
         {
