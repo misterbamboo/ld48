@@ -540,7 +540,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3510980042980814802, guid: 990e12ad6dc5620449ae3096b7d1be77, type: 3}
       propertyPath: m_Name
-      value: OxygenCanvas
+      value: StatsCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 3510980042980814814, guid: 990e12ad6dc5620449ae3096b7d1be77, type: 3}
       propertyPath: m_Pivot.x
