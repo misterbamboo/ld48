@@ -34,6 +34,7 @@ public class UI_Shop : MonoBehaviour
         createUpgradeButton(Upgrade.UpgradeType.LightUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.LightUpgrade), "Light upgrade", Upgrade.getCost(Upgrade.UpgradeType.LightUpgrade),2);
         createUpgradeButton(Upgrade.UpgradeType.SpeedUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.SpeedUpgrade), "Speed upgrade", Upgrade.getCost(Upgrade.UpgradeType.SpeedUpgrade),3);
         createUpgradeButton(Upgrade.UpgradeType.HookUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HookUpgrade), "Hook upgrade", Upgrade.getCost(Upgrade.UpgradeType.HookUpgrade),4);
+        createUpgradeButton(Upgrade.UpgradeType.HullUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HullUpgrade), "Hull upgrade", Upgrade.getCost(Upgrade.UpgradeType.HullUpgrade),5);
         
         shopUpgradeTemplate.gameObject.SetActive(false);
         

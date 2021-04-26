@@ -62,10 +62,19 @@ public class Life : MonoBehaviour, ILife
     {
         if (Submarine.Instance.LifeUpgradeBought)
         {
-           // Capacity = Capacity * 1.5f;
-            //startingCapacity = startingCapacity * 1.5f;
             Quantity += 25;
             Submarine.Instance.LifeUpgradeBought = false;
+        }
+
+        if (Submarine.Instance.HullUpgradeBought)
+        {
+            if (Submarine.Instance.HullUpgradeBought)
+            {
+                Capacity += 25;
+                Quantity += 25;
+                Submarine.Instance.HullUpgradeBought = false;
+                print("Hull upgraded hheeeheee");
+            }
         }
     }
 }
