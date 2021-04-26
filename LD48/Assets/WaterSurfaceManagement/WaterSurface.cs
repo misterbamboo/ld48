@@ -10,6 +10,8 @@ namespace Assets.WaterSurfaceManagement
 {
     public class WaterSurface : MonoBehaviour
     {
+        [SerializeField] BasicWaterSurface basicWaterSurface;
+
         [SerializeField] private int followDistance = 30;
 
         private WaterSurfaceDrawer waterSurfaceDrawer;
@@ -50,6 +52,7 @@ namespace Assets.WaterSurfaceManagement
             waterSurfaceDrawer = new WaterSurfaceDrawer(Map.Instance.Configuration.width * 3, followDistance * 2, 0.1f);
             waterSurfaceDrawer.Init();
             GetComponent<MeshFilter>().sharedMesh = waterSurfaceDrawer.Mesh;
+            basicWaterSurface.Init(waterSurfaceDrawer.Mesh);
         }
     }
 }
