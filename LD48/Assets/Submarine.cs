@@ -12,7 +12,7 @@ namespace Assets
         int Deepness { get; }
     }
 
-    public class Submarine : MonoBehaviour, ISubmarine
+    public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
     {
 
         public static ISubmarine Instance { get; private set; }
@@ -34,6 +34,11 @@ namespace Assets
         private void Update()
         {
             //transform.position = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+        }
+
+        public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
+        {
+            Debug.Log("Bought item : " + upgradeType);
         }
     }
 }

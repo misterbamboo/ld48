@@ -13,7 +13,8 @@ public class UI_Shop : MonoBehaviour
 
     private Transform shopUpgradeTemplate;
 
-   
+    private IShopCustomer shopCustomer;
+    
     private void Awake()
     {
         container = transform.Find("container");
@@ -30,6 +31,8 @@ public class UI_Shop : MonoBehaviour
         createUpgradeButton(Upgrade.UpgradeType.SpeedUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.SpeedUpgrade), "Speed upgrade", Upgrade.getCost(Upgrade.UpgradeType.SpeedUpgrade),3);
         
         shopUpgradeTemplate.gameObject.SetActive(false);
+        
+        Hide();
     }
 
     private void createUpgradeButton(Upgrade.UpgradeType  upgradeType, Sprite upgradeSprite, string upgradeName, int upgradeCost, int positionIndex)
@@ -42,11 +45,7 @@ public class UI_Shop : MonoBehaviour
         
         shopUpgradeTransform.Find("nameText").GetComponent<TextMeshProUGUI>().SetText(upgradeName);
 
-        if (shopUpgradeTransform.Find("nameText").GetComponent<TextMeshProUGUI>() != null)
-        {
-            print(shopUpgradeTransform.Find("nameText").GetComponent<TextMeshProUGUI>());
-        }
-
+        
         shopUpgradeTransform.Find("costText").GetComponent<TextMeshProUGUI>().SetText(upgradeCost.ToString());
 
         shopUpgradeTransform.Find("itemImage").GetComponent<Image>().sprite = upgradeSprite;
@@ -60,6 +59,18 @@ public class UI_Shop : MonoBehaviour
 
     private void TryBuyUpgrade(Upgrade.UpgradeType upgradeType)
     {
-        
+        shopCustomer.BoughtUpgrade(upgradeType);
     }
+
+    public void Show(IShopCustomer shopCustomer)
+    {
+        this.shopCustomer = shopCustomer;
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
 }
