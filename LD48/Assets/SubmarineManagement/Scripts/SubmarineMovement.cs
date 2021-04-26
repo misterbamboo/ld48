@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,16 @@ namespace Assets.SubmarineManagement.Scripts
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
                 rb.AddForce(new Vector2(-moveSpeed, 0));
+            }
+
+            OutsideWaterForce();
+        }
+
+        private void OutsideWaterForce()
+        {
+            if (transform.position.y > 0)
+            {
+                rb.AddForce(new Vector2(0, -20));
             }
         }
     }
