@@ -19,10 +19,10 @@ public class Upgrade
         {
             
              default:   
-            case UpgradeType.HealthUpgrade: return 50; 
-            case UpgradeType.LightUpgrade: return 75;
-            case UpgradeType.OxygenUpgrade: return 100;
-            case UpgradeType.SpeedUpgrade: return 150;
+            case UpgradeType.HealthUpgrade: return 10; 
+            case UpgradeType.LightUpgrade: return 25;
+            case UpgradeType.OxygenUpgrade: return 50;
+            case UpgradeType.SpeedUpgrade: return 40;
             
         }
     }

@@ -8,7 +8,6 @@ public class ShopTriggerCollider : MonoBehaviour
     [SerializeField] private UI_Shop uiShop;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        print("entred in collider");
         
         IShopCustomer shopCustomer = collider.GetComponent<IShopCustomer>();
         

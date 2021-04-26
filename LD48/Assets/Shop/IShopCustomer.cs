@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IShopCustomer
 {
    void BoughtUpgrade(Upgrade.UpgradeType upgradeType);
+   bool TrySpendMoneyAmount(int moneyAmount);
 }

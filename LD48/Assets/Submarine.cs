@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.OxygenManagement;
 using UnityEngine;
 
 namespace Assets
@@ -31,16 +32,35 @@ namespace Assets
             rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
+        private void IncreaseHealth()
         {
-            //transform.position = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+            
         }
 
         public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
         {
-          //  print("asdfasdf" + upgradeType);
-            
+
+            switch (upgradeType)
+            {
+               case Upgrade.UpgradeType.HealthUpgrade:  IncreaseHealth();
+                   break;
+               
+            }
             Debug.Log("Bought item : " + upgradeType);
+        }
+
+        public bool TrySpendMoneyAmount(int spendMoneyAmount)
+        {
+            if (InventoryManager.Instance.inventoryReward >= spendMoneyAmount)
+            {
+                InventoryManager.Instance.inventoryReward -= spendMoneyAmount;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

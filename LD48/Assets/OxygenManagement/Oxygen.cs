@@ -49,5 +49,10 @@ namespace Assets.OxygenManagement
 
             Quantity = Mathf.Clamp(Quantity, 0, Capacity);
         }
+
+        public void increaseOxygenCapacity()
+        {
+            startingCapacity += 50;
+        }
     }
 }

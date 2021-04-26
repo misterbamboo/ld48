@@ -63,11 +63,11 @@ public class UI_Shop : MonoBehaviour
 
     private void TryBuyUpgrade(Upgrade.UpgradeType upgradeType)
     {
-        
-        if (shopCustomer != null)
+        if (shopCustomer.TrySpendMoneyAmount(Upgrade.getCost(upgradeType)))
         {
             shopCustomer.BoughtUpgrade(upgradeType);
         }
+
 
         
     }
