@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 2912121704120155252}
   - component: {fileID: 6098531709533376574}
   - component: {fileID: 126776627150093787}
+  - component: {fileID: 1271080416854070226}
   m_Layer: 0
   m_Name: Submarine
   m_TagString: Untagged
@@ -341,6 +342,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1271080416854070226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578727465922228801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb6fd18978222e4fa658e715a15545a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingQuantity: 100
+  startingCapacity: 100
+  reductionPerSecWhenNoOxy: 3.3333333
 --- !u!1 &2600009436886374461
 GameObject:
   m_ObjectHideFlags: 0
