@@ -96,8 +96,13 @@ namespace Assets.MapGeneration
                 var ressourceDef = ressource.GetComponent<IRessource>();
                 ressourceDef.SpawnX = x;
                 ressourceDef.SpawnY = y;
+                var randomAngle = UnityEngine.Random.Range(1, 360);
 
-                ressource.transform.position = new Vector3(x, unityTranslatedY, 0);
+                var offsetX = UnityEngine.Random.Range(0f, 1f);
+                var offsety = UnityEngine.Random.Range(0f, 1f);
+
+                ressource.transform.position = new Vector3(x + offsetX, unityTranslatedY - offsety, 0);
+                ressource.transform.Rotate(new Vector3(0, 0, randomAngle));
             }
         }
     }
