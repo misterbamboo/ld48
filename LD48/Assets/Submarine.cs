@@ -124,6 +124,7 @@ namespace Assets
                     break;
 
             }
+            AudioManager.Instance.PlaySound(SoundName.upgrade1);
         }
 
         public bool TrySpendMoneyAmount(int spendMoneyAmount)

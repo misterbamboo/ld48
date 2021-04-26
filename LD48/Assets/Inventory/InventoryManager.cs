@@ -101,7 +101,7 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryReward += inventory[i].SellPrice;
         }
-
+        AudioManager.Instance.PlaySound(SoundName.sellRessources);
         resetInventory();
     }
 
