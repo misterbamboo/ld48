@@ -7,6 +7,9 @@ using UnityEngine;
 public class Grapple : MonoBehaviour
 {
     [SerializeField]
+    GrappleSound grappleSound;
+
+    [SerializeField]
     GrapplingRope grapplingRope;
 
     [SerializeField]
@@ -43,6 +46,7 @@ public class Grapple : MonoBehaviour
         else if (Input.GetButtonUp("Fire1"))
         {            
             isPulling = true;
+            StartCoroutine(BackResetWithTimer());
         }
 
         if (isPulling)
@@ -78,11 +82,21 @@ public class Grapple : MonoBehaviour
         return firePoint.position;
     }
 
+    IEnumerator BackResetWithTimer()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+        if (isPulling)
+        {
+            ResetGrapplingRequirement();
+        }      
+    }
+
     void StartHooking()
     {
         grapplingRope.enabled = true;
         hook.SetTarget(grapplePoint);
         hook.Active(true);
+        grappleSound.PlayRandomSound();
     }
 
     void MoveHookTipOfRope()
@@ -120,7 +134,7 @@ public class Grapple : MonoBehaviour
 
         var distanceRemaining = Vector2.Distance(firePoint.position, hookPos);
 
-        return distanceRemaining < 0.5 || (objectToPull != null && objectToPull.GetComponent<IRessource>().IsConsume());        
+        return distanceRemaining < 0.5f || (objectToPull != null && objectToPull.GetComponent<IRessource>().IsConsume());        
     }
 
     void SetGrapplingRequirement()

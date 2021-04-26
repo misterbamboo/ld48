@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 2930704917011074802}
   - component: {fileID: 6041964944969229976}
   - component: {fileID: 2618058356308027381}
+  - component: {fileID: 7598622408283626338}
   m_Layer: 0
   m_Name: Grapple
   m_TagString: Untagged
@@ -528,7 +529,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee4921c07acbd74f8084ca4cee92bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grappleSound: {fileID: 7598622408283626338}
   grapplingRope: {fileID: 4676212657947879710}
   hook: {fileID: 1867494953533351251}
   firePoint: {fileID: 5686913089331546548}
   shootMaxDistance: 10
+--- !u!114 &7598622408283626338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050508928716153385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99dbfb45e2d885428875a32f3d952a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundNames: 000000000100000002000000

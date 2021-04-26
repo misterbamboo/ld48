@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4052326934724473390}
   - component: {fileID: 4052326934724473391}
+  - component: {fileID: 378928028512113092}
   m_Layer: 0
   m_Name: DeepnessManagement
   m_TagString: Untagged
@@ -44,3 +45,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subarineMaterial: {fileID: 2100000, guid: a9e5f37de91666341955a7e4d7c5fd0f, type: 2}
+--- !u!114 &378928028512113092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052326934724473384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63fb766f2f6d014ea9a719526d3c3fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musics:
+  - musicName: 1
+    minValue: -2147483648
+    maxValue: 200
+  - musicName: 2
+    minValue: 200
+    maxValue: 600
+  - musicName: 3
+    minValue: 600
+    maxValue: 1000
+  - musicName: 4
+    minValue: 1000
+    maxValue: 2147483647
