@@ -13,9 +13,11 @@ namespace Assets
 
         float SensitiveDeepness { get; }
         
-        bool SpeedUpgradeBought { get; }
+        bool SpeedUpgradeBought { get; set; }
         
-        bool OxygenUpdateBought { get; }
+        bool OxygenUpgradeBought { get; set; }
+        
+        bool LifeUpgradeBought { get; set; }
     }
 
     public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
@@ -29,7 +31,8 @@ namespace Assets
         public float SensitiveDeepness => -Mathf.Clamp(transform.position.y, float.MinValue, 0);
 
         public bool SpeedUpgradeBought { get; set; } = false;
-        public bool OxygenUpdateBought { get; set; }
+        public bool OxygenUpgradeBought { get; set; }
+        public bool LifeUpgradeBought { get; set; }
         
         private Rigidbody rb;
 
@@ -46,11 +49,11 @@ namespace Assets
 
         private void IncreaseOxygen()
         {
-            OxygenUpdateBought = true;
+            OxygenUpgradeBought = true;
         }
         private void IncreaseHealth()
         {
-            
+            LifeUpgradeBought = true;
         }
         private void IncreaseLight()
         {

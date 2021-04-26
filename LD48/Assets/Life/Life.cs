@@ -2,6 +2,7 @@ using Assets.OxygenManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 
 public interface ILife
@@ -53,5 +54,18 @@ public class Life : MonoBehaviour, ILife
 
         LosingLife = losingLife;
         Quantity = Mathf.Clamp(Quantity, 0, Capacity);
+
+        UpdateLife();
+    }
+
+    private void UpdateLife()
+    {
+        if (Submarine.Instance.LifeUpgradeBought)
+        {
+           // Capacity = Capacity * 1.5f;
+            //startingCapacity = startingCapacity * 1.5f;
+            Quantity += 25;
+            Submarine.Instance.LifeUpgradeBought = false;
+        }
     }
 }

@@ -58,7 +58,8 @@ namespace Assets.SubmarineManagement.Scripts
             
             if (Submarine.Instance.SpeedUpgradeBought)
             {
-                moveSpeed += 1;
+                moveSpeed += 2;
+                Submarine.Instance.SpeedUpgradeBought = false;
             }
             
         }
