@@ -86,15 +86,7 @@ namespace Assets.MapGeneration
                 {
                     if (!map.IsEmpty(x, mapY))
                     {
-                        try
-                        {
-                            redrawShapes[x][y] = GetShapeId(x, y);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.Log(e);
-                        }
-
+                        redrawShapes[x][y] = GetShapeId(x, y);
                         CheckMergeShapes(x, y, redrawShapes[x][y]);
                         FillHoles(x, y, redrawShapes[x][y]);
                     }
