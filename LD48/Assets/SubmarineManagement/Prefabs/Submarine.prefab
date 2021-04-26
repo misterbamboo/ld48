@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingQuantity: 100
   startingCapacity: 100
-  reductionPerSecWhenNoOxy: 3.3333333
+  reductionPerSecWhenNoOxy: 20
 --- !u!1 &2600009436886374461
 GameObject:
   m_ObjectHideFlags: 0
