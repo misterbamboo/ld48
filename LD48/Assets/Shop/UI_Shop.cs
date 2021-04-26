@@ -29,7 +29,7 @@ public class UI_Shop : MonoBehaviour
     {
         
         
-        createUpgradeButton(Upgrade.UpgradeType.HealthUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HealthUpgrade), "Health upgrade", Upgrade.getCost(Upgrade.UpgradeType.HealthUpgrade),0);
+        createUpgradeButton(Upgrade.UpgradeType.HealthUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HealthUpgrade), "Health pack", Upgrade.getCost(Upgrade.UpgradeType.HealthUpgrade),0);
         createUpgradeButton(Upgrade.UpgradeType.OxygenUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.OxygenUpgrade), "Oxygen upgrade", Upgrade.getCost(Upgrade.UpgradeType.OxygenUpgrade),1);
         createUpgradeButton(Upgrade.UpgradeType.LightUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.LightUpgrade), "Light upgrade", Upgrade.getCost(Upgrade.UpgradeType.LightUpgrade),2);
         createUpgradeButton(Upgrade.UpgradeType.SpeedUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.SpeedUpgrade), "Speed upgrade", Upgrade.getCost(Upgrade.UpgradeType.SpeedUpgrade),3);
