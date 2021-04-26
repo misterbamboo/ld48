@@ -7,25 +7,16 @@ public class BoatStore : MonoBehaviour
 {
     [SerializeField] private GameObject textSellInventory;
 
-    private float inventoryReward;
-    
-    // Start is called before the first frame update
     void Start()
     {
         textSellInventory.SetActive(false);
-        inventoryReward = 0;
     }
-
     
     private void OnTriggerStay(Collider collision)
     {
         if (collision.CompareTag("Player"))
         {
             textSellInventory.SetActive(true);
-            if (Input.GetKey(KeyCode.E))
-            {
-                // sellInventory();
-            }
         }
     }
 
@@ -36,17 +27,4 @@ public class BoatStore : MonoBehaviour
             textSellInventory.SetActive(false);
         }
     }
-
-    
-    /*
-    private void sellInventory()
-    {
-        print("Sold inventory!");
-        //Boucle sur l'inventaire
-        for (int i = 0; i < InventoryManager.inventory.Count; i++)
-        {
-            
-        }
-    }
-    */
 }

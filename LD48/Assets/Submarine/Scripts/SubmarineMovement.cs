@@ -19,6 +19,16 @@ namespace Assets.SubmarineManagement.Scripts
 
         void FixedUpdate()
         {
+            if(!Game.Instance.GameOver)
+            {
+                Move();
+            }
+
+            OutsideWaterForce();
+        }
+
+        private void Move()
+        {
             if (Input.GetAxisRaw("Vertical") > 0)
             {
                 rb.AddForce(new Vector2(0, moveSpeed));
@@ -38,8 +48,6 @@ namespace Assets.SubmarineManagement.Scripts
             {
                 rb.AddForce(new Vector2(-moveSpeed, 0));
             }
-
-            OutsideWaterForce();
         }
 
         private void OutsideWaterForce()

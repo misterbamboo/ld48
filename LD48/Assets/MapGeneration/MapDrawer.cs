@@ -87,12 +87,17 @@ namespace Assets.MapGeneration
 
         private void DrawRessource(int x, int y)
         {
-            if (map.IsRessource(x, y, MapCellType.Copper))
+            if (map.IsRessource(x, y))
             {
                 int unityTranslatedY = -y;
 
-                var copper = RessourcePooler.Instance.GetOne(MapCellType.Copper);
-                copper.transform.position = new Vector3(x, unityTranslatedY, 0);
+                var ressource = RessourcePooler.Instance.GetOne(map.GetCellType(x, y));
+
+                var ressourceDef = ressource.GetComponent<IRessource>();
+                ressourceDef.SpawnX = x;
+                ressourceDef.SpawnY = y;
+
+                ressource.transform.position = new Vector3(x, unityTranslatedY, 0);
             }
         }
     }

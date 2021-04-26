@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Ressources;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,11 @@ namespace Assets.MapGeneration
             }
         }
 
+        public void RemoveRessource(IRessource ressource)
+        {
+            mapRows[ressource.SpawnY][ressource.SpawnX] = MapCellType.Terrain;
+        }
+
         private int GetCircleMinXRange(int lastX, int radius, int dispersion)
         {
             var minX = lastX - radius * dispersion;
@@ -141,20 +147,36 @@ namespace Assets.MapGeneration
                 {
                     if (mapRows[y][x] == MapCellType.Terrain)
                     {
-                        var randomValue = Random.value;
-                        bool spawnCopper = randomValue < config.ressourceGenerationCopperPercent;
-                        if (spawnCopper)
+                        IEnumerable<MapCellType> possibleRessources = RessourceChances.GetPossibilities(y);
+                        foreach (var possibleRessource in possibleRessources)
                         {
-                            mapRows[y][x] = MapCellType.Copper;
+                            var randomValue = Random.value;
+                            bool spawnRessource = randomValue < RessourceChances.GetChanceFor(possibleRessource, y);
+                            if (spawnRessource)
+                            {
+                                mapRows[y][x] = possibleRessource;
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
 
-        public bool IsRessource(int x, int y, MapCellType mapCellType)
+        public bool IsRessource(int x, int y)
         {
-            return mapRows[y][x] == mapCellType;
+            return
+                mapRows[y][x] == MapCellType.Iron ? true :
+                mapRows[y][x] == MapCellType.Copper ? true :
+                mapRows[y][x] == MapCellType.Gold ? true :
+                mapRows[y][x] == MapCellType.Platinum ? true :
+                mapRows[y][x] == MapCellType.Diamond ? true :
+                false;
+        }
+
+        public MapCellType GetCellType(int x, int y)
+        {
+            return mapRows[y][x];
         }
     }
 }

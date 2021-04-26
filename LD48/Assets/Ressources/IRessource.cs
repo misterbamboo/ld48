@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Assets.Ressources
 {
-    interface IRessource
+    public interface IRessource
     {
         string Name { get; }
 
         int SellPrice { get; }
 
         int BuyPrice { get; }
+        int SpawnX { get; set; }
+        int SpawnY { get; set; }
 
         bool IsConsume();
 

@@ -43,4 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d0621895491304ca5fc7b82400a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IronPrefab: {fileID: 4008060087431541605, guid: c193b1669c4aa314590d172ec80bb850, type: 3}
   CopperPrefab: {fileID: 4008060087431541605, guid: 751edd90f5ef0f74da61f37daae84607, type: 3}
+  GoldPrefab: {fileID: 4008060087431541605, guid: d0a8c96f16f4bc34080cbd7f251f1567, type: 3}
+  PlatinumPrefab: {fileID: 4008060087431541605, guid: 65620fdfad6e9c5448d9aa1911a94b6f, type: 3}
+  DiamondPrefab: {fileID: 4008060087431541605, guid: 42d9e4e3c49ef1744adb0ad905bc36d6, type: 3}
+  PoolerSize: 100

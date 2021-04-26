@@ -38,7 +38,7 @@ namespace Assets.OxygenManagement
 
         void Update()
         {
-            if (Submarine.Instance.Deepness > 0)
+            if (Submarine.Instance.Deepness > 0 && !Game.Instance.Invincible)
             {
                 Quantity -= Time.deltaTime * reductionPerSec;
             }

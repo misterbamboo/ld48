@@ -17,19 +17,39 @@ namespace Assets.Ressources
         public static IRessourcePooler Instance { get; private set; }
 
         [Header("Prefabs")]
+        [SerializeField] private GameObject IronPrefab;
         [SerializeField] private GameObject CopperPrefab;
+        [SerializeField] private GameObject GoldPrefab;
+        [SerializeField] private GameObject PlatinumPrefab;
+        [SerializeField] private GameObject DiamondPrefab;
 
-        [SerializeField] private int CopperPoolerSize = 200;
+        private Dictionary<MapCellType, GameObject> prefabPerRessourceType;
+
+        [SerializeField] private int PoolerSize = 100;
 
         private Dictionary<MapCellType, List<GameObject>> generated;
 
         private void Awake()
         {
-            generated = new Dictionary<MapCellType, List<GameObject>>();
-            for (int i = 0; i < CopperPoolerSize; i++)
+            prefabPerRessourceType = new Dictionary<MapCellType, GameObject>()
             {
+                { MapCellType.Iron, IronPrefab },
+                { MapCellType.Copper, CopperPrefab },
+                { MapCellType.Gold, GoldPrefab },
+                { MapCellType.Platinum, PlatinumPrefab },
+                { MapCellType.Diamond, DiamondPrefab },
+            };
+
+            generated = new Dictionary<MapCellType, List<GameObject>>();
+            for (int i = 0; i < PoolerSize; i++)
+            {
+                GetOne(MapCellType.Iron).SetActive(false);
                 GetOne(MapCellType.Copper).SetActive(false);
+                GetOne(MapCellType.Gold).SetActive(false);
+                GetOne(MapCellType.Platinum).SetActive(false);
+                GetOne(MapCellType.Diamond).SetActive(false);
             }
+
             Instance = this;
         }
 
@@ -37,16 +57,20 @@ namespace Assets.Ressources
         {
             switch (mapCellType)
             {
+                case MapCellType.Iron:
                 case MapCellType.Copper:
+                case MapCellType.Gold:
+                case MapCellType.Platinum:
+                case MapCellType.Diamond:
                     return GetGameObjectOf(mapCellType);
                 default:
                     throw new NotImplementedException("Ressource prefab unknowned");
             }
         }
 
-        private GameObject GetGameObjectOf(MapCellType mapCellType)
+        private GameObject GetGameObjectOf(MapCellType ressourceType)
         {
-            var generatedCandidates = GetGeneratedGameObjects(mapCellType);
+            var generatedCandidates = GetGeneratedGameObjects(ressourceType);
             var inactiveGameObject = generatedCandidates.FirstOrDefault(g => !g.activeInHierarchy);
 
             if (inactiveGameObject != null)
@@ -56,7 +80,8 @@ namespace Assets.Ressources
             }
             else
             {
-                var newInstance = Instantiate(CopperPrefab, transform);
+                var prefab = prefabPerRessourceType[ressourceType];
+                var newInstance = Instantiate(prefab, transform);
                 generatedCandidates.Add(newInstance);
                 return newInstance;
             }

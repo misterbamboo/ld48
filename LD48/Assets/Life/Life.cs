@@ -11,6 +11,8 @@ public interface ILife
     float Quantity { get; }
 
     float Capacity { get; }
+
+    bool IsDead { get; }
 }
 
 public class Life : MonoBehaviour, ILife
@@ -22,6 +24,8 @@ public class Life : MonoBehaviour, ILife
     public float Capacity { get; private set; }
 
     public bool LosingLife { get; private set; }
+
+    public bool IsDead => Quantity <= 0;
 
     [SerializeField] private float startingQuantity = 100;
     [SerializeField] private float startingCapacity = 100;
@@ -41,7 +45,7 @@ public class Life : MonoBehaviour, ILife
     void Update()
     {
         var losingLife = false;
-        if (Oxygen.Instance.Quantity <= 0)
+        if (Oxygen.Instance.Quantity <= 0 && !Game.Instance.Invincible)
         {
             Quantity -= Time.deltaTime * reductionPerSecWhenNoOxy;
             losingLife = true;

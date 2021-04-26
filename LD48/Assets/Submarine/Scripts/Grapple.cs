@@ -37,14 +37,19 @@ public class Grapple : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !isPulling)
+        HandleGrapple();
+    }
+
+    private void HandleGrapple()
+    {
+        if (IsClicking() && !isPulling)
         {
             SetGrapplingRequirement();
 
             StartHooking();
         }
-        else if (Input.GetButtonUp("Fire1"))
-        {            
+        else if (ReleaseClick())
+        {
             isPulling = true;
             StartCoroutine(BackResetWithTimer());
         }
@@ -60,6 +65,16 @@ public class Grapple : MonoBehaviour
         }
 
         MoveHookTipOfRope();
+    }
+
+    private static bool IsClicking()
+    {
+        return Input.GetButtonDown("Fire1") && !Game.Instance.GameOver;
+    }
+
+    private static bool ReleaseClick()
+    {
+        return Game.Instance.GameOver || Input.GetButtonUp("Fire1");
     }
 
     public void PullTarget()
@@ -88,7 +103,7 @@ public class Grapple : MonoBehaviour
         if (isPulling)
         {
             ResetGrapplingRequirement();
-        }      
+        }
     }
 
     void StartHooking()
@@ -134,7 +149,7 @@ public class Grapple : MonoBehaviour
 
         var distanceRemaining = Vector2.Distance(firePoint.position, hookPos);
 
-        return distanceRemaining < 0.5f || (objectToPull != null && objectToPull.GetComponent<IRessource>().IsConsume());        
+        return distanceRemaining < 0.5f || (objectToPull != null && objectToPull.GetComponent<IRessource>().IsConsume());
     }
 
     void SetGrapplingRequirement()
