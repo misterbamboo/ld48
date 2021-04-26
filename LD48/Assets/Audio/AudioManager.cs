@@ -34,6 +34,7 @@ public class AudioManager : MonoBehaviour
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
         musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.loop = true;
         PlayMusic(currentMusic);
 
         foreach (var s in sounds)

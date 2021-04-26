@@ -60,13 +60,13 @@ MonoBehaviour:
   musics:
   - musicName: 1
     minValue: -2147483648
-    maxValue: 200
+    maxValue: 100
   - musicName: 2
-    minValue: 200
-    maxValue: 600
+    minValue: 100
+    maxValue: 300
   - musicName: 3
-    minValue: 600
-    maxValue: 1000
+    minValue: 300
+    maxValue: 500
   - musicName: 4
-    minValue: 1000
+    minValue: 500
     maxValue: 2147483647

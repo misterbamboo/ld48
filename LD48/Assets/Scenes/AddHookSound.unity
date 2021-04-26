@@ -545,7 +545,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3510980042980814802, guid: 990e12ad6dc5620449ae3096b7d1be77, type: 3}
       propertyPath: m_Name
-      value: OxygenCanvas
+      value: StatsCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 3510980042980814814, guid: 990e12ad6dc5620449ae3096b7d1be77, type: 3}
       propertyPath: m_Pivot.x
@@ -640,30 +640,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 378928028512113092, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
-      propertyPath: musics.Array.data[0].maxValue
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 378928028512113092, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
-      propertyPath: musics.Array.data[1].maxValue
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 378928028512113092, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
-      propertyPath: musics.Array.data[1].minValue
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 378928028512113092, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
-      propertyPath: musics.Array.data[2].maxValue
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 378928028512113092, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
-      propertyPath: musics.Array.data[2].minValue
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 378928028512113092, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
-      propertyPath: musics.Array.data[3].minValue
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 4052326934724473384, guid: 48172d20e5d88d54b80c47cca0a7a571, type: 3}
       propertyPath: m_Name
       value: DeepnessManagement
