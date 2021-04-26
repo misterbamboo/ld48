@@ -72,12 +72,12 @@ public class Grapple : MonoBehaviour
 
     private static bool IsClicking()
     {
-        return Input.GetButtonDown("Fire1") && !Game.Instance.GameOver;
+        return Input.GetButtonDown("Fire1") && !Game.Instance.GameOver && !Game.Instance.InShopMenu;
     }
 
     private static bool ReleaseClick()
     {
-        return Game.Instance.GameOver || Input.GetButtonUp("Fire1");
+        return Game.Instance.GameOver || Input.GetButtonUp("Fire1") || Game.Instance.InShopMenu;
     }
 
     public void PullTarget()
