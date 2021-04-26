@@ -12,9 +12,20 @@ namespace Assets
         int Deepness { get; }
 
         float SensitiveDeepness { get; }
+        
+        bool SpeedUpgradeBought { get; set; }
+        
+        bool OxygenUpgradeBought { get; set; }
+        
+        bool LifeUpgradeBought { get; set; }
+        
+        bool LightUpgradeBought { get; set; }
+        bool HookUpgradeBought { get; set; }
+        
+        bool HullUpgradeBought { get; set; }
     }
 
-    public class Submarine : MonoBehaviour, ISubmarine
+    public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
     {
         public static ISubmarine Instance { get; private set; }
 
@@ -24,6 +35,16 @@ namespace Assets
 
         public float SensitiveDeepness => -Mathf.Clamp(transform.position.y, float.MinValue, 0);
 
+        public bool SpeedUpgradeBought { get; set; } = false;
+        public bool OxygenUpgradeBought { get; set; }
+        public bool LifeUpgradeBought { get; set; }
+        
+        public bool LightUpgradeBought { get; set; }
+
+        public bool HookUpgradeBought { get; set; }
+        
+        public bool HullUpgradeBought { get; set; }
+        
         private Rigidbody rb;
 
         private void Awake()
@@ -37,9 +58,65 @@ namespace Assets
             rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
+        private void IncreaseOxygen()
         {
-            //transform.position = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+            OxygenUpgradeBought = true;
+        }
+        private void IncreaseHealth()
+        {
+            LifeUpgradeBought = true;
+        }
+        private void IncreaseLight()
+        {
+            LightUpgradeBought = true;
+        }
+        private void IncreaseSpeed()
+        {
+            SpeedUpgradeBought = true;
+        }
+        private void IncreaseHook()
+        {
+            HookUpgradeBought = true;
+        }
+        
+        private void IncreaseHull()
+        {
+            HullUpgradeBought = true;
+        }
+
+        public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
+        {
+
+            switch (upgradeType)
+            {
+                case Upgrade.UpgradeType.OxygenUpgrade:  IncreaseOxygen();
+                    break;
+                case Upgrade.UpgradeType.HealthUpgrade:  IncreaseHealth();
+                    break;
+                case Upgrade.UpgradeType.LightUpgrade:  IncreaseLight();
+                    break;
+                case Upgrade.UpgradeType.SpeedUpgrade:  IncreaseSpeed();
+                    break;
+                case Upgrade.UpgradeType.HookUpgrade:  IncreaseHook();
+                    break;
+                case Upgrade.UpgradeType.HullUpgrade:  IncreaseHull();
+                    break;
+               
+            }
+        }
+
+        public bool TrySpendMoneyAmount(int spendMoneyAmount)
+        {
+            if (InventoryManager.Instance.inventoryReward >= spendMoneyAmount)
+            {
+                InventoryManager.Instance.inventoryReward -= spendMoneyAmount;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

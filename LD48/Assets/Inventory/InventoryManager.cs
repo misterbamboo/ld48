@@ -42,7 +42,6 @@ public class InventoryManager : MonoBehaviour
         if (ressource != null)
         {
             hasInventory = true;
-            print("ressource name: " + ressource.Name);
 
             if (ressource.Name.Equals("Gold"))
             {

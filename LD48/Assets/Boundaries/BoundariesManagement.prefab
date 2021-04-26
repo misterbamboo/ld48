@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2041716660}
   - component: {fileID: 2041716659}
   - component: {fileID: 2041716658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4758,7 +4758,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: adf667733cadfe64784a9d4ec8da6a0b, type: 2}
   - {fileID: 2100000, guid: adf667733cadfe64784a9d4ec8da6a0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4815,7 +4815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5182043429641311715}
   - component: {fileID: 6668085224794696861}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CapsuleRightRotation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4860,7 +4860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9170303488734876799}
   - component: {fileID: 8944263712137896287}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4909,7 +4909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932427296529796798}
   - component: {fileID: 3816888730247413887}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CapsuleLeftRotation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4955,7 +4955,7 @@ GameObject:
   - component: {fileID: 5806279156032618379}
   - component: {fileID: 319940523696513077}
   - component: {fileID: 6929653434220052732}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9702,7 +9702,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: adf667733cadfe64784a9d4ec8da6a0b, type: 2}
   - {fileID: 2100000, guid: adf667733cadfe64784a9d4ec8da6a0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9806,7 +9806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8939438601197124358}
   - component: {fileID: 8939438601197124359}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CapsuleLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9846,7 +9846,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9888,7 +9888,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8939438601231628810}
   - component: {fileID: 8939438601231628811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CapsuleRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9928,7 +9928,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

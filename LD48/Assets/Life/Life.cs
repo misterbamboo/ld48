@@ -2,6 +2,7 @@ using Assets.OxygenManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 
 public interface ILife
@@ -53,5 +54,27 @@ public class Life : MonoBehaviour, ILife
 
         LosingLife = losingLife;
         Quantity = Mathf.Clamp(Quantity, 0, Capacity);
+
+        UpdateLife();
+    }
+
+    private void UpdateLife()
+    {
+        if (Submarine.Instance.LifeUpgradeBought)
+        {
+            Quantity += 25;
+            Submarine.Instance.LifeUpgradeBought = false;
+        }
+
+        if (Submarine.Instance.HullUpgradeBought)
+        {
+            if (Submarine.Instance.HullUpgradeBought)
+            {
+                Capacity += 25;
+                Quantity += 25;
+                Submarine.Instance.HullUpgradeBought = false;
+                print("Hull upgraded hheeeheee");
+            }
+        }
     }
 }
