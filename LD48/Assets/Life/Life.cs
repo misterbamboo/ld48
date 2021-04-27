@@ -14,6 +14,8 @@ public interface ILife
     float Capacity { get; }
 
     bool IsDead { get; }
+
+    void Hit(float damaga);
 }
 
 public class Life : MonoBehaviour, ILife
@@ -62,10 +64,25 @@ public class Life : MonoBehaviour, ILife
     {
         if (Submarine.Instance.LifeUpgradeBought)
         {
-           // Capacity = Capacity * 1.5f;
-            //startingCapacity = startingCapacity * 1.5f;
             Quantity += 25;
             Submarine.Instance.LifeUpgradeBought = false;
         }
+
+        if (Submarine.Instance.HullUpgradeBought)
+        {
+            if (Submarine.Instance.HullUpgradeBought && Quantity != Capacity)
+            {
+                Capacity += 25;
+                Quantity += 25;
+                Submarine.Instance.HullUpgradeBought = false;
+                print("Hull upgraded hheeeheee");
+            }
+        }
+    }
+
+    public void Hit(float damage)
+    {
+        Quantity = Mathf.Clamp(Quantity - damage, 0, Capacity);
+        LosingLife = true;
     }
 }

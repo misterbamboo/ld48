@@ -12,15 +12,17 @@ namespace Assets
         int Deepness { get; }
 
         float SensitiveDeepness { get; }
-        
+
         bool SpeedUpgradeBought { get; set; }
-        
+
         bool OxygenUpgradeBought { get; set; }
-        
+
         bool LifeUpgradeBought { get; set; }
-        
+
         bool LightUpgradeBought { get; set; }
         bool HookUpgradeBought { get; set; }
+
+        bool HullUpgradeBought { get; set; }
     }
 
     public class Submarine : MonoBehaviour, ISubmarine, IShopCustomer
@@ -36,12 +38,14 @@ namespace Assets
         public bool SpeedUpgradeBought { get; set; } = false;
         public bool OxygenUpgradeBought { get; set; }
         public bool LifeUpgradeBought { get; set; }
-        
+
         public bool LightUpgradeBought { get; set; }
 
         public bool HookUpgradeBought { get; set; }
-        
-        private Rigidbody rb;
+
+        public bool HullUpgradeBought { get; set; }
+
+        private Rigidbody2D rb;
 
         private void Awake()
         {
@@ -51,7 +55,22 @@ namespace Assets
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody2D>();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            var wall = collision.gameObject.GetComponent<PolygonCollider2D>();
+            if (wall != null)
+            {
+                if (rb.velocity.magnitude < 1)
+                {
+                    return;
+                }
+
+                var damage = (rb.velocity.magnitude - 1) * 2;
+                Life.Instance.Hit(damage);
+            }
         }
 
         private void IncreaseOxygen()
@@ -75,23 +94,37 @@ namespace Assets
             HookUpgradeBought = true;
         }
 
+        private void IncreaseHull()
+        {
+            HullUpgradeBought = true;
+        }
+
         public void BoughtUpgrade(Upgrade.UpgradeType upgradeType)
         {
 
             switch (upgradeType)
             {
-                case Upgrade.UpgradeType.OxygenUpgrade:  IncreaseOxygen();
+                case Upgrade.UpgradeType.OxygenUpgrade:
+                    IncreaseOxygen();
                     break;
-                case Upgrade.UpgradeType.HealthUpgrade:  IncreaseHealth();
+                case Upgrade.UpgradeType.HealthUpgrade:
+                    IncreaseHealth();
                     break;
-                case Upgrade.UpgradeType.LightUpgrade:  IncreaseLight();
+                case Upgrade.UpgradeType.LightUpgrade:
+                    IncreaseLight();
                     break;
-                case Upgrade.UpgradeType.SpeedUpgrade:  IncreaseSpeed();
+                case Upgrade.UpgradeType.SpeedUpgrade:
+                    IncreaseSpeed();
                     break;
-                case Upgrade.UpgradeType.HookUpgrade:  IncreaseHook();
+                case Upgrade.UpgradeType.HookUpgrade:
+                    IncreaseHook();
                     break;
-               
+                case Upgrade.UpgradeType.HullUpgrade:
+                    IncreaseHull();
+                    break;
+
             }
+            AudioManager.Instance.PlaySound(SoundName.upgrade1);
         }
 
         public bool TrySpendMoneyAmount(int spendMoneyAmount)

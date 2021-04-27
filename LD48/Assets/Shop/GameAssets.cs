@@ -11,7 +11,7 @@ public class GameAssets : MonoBehaviour
     [SerializeField] public Sprite oxygenUpgradeImage;
     [SerializeField] public Sprite speedUpgradeImage;
     [SerializeField] public Sprite hookUpgradeImage;
-   
+    [SerializeField] public Sprite hullUpgradeImage;
     
     private void Awake()
     {

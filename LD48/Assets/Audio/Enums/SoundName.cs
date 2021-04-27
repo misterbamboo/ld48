@@ -7,5 +7,7 @@ public enum SoundName
     hook1,
     hook2,
     hook3,
+    upgrade1,
+    sellRessources,
     material1
 }
