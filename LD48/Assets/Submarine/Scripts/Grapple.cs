@@ -72,7 +72,7 @@ public class Grapple : MonoBehaviour
 
     private static bool IsClicking()
     {
-        return Input.GetButtonDown("Fire1") && !Game.Instance.GameOver && !Game.Instance.InShopMenu;
+        return Input.GetButtonDown("Fire1") && !Game.Instance.GameOver && !Game.Instance.InShopMenu && !Game.Instance.InGameMenu;
     }
 
     private static bool ReleaseClick()
@@ -183,8 +183,7 @@ public class Grapple : MonoBehaviour
     private void UpdateLenght()
     {
         if (Submarine.Instance.HookUpgradeBought)
-        {
-            print("hook upgraded");
+        {            
             shootMaxDistance += 2f;
             Submarine.Instance.HookUpgradeBought = false;
         }

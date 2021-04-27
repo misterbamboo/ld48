@@ -23,7 +23,7 @@ namespace Assets.SubmarineManagement.Scripts
 
         void FixedUpdate()
         {
-            if(!Game.Instance.GameOver)
+            if(!Game.Instance.GameOver || !Game.Instance.InGameMenu)
             {
                 Move();
             }
