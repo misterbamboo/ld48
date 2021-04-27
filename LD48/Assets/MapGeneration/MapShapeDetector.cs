@@ -29,7 +29,7 @@ namespace Assets.MapGeneration
             InitRedrawShapes(fromY, toY);
             ScanShapes(fromY, toY);
             ConvertShapesToEdges(fromY);
-            FlushToFile();
+            //FlushToFile();
             return ConvertShapeEdgesToShapes();
         }
 

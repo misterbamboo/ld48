@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596b5ac35214a4847b69d6d810624e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellPrice: 10
+  sellPrice: 20
   buyPrice: 15
 --- !u!1 &4442582656859247638
 GameObject:
