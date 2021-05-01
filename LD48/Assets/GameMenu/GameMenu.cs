@@ -37,12 +37,6 @@ public class GameMenu : MonoBehaviour
 
     public void QuitButton()
     {
-        int index = SceneManager.GetActiveScene().buildIndex;
-        if (index == 1)
-        {
-            SceneManager.LoadScene(0);
-        }
-
-        Application.Quit();        
+        SceneManager.LoadScene(0);
     }
 }
