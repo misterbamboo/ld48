@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class LightManager : MonoBehaviour
 {
-    Light2D myLight;
+    UnityEngine.Rendering.Universal.Light2D myLight;
 
     void Start()
     {
-        myLight = GetComponent<Light2D>();
+        myLight = GetComponent<UnityEngine.Rendering.Universal.Light2D>();
     }
 
     void Update()

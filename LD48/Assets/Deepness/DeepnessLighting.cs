@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class DeepnessLighting : MonoBehaviour
 {
     [SerializeField]
-    Light2D globalLight;
+    UnityEngine.Rendering.Universal.Light2D globalLight;
 
     public static Color whiteLight = HexToColor("#ffffff");
     public static Color surfaceLight = HexToColor("#87fff4");
