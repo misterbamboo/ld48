@@ -20,7 +20,7 @@ public class SubBubbles : MonoBehaviour
 
     void Update()
     {
-        if (!Game.Instance.GameOver)
+        if (Game.Instance.State == GameState.InAction || Game.Instance.State == GameState.InShop)
         {
             side = GetSide(Input.GetAxisRaw("Horizontal"));
             EmitBubblesWhenPressingKeys();

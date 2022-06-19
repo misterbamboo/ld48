@@ -17,7 +17,7 @@ public class GameOverHudController : MonoBehaviour
 
     private void Update()
     {
-        if (Game.Instance.GameOver && !isActive)
+        if (Game.Instance.State == GameState.GameOver)
         {
             isActive = true;
             gameOverPanel.SetActive(isActive);

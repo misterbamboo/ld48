@@ -23,12 +23,11 @@ namespace Assets.SubmarineManagement.Scripts
 
         void FixedUpdate()
         {
-            if(!Game.Instance.GameOver || !Game.Instance.InGameMenu)
+            if(Game.Instance.State == GameState.InAction || Game.Instance.State == GameState.InShop)
             {
                 Move();
+                OutsideWaterForce();
             }
-
-            OutsideWaterForce();
         }
 
         private void Move()

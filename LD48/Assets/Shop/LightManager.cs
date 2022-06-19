@@ -28,7 +28,7 @@ public class LightManager : MonoBehaviour
 
     private void AdjustLight()
     {
-        if (Game.Instance.GameOver)
+        if (Game.Instance.State == GameState.GameOver)
         {
             myLight.intensity = 0.0f;
             return;
