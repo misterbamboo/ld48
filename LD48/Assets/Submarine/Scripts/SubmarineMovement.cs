@@ -8,7 +8,7 @@ namespace Assets.SubmarineManagement.Scripts
 {
     public class SubmarineMovement : MonoBehaviour
     {
-        Rigidbody2D rb;
+        Rigidbody rb;
 
         [SerializeField]
         float moveSpeed;
@@ -18,7 +18,7 @@ namespace Assets.SubmarineManagement.Scripts
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody>();
         }
 
         void FixedUpdate()
@@ -38,45 +38,48 @@ namespace Assets.SubmarineManagement.Scripts
                 return;
             }
 
+            var force = Vector2.zero;
+
             if (Input.GetAxisRaw("Vertical") > 0)
             {
-                rb.AddForce(new Vector2(0, moveSpeed));
+                force += new Vector2(0, moveSpeed);
             }
 
             if (Input.GetAxisRaw("Vertical") < 0)
             {
-                rb.AddForce(new Vector2(0, -moveSpeed));
+                force += new Vector2(0, -moveSpeed);
             }
 
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                rb.AddForce(new Vector2(moveSpeed, 0));
+                force += new Vector2(moveSpeed, 0);
             }
 
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                rb.AddForce(new Vector2(-moveSpeed, 0));
+                force += new Vector2(-moveSpeed, 0);
             }
+
+            rb?.AddForce(force);
 
             UpdateSpeed();            
         }
 
         private void UpdateSpeed()
         {
-            
             if (Submarine.Instance.SpeedUpgradeBought)
             {
                 moveSpeed += 2;
                 Submarine.Instance.SpeedUpgradeBought = false;
             }
-            
         }
 
         private void OutsideWaterForce()
         {
             if (transform.position.y > 0)
             {
-                rb.AddForce(new Vector2(0, -20));
+                var force = new Vector2(0, -20);
+                rb?.AddForce(force);
             }
         }
     }

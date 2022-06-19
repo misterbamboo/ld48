@@ -16,13 +16,13 @@ public class InventoryManager : MonoBehaviour
     }
 
     static List<IRessource> inventory;
-   
+
     public float goldQuantity;
     public float platinumQuantity;
     public float copperQuantity;
     public float diamondQuantity;
     public float ironQuantity;
-    
+
     public float inventoryReward;
     public bool hasInventory;
     public bool canSell;
@@ -36,9 +36,19 @@ public class InventoryManager : MonoBehaviour
         resetInventory();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        CheckRessource(other.gameObject);
+    }
+
     void OnTriggerEnter2D(Collider2D collider2D)
     {
-        var ressource = collider2D.GetComponent<IRessource>();
+        CheckRessource(collider2D.gameObject);
+    }
+
+    private void CheckRessource(GameObject gameObject)
+    {
+        var ressource = gameObject.GetComponent<IRessource>();
         if (ressource != null)
         {
             hasInventory = true;
@@ -69,7 +79,7 @@ public class InventoryManager : MonoBehaviour
 
             // unactive ressource will be recycle
             Map.Instance.RemoveRessource(ressource);
-            collider2D.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
@@ -78,7 +88,7 @@ public class InventoryManager : MonoBehaviour
         if (collision.CompareTag("BoatStore"))
         {
             canSell = true;
-            
+
             if (Input.GetKey(KeyCode.E) && hasInventory)
             {
                 sellInventory();

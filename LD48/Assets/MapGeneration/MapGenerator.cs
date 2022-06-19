@@ -126,6 +126,8 @@ namespace Assets.MapGeneration
             var mapShapeGameObject = Instantiate(mapShapeMeshPrefab);
             mapShapeGameObject.transform.position = new Vector3(0, -toY, 0);
             mapShapeGameObject.GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
+            mapShapeGameObject.GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
+
             // mapShapeGameObject.GetComponent<PolygonCollider2D>().points = // mapShape.OrderedVectors.ToArray();
         }
 

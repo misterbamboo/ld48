@@ -19,9 +19,6 @@ namespace Assets.MapGeneration
         public void Redraw(int fromY, int toY)
         {
             Mesh = GenerateMesh(fromY, toY);
-
-            // Needed ?
-            Mesh.RecalculateBounds();
         }
 
         private Mesh GenerateMesh(int fromY, int toY)
