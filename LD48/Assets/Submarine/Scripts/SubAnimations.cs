@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SubAnimations : MonoBehaviour
@@ -26,13 +23,13 @@ public class SubAnimations : MonoBehaviour
 
     void Update()
     {
-        if (!Game.Instance.GameOver)
+        if (Game.Instance.State == GameState.InAction || Game.Instance.State == GameState.InShop)
         {
             AnalyseMovement();
             ComputeWantedFlip();
             ComputeWantedIncline();
         }
-        else
+        else if (Game.Instance.State == GameState.GameOver)
         {
             // wrantedYAngle = 0f; (don't change flip on gameover)
             wantedIncline = 0f; // stop incline

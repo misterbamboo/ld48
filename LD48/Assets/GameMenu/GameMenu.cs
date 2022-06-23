@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameMenu : MonoBehaviour
 {
+    [SerializeField]
+    GameObject inGameCanvas;
+    
+    [SerializeField]
     Canvas canvas;
 
     private void Awake()
     {
-        canvas = GetComponent<Canvas>();
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             canvas.enabled = true;
@@ -23,10 +26,22 @@ public class GameMenu : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !canvas.enabled)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Game.Instance.InGameMenu = true;
-            canvas.enabled = true;
+            if (!canvas.enabled)
+            {
+                Game.Instance.ChangeState(GameState.InGameMenu);
+                canvas.enabled = true;
+                inGameCanvas.SetActive(false);
+            }
+            else
+            {
+                Game.Instance.ChangeState(GameState.InAction);
+                canvas.enabled = false;
+                inGameCanvas.SetActive(true);
+            }
+
+            PauseGame(canvas.enabled);
         }
     }
 
@@ -38,5 +53,17 @@ public class GameMenu : MonoBehaviour
     public void QuitButton()
     {
         SceneManager.LoadScene(0);
+    }
+
+    void PauseGame(bool isGamePause)
+    {
+        if (isGamePause)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }

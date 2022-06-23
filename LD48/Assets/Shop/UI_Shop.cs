@@ -26,9 +26,7 @@ public class UI_Shop : MonoBehaviour
     }
 
     private void Start()
-    {
-        
-        
+    {                
         createUpgradeButton(Upgrade.UpgradeType.HealthUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.HealthUpgrade), "Health pack", Upgrade.getCost(Upgrade.UpgradeType.HealthUpgrade),0);
         createUpgradeButton(Upgrade.UpgradeType.OxygenUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.OxygenUpgrade), "Oxy upgrade", Upgrade.getCost(Upgrade.UpgradeType.OxygenUpgrade),1);
         createUpgradeButton(Upgrade.UpgradeType.LightUpgrade, Upgrade.getSprite(Upgrade.UpgradeType.LightUpgrade), "Light upgrade", Upgrade.getCost(Upgrade.UpgradeType.LightUpgrade),2);
@@ -74,13 +72,13 @@ public class UI_Shop : MonoBehaviour
     {
         this.shopCustomer = shopCustomer;
         gameObject.SetActive(true);
-        Game.Instance.InShopMenu = true;
+        Game.Instance.ChangeState(GameState.InShop);
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
-        Game.Instance.InShopMenu = false;
+        Game.Instance.ChangeState(GameState.InAction);
     }
 
 }

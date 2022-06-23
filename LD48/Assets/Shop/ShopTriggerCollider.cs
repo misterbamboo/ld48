@@ -13,9 +13,7 @@ public class ShopTriggerCollider : MonoBehaviour
         if (shopCustomer != null)
         {
             uiShop.Show(shopCustomer);
-        }
-
-        
+        }        
     }
 
     private void OnTriggerExit2D(Collider2D collider)

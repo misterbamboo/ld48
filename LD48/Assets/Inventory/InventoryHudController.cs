@@ -41,7 +41,7 @@ public class InventoryHudController : MonoBehaviour
 
     private void ShowCanSellLabel()
     {
-        bool showLabel = InventoryManager.Instance.canSell && !Game.Instance.GameOver;
+        bool showLabel = InventoryManager.Instance.canSell && Game.Instance.State == GameState.InAction;
         textSellInventory.gameObject.SetActive(showLabel);
     }
 }

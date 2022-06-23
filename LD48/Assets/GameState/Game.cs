@@ -3,28 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    InAction,
+    InShop,
+    InGameMenu,
+    GameOver,
+}
+
 public interface IGame
 {
-    bool GameOver { get; }
+    public GameState State { get; }
 
-    bool Invincible { get; }
+    public bool Invincible { get; }
 
-    bool InShopMenu { get; set; }
-    
-    bool InGameMenu { get; set; }
+    public void ChangeState(GameState state);
 }
 
 public class Game : MonoBehaviour, IGame
 {
     public static IGame Instance { get; set; }
 
-    public bool GameOver { get; private set; }
-
     public bool Invincible { get; private set; }
 
-    public bool InShopMenu { get; set; }
+    public GameState State { get; private set; }
 
-    public bool InGameMenu { get; set; }
 
     private void Awake()
     {
@@ -40,8 +43,13 @@ public class Game : MonoBehaviour, IGame
 
         if (Life.Instance.IsDead)
         {
-            GameOver = true;
+            ChangeState(GameState.GameOver);
         }
+    }
+
+    public void ChangeState(GameState state)
+    {
+        State = state;
     }
 
     private void ToggleInvincibility()
