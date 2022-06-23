@@ -1,46 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Hook : MonoBehaviour
 {
-    [SerializeField]
-    SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Rigidbody2D myRigidBody;
+    [SerializeField] DistanceJoint2D joint;
+    [SerializeField] Transform firePoint;
 
-    Vector3 targetPos;
+    private float hookdistanceLastFrame = 0;
 
-    void FixedUpdate()
+    void Start()
     {
-        UpdateRotation();
+        gameObject.SetActive(false);
     }
 
-    public void SetTarget(Vector3 target)
+    void Update()
     {
-        this.targetPos = target;
-    }
-
-    public void Active(bool value)
-    {
-        spriteRenderer.enabled = value;      
-    }
-
-    public bool IsActive()
-    { 
-        return spriteRenderer.enabled;
-    }
-
-    void UpdateRotation()
-    {
-        if (!IsActive())
+        // when the hook is moving, rotate it facing awaiy from the submarine
+        if (myRigidBody.velocity.magnitude > 0.1f)
         {
-            return;
+            var angle = Mathf.Atan2(transform.position.y - firePoint.position.y, transform.position.x - firePoint.position.x) * Mathf.Rad2Deg;
+            spriteRenderer.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+    }
 
-        Vector3 dir = targetPos - transform.position;
-        if ((dir.x > 0.1 || dir.x < -0.1) && (dir.y > 0.1 || dir.y < -0.1))
-        {
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
+    public void Fire(float hookFireStrenght, float angle)
+    {
+        gameObject.SetActive(true);
+        spriteRenderer.transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+
+        var angleVector = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        myRigidBody.AddForce(angleVector * hookFireStrenght * 5, ForceMode2D.Impulse);
     }
 }
