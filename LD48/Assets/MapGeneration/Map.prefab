@@ -217,12 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapConfiguration:
     width: 100
-    circlesPerGeneration: 75
-    circlesGenerationDispersionMin: 5
-    circlesGenerationDispersionMax: 8
-    circleMinRadius: 6
-    circleMaxRadius: 18
-    circleRadiusAddedNoise: 1
+    deepnessDensityMultiplicator: 0.04
+    deepnessDensityHeight: 0.4
   numberOfPaths: 2
   minPathSize: 8
   maxPathSize: 16
