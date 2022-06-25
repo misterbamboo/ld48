@@ -1,15 +1,10 @@
 using UnityEngine;
-using System.Linq;
-using Assets.Ressources;
 
 namespace Assets.MapGeneration
 {
     public class MapGenerator : MonoBehaviour
     {
         [SerializeField] private MapConfig mapConfiguration;
-        [SerializeField] private int numberOfPaths = 5;
-        [SerializeField] private int minPathSize = 5;
-        [SerializeField] private int maxPathSize = 20;
 
         [SerializeField] private int playerViewBuffer = 100;
         [SerializeField] private Transform playerPosition;
@@ -25,8 +20,6 @@ namespace Assets.MapGeneration
 
         private MapDrawer mapDrawer;
 
-        private MapCollider mapCollider;
-
         private int lastPlayerPageIndex = int.MinValue;
 
         private GameObject mapShapeGameObject;
@@ -40,7 +33,6 @@ namespace Assets.MapGeneration
         {
             map = new Map(mapConfiguration);
             mapDrawer = new MapDrawer(map);
-            mapCollider = new MapCollider(map);
 
             GenerateNewPage(playerViewBuffer);
             UpdatePageView();
@@ -93,20 +85,6 @@ namespace Assets.MapGeneration
             var currentPageToY = (lastPlayerPageIndex + 1) * playerViewBuffer;
 
             mapDrawer.ReplaceRessources(currentPageFromY, currentPageToY);
-
-            BoxCollider2DPooler.Instance.RecycleOutOfRange(currentPageFromY, currentPageToY);
-
-            bool oldGen = false;
-            if (oldGen)
-            {
-                var poligons = mapCollider.GetCollisionPoints(currentPageFromY, currentPageToY);
-                for (int i = 0; i < poligons.Count(); i++)
-                {
-                    var polygon = poligons.ElementAt(i);
-                    var boxCollider = BoxCollider2DPooler.Instance.GetOne();
-                    boxCollider.transform.position = polygon[0];
-                }
-            }
         }
 
         private void DrawPage(int fromY, int toY)
