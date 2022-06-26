@@ -26,6 +26,7 @@ namespace Assets.MapGeneration
             var height = toY - fromY;
             var surface = new MeshSurface2D(map.Configuration.width, height)
             {
+                FillMinGrayScale = 0.1f,
                 MeshSizeScale = 1,
             };
 

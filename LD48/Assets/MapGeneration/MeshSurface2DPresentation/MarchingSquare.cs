@@ -434,25 +434,25 @@ namespace MeshSurface2DPresentation
         // Point between BottomLeft and TopLeft
         private Vector2 APos()
         {
-            return GetInterpolatePoint(BLVal(), TLVal(), BLPos(), TLPos());
+            return GetInterpolatePoint(BLVal(), TLVal(), BLPos(), TLPos(), false);
         }
 
         // Point between TopLeft and TopRight
         private Vector2 BPos()
         {
-            return GetInterpolatePoint(TLVal(), TRVal(), TLPos(), TRPos());
+            return GetInterpolatePoint(TLVal(), TRVal(), TLPos(), TRPos(), true);
         }
 
         // Point between TopRight and BottomRight
         private Vector2 CPos()
         {
-            return GetInterpolatePoint(BRVal(), TRVal(), BRPos(), TRPos());
+            return GetInterpolatePoint(BRVal(), TRVal(), BRPos(), TRPos(), false);
         }
 
         // Point between BottomRight and BottomLeft
         private Vector2 DPos()
         {
-            return GetInterpolatePoint(BLVal(), BRVal(), BLPos(), BRPos());
+            return GetInterpolatePoint(BLVal(), BRVal(), BLPos(), BRPos(), true);
         }
 
         // TopLeft pos
@@ -505,12 +505,28 @@ namespace MeshSurface2DPresentation
 
         private float GetValue(int x, int y)
         {
-            return gridScales[x, y];
+            var rawval = gridScales[x, y];
+            var val = rawval / fillMinGrayScale;
+            return val;
         }
 
-        private Vector2 GetInterpolatePoint(float srcVal, float dstVal, Vector2 srcPos, Vector2 dstPos)
+        private Vector2 GetInterpolatePoint(float srcVal, float dstVal, Vector2 srcPos, Vector2 dstPos, bool horizontal)
         {
-            return Vector2.Lerp(srcPos, dstPos, 0.5f);
+            float firstPart;
+            if (horizontal)
+            {
+                firstPart = srcPos.x + (dstPos.x - srcPos.x);
+            }
+            else
+            {
+                firstPart = srcPos.y + (dstPos.y - srcPos.y);
+            }
+
+            var secondPart = 1 - srcVal;
+            var tirdPart = dstVal - srcVal;
+            var result = firstPart * (secondPart / tirdPart);
+
+            return Vector2.Lerp(srcPos, dstPos, result);
         }
     }
 }
