@@ -1,7 +1,8 @@
-﻿using Assets.Ressources;
-using MeshSurface2DPresentation;
-using System.Collections.Generic;
+﻿using MeshSurface2DPresentation;
+using Assets.Ressources;
+using System;
 using UnityEngine;
+using MeshSurface2DPresentation.ValueProviders;
 
 namespace Assets.MapGeneration
 {
@@ -23,39 +24,9 @@ namespace Assets.MapGeneration
 
         private Mesh GenerateMesh(int fromY, int toY)
         {
-            var height = toY - fromY;
-            var surface = new MeshSurface2D(map.Configuration.width, height)
-            {
-                FillMinGrayScale = 0.1f,
-                MeshSizeScale = 1,
-            };
-
-            var texture2D = GetMapPageAsTexture2D(fromY, toY, height);
-            surface.PrintToMesh(texture2D);
-            return surface.Mesh;
-        }
-
-        private Texture2D GetMapPageAsTexture2D(int fromY, int toY, int height)
-        {
-            var texture2D = new Texture2D(map.Configuration.width, height);
-            for (int x = 0; x < map.Configuration.width; x++)
-            {
-                for (int y = fromY; y < toY; y++)
-                {
-                    var textY = y - fromY;
-                    var topDownRevertedTextY = height - textY;
-                    if (map.IsEmpty(x, y))
-                    {
-                        texture2D.SetPixel(x, topDownRevertedTextY, new Color(0, 0, 0));
-                    }
-                    else
-                    {
-                        texture2D.SetPixel(x, topDownRevertedTextY, new Color(1, 1, 1));
-                    }
-                }
-            }
-
-            return texture2D;
+            var surface = new LerpMeshSurface2D(map.GetTerrainValueProvider(fromY, toY));
+            surface.ChangeScale(1);
+            return surface.CreateMesh();
         }
 
         public void ReplaceRessources(int fromY, int toY)
@@ -80,7 +51,7 @@ namespace Assets.MapGeneration
             {
                 int unityTranslatedY = -y;
 
-                var ressource = RessourcePooler.Instance.GetOne(map.GetCellType(x, y));
+                var ressource = RessourcePooler.Instance.GetOne(map.GetCell(x, y).mapCellType);
 
                 var ressourceDef = ressource.GetComponent<IRessource>();
                 ressourceDef.SpawnX = x;

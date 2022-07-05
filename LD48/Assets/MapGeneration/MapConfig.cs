@@ -5,14 +5,17 @@ namespace Assets.MapGeneration
     [Serializable]
     public class MapConfig
     {
+        public MapConfig()
+        {
+
+        }
+
         public int width = 100;
 
+        // https://www.desmos.com/calculator/vdhgxngtsd
         public float baseNoiseSize = 10;
-
-        // https://www.desmos.com/calculator/dsqneioboj
-        public float deepnessDensityValueMultiplicator = -0.002f;
-        public float deepnessDensityValueSideShift = -1.1f;
-        public float deepnessDensityValueHeightShift = 0.9f;
+        public float deepnessK = 0.02f;
+        public float deepnessWeight = 2;
 
         public float ressourceNoiseSize = 25;
 

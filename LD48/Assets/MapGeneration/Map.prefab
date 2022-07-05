@@ -217,9 +217,8 @@ MonoBehaviour:
   mapConfiguration:
     width: 100
     baseNoiseSize: 10
-    deepnessDensityValueMultiplicator: -0.002
-    deepnessDensityValueSideShift: -1.1
-    deepnessDensityValueHeightShift: 0.9
+    deepnessK: 0.02
+    deepnessWeight: 2
     ressourceNoiseSize: 25
     ressourceDensityValueMultiplicator: 0.1
     ressourceDensityValueHeightShift: 0.1

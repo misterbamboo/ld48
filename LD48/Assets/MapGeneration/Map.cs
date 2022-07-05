@@ -1,4 +1,5 @@
 ﻿using Assets.Ressources;
+using MeshSurface2DPresentation;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,14 +13,19 @@ namespace Assets.MapGeneration
         public MapConfig Configuration => config;
         private MapConfig config;
 
-        private List<MapCellType[]> mapRows;
+        private List<MapCell[]> mapRows;
 
         public int Height => mapRows.Count;
+
+        public IMeshPointValueProvider GetTerrainValueProvider(int fromY, int toY)
+        {
+            return new MapTerrainValueProvider(config, fromY, toY);
+        }
 
         public Map(MapConfig config)
         {
             this.config = config;
-            mapRows = new List<MapCellType[]>();
+            mapRows = new List<MapCell[]>();
 
             Instance = this;
         }
@@ -28,14 +34,14 @@ namespace Assets.MapGeneration
         {
             if (x < 0 || y < 0) return true;
             if (x >= config.width || y >= Height) return true;
-            return mapRows[y][x] == MapCellType.Empty;
+            return mapRows[y][x].mapCellType == MapCellType.Empty;
         }
 
         public void Generate(int count)
         {
             for (int c = 0; c < count; c++)
             {
-                var row = new MapCellType[config.width];
+                var row = new MapCell[config.width];
                 mapRows.Add(row);
             }
             var topY = Height - count;
@@ -46,13 +52,15 @@ namespace Assets.MapGeneration
 
         private void FillRows(int topY, int bottomY)
         {
+            var terrainValueProvider = GetTerrainValueProvider(topY, bottomY);
             for (float x = 0; x < config.width; x++)
             {
                 for (float y = topY; y < bottomY; y++)
                 {
-                    if (ShouldPlaceTerrain(x, y))
+                    float value = terrainValueProvider.ValueAt(x, y);
+                    if (ShouldPlaceTerrain(value))
                     {
-                        PlaceTerrain((int)x, (int)y);
+                        PlaceTerrain((int)x, (int)y, value);
 
                         if (ShouldPlaceRessource(x, y))
                         {
@@ -68,7 +76,10 @@ namespace Assets.MapGeneration
             IEnumerable<MapCellType> possibleRessources = RessourceChances.GetPossibilities((int)y);
             float count = possibleRessources.Count();
             float value = GetRessourceNoiseValue(config.width, x, y);
-            mapRows[(int)y][(int)x] = possibleRessources.ElementAt((int)(value * count));
+            mapRows[(int)y][(int)x] = new MapCell
+            {
+                mapCellType = possibleRessources.ElementAt((int)(value * count))
+            };
         }
 
         private bool ShouldPlaceRessource(float x, float y)
@@ -78,20 +89,9 @@ namespace Assets.MapGeneration
             return ressourceValue < triggerValue;
         }
 
-        private bool ShouldPlaceTerrain(float x, float y)
+        private bool ShouldPlaceTerrain(float value)
         {
-            float value = GetTerrainNoiseValue(config.width, x, y);
-            float triggerValue = GetTerrainTriggerValue(y);
-            return value < triggerValue;
-        }
-
-        private float GetTerrainTriggerValue(float y)
-        {
-            // Get terrain density
-            float divider = y * config.deepnessDensityValueMultiplicator;
-            divider += config.deepnessDensityValueSideShift;
-            float dividedValue = 1 / divider;
-            return dividedValue + config.deepnessDensityValueHeightShift;
+            return value > 1;
         }
 
         private float GetRessourceTriggerValue(float y)
@@ -100,13 +100,6 @@ namespace Assets.MapGeneration
             float divider = y * config.ressourceDensityValueMultiplicator;
             float dividedValue = 1 / divider;
             return dividedValue + config.ressourceDensityValueHeightShift;
-        }
-
-        private float GetTerrainNoiseValue(float mapSize, float x, float y)
-        {
-            float xRatio = x * config.baseNoiseSize / mapSize;
-            float yRatio = y * config.baseNoiseSize / mapSize;
-            return Mathf.PerlinNoise(xRatio, yRatio);
         }
 
         private float GetRessourceNoiseValue(float mapSize, float x, float y)
@@ -118,33 +111,40 @@ namespace Assets.MapGeneration
 
         public void RemoveRessource(IRessource ressource)
         {
-            mapRows[ressource.SpawnY][ressource.SpawnX] = MapCellType.Terrain;
+            mapRows[ressource.SpawnY][ressource.SpawnX] = new MapCell
+            {
+                mapCellType = MapCellType.Terrain
+            };
         }
 
-        private void PlaceTerrain(int x, int y)
+        private void PlaceTerrain(int x, int y, float value)
         {
-            PlaceCellType(x, y, MapCellType.Terrain);
+            PlaceCellType(x, y, MapCellType.Terrain, value);
         }
 
-        private void PlaceCellType(int x, int y, MapCellType mapCellType)
+        private void PlaceCellType(int x, int y, MapCellType mapCellType, float value)
         {
             if (x < 0 || y < 0) return;
             if (x >= config.width || y >= Height) return;
-            mapRows[y][x] = mapCellType;
+            mapRows[y][x] = new MapCell
+            {
+                mapCellType = mapCellType,
+                value = value,
+            };
         }
 
         public bool IsRessource(int x, int y)
         {
             return
-                mapRows[y][x] == MapCellType.Iron ? true :
-                mapRows[y][x] == MapCellType.Copper ? true :
-                mapRows[y][x] == MapCellType.Gold ? true :
-                mapRows[y][x] == MapCellType.Platinum ? true :
-                mapRows[y][x] == MapCellType.Diamond ? true :
+                mapRows[y][x].mapCellType == MapCellType.Iron ? true :
+                mapRows[y][x].mapCellType == MapCellType.Copper ? true :
+                mapRows[y][x].mapCellType == MapCellType.Gold ? true :
+                mapRows[y][x].mapCellType == MapCellType.Platinum ? true :
+                mapRows[y][x].mapCellType == MapCellType.Diamond ? true :
                 false;
         }
 
-        public MapCellType GetCellType(int x, int y)
+        public MapCell GetCell(int x, int y)
         {
             return mapRows[y][x];
         }
