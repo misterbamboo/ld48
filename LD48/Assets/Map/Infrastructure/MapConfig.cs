@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.MapGeneration
+namespace Assets.Map.Infrastructure
 {
     [Serializable]
     public class MapConfig

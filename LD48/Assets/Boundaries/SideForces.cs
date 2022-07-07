@@ -1,7 +1,6 @@
 using Assets;
-using Assets.MapGeneration;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Map;
+using Assets.Map.Domain;
 using UnityEngine;
 
 public class SideForces : MonoBehaviour
@@ -24,9 +23,9 @@ public class SideForces : MonoBehaviour
             var invertForce = -subTransform.position.x * forceResistance;
             subRb.AddForce(new Vector2(invertForce, 0));
         }
-        else if (subTransform.position.x > Map.Instance.Configuration.width)
+        else if (subTransform.position.x > MapScript.Instance.MapSizeBoundries())
         {
-            var invertForce = -(subTransform.position.x - Map.Instance.Configuration.width) * forceResistance;
+            var invertForce = -(subTransform.position.x - MapScript.Instance.MapSizeBoundries()) * forceResistance;
             subRb.AddForce(new Vector2(invertForce, 0));
         }
     }

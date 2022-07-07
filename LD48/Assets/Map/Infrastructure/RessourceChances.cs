@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Assets.Map.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.MapGeneration
+namespace Assets.Map.Infrastructure
 {
     public class RessourceChances
     {

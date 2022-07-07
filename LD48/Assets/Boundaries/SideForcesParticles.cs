@@ -1,7 +1,5 @@
 using Assets;
-using Assets.MapGeneration;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Map;
 using UnityEngine;
 
 public class SideForcesParticles : MonoBehaviour
@@ -14,7 +12,7 @@ public class SideForcesParticles : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var width = Map.Instance.Configuration.width;
+        var width = MapScript.Instance.MapSizeBoundries();
         UpdateOffset(particleLeft.transform, -mapOffset);
         UpdateOffset(particleRight.transform, width + mapOffset);
 

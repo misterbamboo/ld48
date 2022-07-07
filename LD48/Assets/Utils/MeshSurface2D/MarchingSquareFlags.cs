@@ -1,4 +1,4 @@
-﻿namespace MeshSurface2DPresentation
+﻿namespace MeshSurface2D
 {
     public enum MarchingSquareFlags
     {

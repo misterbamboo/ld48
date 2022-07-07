@@ -1,9 +1,4 @@
-﻿using Assets.MapGeneration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Assets.Map;
 using UnityEngine;
 
 namespace Assets.WaterSurfaceManagement
@@ -46,10 +41,10 @@ namespace Assets.WaterSurfaceManagement
 
         private void Init()
         {
-            transform.position = new Vector3(-Map.Instance.Configuration.width, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-MapScript.Instance.MapSizeBoundries(), transform.position.y, transform.position.z);
 
             // X3 because : 1 widht left, actual width and 1 width right
-            waterSurfaceDrawer = new WaterSurfaceDrawer(Map.Instance.Configuration.width * 3, followDistance * 2, 0.1f);
+            waterSurfaceDrawer = new WaterSurfaceDrawer((int)MapScript.Instance.MapSizeBoundries() * 3, followDistance * 2, 0.1f);
             waterSurfaceDrawer.Init();
             GetComponent<MeshFilter>().sharedMesh = waterSurfaceDrawer.Mesh;
             

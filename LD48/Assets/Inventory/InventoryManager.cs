@@ -1,4 +1,5 @@
-using Assets.MapGeneration;
+using Assets.Map;
+using Assets.Map.Domain;
 using Assets.Ressources;
 using System;
 using System.Collections;
@@ -78,7 +79,7 @@ public class InventoryManager : MonoBehaviour
             inventory.Add(ressource);
 
             // unactive ressource will be recycle
-            Map.Instance.RemoveRessource(ressource);
+            MapScript.Instance.RemoveRessource(ressource);
             gameObject.SetActive(false);
         }
     }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MeshSurface2DPresentation
+namespace MeshSurface2D
 {
     public class LerpMeshSurface2D
     {
@@ -43,12 +43,9 @@ namespace MeshSurface2DPresentation
             triangles.Clear();
             verticesIndex = 0;
 
-            var width = ValueProvider.Width;
-            var height = ValueProvider.Height;
-
-            for (int x = 0; x < width - 1; x++)
+            for (int x = (int)ValueProvider.Left; x < (int)ValueProvider.Width - 1; x++)
             {
-                for (int y = 0; y < height - 1; y++)
+                for (int y = (int)ValueProvider.Bottom; y < (int)ValueProvider.Height - 1; y++)
                 {
                     CreateTriangles(x, y);
                 }
