@@ -73,7 +73,7 @@ namespace Assets.MapGeneration
             }
         }
 
-        public void RemoveRessource(IRessource ressource)
+        public void RemoveRessource(Ore ressource)
         {
             mapRows[ressource.SpawnY][ressource.SpawnX] = MapCellType.Terrain;
         }

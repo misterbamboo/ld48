@@ -30,18 +30,17 @@ public class InventoryHudController : MonoBehaviour
 
     private void ShowInventory()
     {
-
-        textGoldInventory.text = InventoryManager.Instance.goldQuantity.ToString();
-        textPlatinumInventory.text = InventoryManager.Instance.platinumQuantity.ToString();
-        textCopperInventory.text = InventoryManager.Instance.copperQuantity.ToString();
-        textIronInventory.text = InventoryManager.Instance.ironQuantity.ToString();
-        textDiamondInventory.text = InventoryManager.Instance.diamondQuantity.ToString();
-        textCash.text = InventoryManager.Instance.inventoryReward.ToString();
+        textGoldInventory.text = Inventory.Instance.goldQuantity.ToString();
+        textPlatinumInventory.text = Inventory.Instance.platinumQuantity.ToString();
+        textCopperInventory.text = Inventory.Instance.copperQuantity.ToString();
+        textIronInventory.text = Inventory.Instance.ironQuantity.ToString();
+        textDiamondInventory.text = Inventory.Instance.diamondQuantity.ToString();
+        textCash.text = Inventory.Instance.inventoryReward.ToString();
     }
 
     private void ShowCanSellLabel()
     {
-        bool showLabel = InventoryManager.Instance.canSell && Game.Instance.State == GameState.InAction;
+        bool showLabel = Inventory.Instance.canSell && Game.Instance.State == GameState.InAction;
         textSellInventory.gameObject.SetActive(showLabel);
     }
 }

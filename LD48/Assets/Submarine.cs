@@ -129,9 +129,9 @@ namespace Assets
 
         public bool TrySpendMoneyAmount(int spendMoneyAmount)
         {
-            if (InventoryManager.Instance.inventoryReward >= spendMoneyAmount)
+            if (Inventory.Instance.inventoryReward >= spendMoneyAmount)
             {
-                InventoryManager.Instance.inventoryReward -= spendMoneyAmount;
+                Inventory.Instance.inventoryReward -= spendMoneyAmount;
                 return true;
             }
             else

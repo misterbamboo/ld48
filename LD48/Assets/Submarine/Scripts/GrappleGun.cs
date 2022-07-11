@@ -24,9 +24,17 @@ public class GrappleGun : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && state == GrappleState.Idle)
+        if (Input.GetButtonDown("Fire1"))
         {
-            FireHook();
+            if (state == GrappleState.Idle)
+            {
+                FireHook();
+
+            }
+            else if (state == GrappleState.Grappling)
+            {
+                RetractHook();
+            }
         }
     }
 
@@ -36,6 +44,17 @@ public class GrappleGun : MonoBehaviour
         grappleSound.PlayRandomSound();
 
         hook.Fire(hookFireStrenght, GetFireAngle());
+    }
+
+    void RetractHook()
+    {
+        state = GrappleState.Pulling;
+        hook.Retract();
+    }
+
+    public void Reload()
+    {
+        state = GrappleState.Idle;
     }
 
     private float GetFireAngle()
