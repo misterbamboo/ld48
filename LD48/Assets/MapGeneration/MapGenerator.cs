@@ -1,16 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using Assets.Ressources;
 
 namespace Assets.MapGeneration
 {
     public class MapGenerator : MonoBehaviour
     {
         [SerializeField] private MapConfig mapConfiguration;
-        [SerializeField] private int numberOfPaths = 5;
-        [SerializeField] private int minPathSize = 5;
-        [SerializeField] private int maxPathSize = 20;
 
         [SerializeField] private int playerViewBuffer = 100;
         [SerializeField] private Transform playerPosition;
@@ -24,14 +18,11 @@ namespace Assets.MapGeneration
 
         private Map map;
 
-        private Path[] paths;
-
         private MapDrawer mapDrawer;
 
-        private MapCollider mapCollider;
-
         private int lastPlayerPageIndex = int.MinValue;
-        private List<GameObject> mapShapeGenerated = new List<GameObject>();
+
+        private GameObject mapShapeGameObject;
 
         private void Start()
         {
@@ -40,14 +31,8 @@ namespace Assets.MapGeneration
 
         private void Init()
         {
-            paths = new Path[numberOfPaths];
-            for (int i = 0; i < numberOfPaths; i++)
-            {
-                paths[i] = new Path(mapConfiguration.width, minPathSize, maxPathSize);
-            }
-            map = new Map(mapConfiguration, paths);
+            map = new Map(mapConfiguration);
             mapDrawer = new MapDrawer(map);
-            mapCollider = new MapCollider(map);
 
             GenerateNewPage(playerViewBuffer);
             UpdatePageView();
@@ -74,10 +59,6 @@ namespace Assets.MapGeneration
 
         private void GenerateNewPage(int pageSize)
         {
-            foreach (var path in paths)
-            {
-                path.Generate(pageSize);
-            }
             map.Generate(pageSize);
         }
 
@@ -98,52 +79,32 @@ namespace Assets.MapGeneration
             var fromY = (lastPlayerPageIndex - 1) * playerViewBuffer;
             var toY = (lastPlayerPageIndex + 2) * playerViewBuffer;
 
-            mapDrawer.Redraw(fromY, toY);
-
-            if (mapDrawer.Mesh.Length == 1)
-            {
-                GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh[0];
-            }
-            else
-            {
-                // Clean old
-                foreach (var mapShapeGO in mapShapeGenerated)
-                {
-                    Destroy(mapShapeGO);
-                }
-                mapShapeGenerated.Clear();
-
-                for (int i = 0; i < mapDrawer.Mesh.Length; i++)
-                {
-                    var mesh = mapDrawer.Mesh[i];
-                    var mapShape = mapDrawer.MapShapes[i];
-
-                    var mapShapeGameObject = Instantiate(mapShapeMeshPrefab);
-                    mapShapeGenerated.Add(mapShapeGameObject);
-                    mapShapeGameObject.transform.position = new Vector3(0, 0, 0);
-                    mapShapeGameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
-                    mapShapeGameObject.GetComponent<PolygonCollider2D>().points = mapShape.OrderedVectors.ToArray();
-                }
-            }
+            DrawPage(fromY, toY);
 
             var currentPageFromY = (lastPlayerPageIndex) * playerViewBuffer;
             var currentPageToY = (lastPlayerPageIndex + 1) * playerViewBuffer;
 
             mapDrawer.ReplaceRessources(currentPageFromY, currentPageToY);
+        }
 
-            BoxCollider2DPooler.Instance.RecycleOutOfRange(currentPageFromY, currentPageToY);
+        private void DrawPage(int fromY, int toY)
+        {
+            mapDrawer.Redraw(fromY, toY);
 
-            bool oldGen = false;
-            if (oldGen)
+            ReplaceMapShapeGameObject(-toY);
+        }
+
+        private void ReplaceMapShapeGameObject(int posY)
+        {
+            if (mapShapeGameObject != null)
             {
-                var poligons = mapCollider.GetCollisionPoints(currentPageFromY, currentPageToY);
-                for (int i = 0; i < poligons.Count(); i++)
-                {
-                    var polygon = poligons.ElementAt(i);
-                    var boxCollider = BoxCollider2DPooler.Instance.GetOne();
-                    boxCollider.transform.position = polygon[0];
-                }
+                Destroy(mapShapeGameObject);
             }
+
+            mapShapeGameObject = Instantiate(mapShapeMeshPrefab);
+            mapShapeGameObject.transform.position = new Vector3(0, posY, 0);
+            mapShapeGameObject.GetComponent<MeshFilter>().sharedMesh = mapDrawer.Mesh;
+            mapShapeGameObject.GetComponent<MeshCollider>().sharedMesh = mapDrawer.Mesh;
         }
 
         private int GetCurrentPlayerPageIndex()
