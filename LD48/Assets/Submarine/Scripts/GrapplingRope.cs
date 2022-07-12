@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GrapplingRope : MonoBehaviour
 {
+    /*
     [SerializeField]
     Grapple grapple;
 
@@ -148,4 +149,5 @@ public class GrapplingRope : MonoBehaviour
         lineRenderer.SetPosition(0, grapple.GetFirePoint());
         lineRenderer.SetPosition(1, grapple.GetGrapplePoint());
     }
+    */
 }

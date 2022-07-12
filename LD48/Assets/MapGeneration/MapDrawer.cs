@@ -53,9 +53,11 @@ namespace Assets.MapGeneration
 
                 var ressource = RessourcePooler.Instance.GetOne(map.GetCell(x, y).mapCellType);
 
-                var ressourceDef = ressource.GetComponent<IRessource>();
+                var ressourceDef = ressource.GetComponent<Ore>();
+
                 ressourceDef.SpawnX = x;
                 ressourceDef.SpawnY = y;
+
                 var randomAngle = UnityEngine.Random.Range(1, 360);
 
                 var offsetX = UnityEngine.Random.Range(0f, 1f);
