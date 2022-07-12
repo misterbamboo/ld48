@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -8,7 +7,6 @@ namespace SubGame.Entities.InventoryManagement
     {
         public int Capacity { get; }
         private List<ItemStack> Inventory { get; }
-
         private string InventoryName { get; }
 
         public SimpleInventory(int capacity, string inventoryName = "simple inventory")
@@ -22,7 +20,12 @@ namespace SubGame.Entities.InventoryManagement
 
         public ItemStack GetItem(string itemId)
         {
-            throw new System.NotImplementedException();
+            if (!HasItem(itemId))
+            {
+                throw new NoSuchItemInInventoryException(itemId, InventoryName);
+            }
+
+            return Inventory[ItemIndex(itemId)];
         }
 
         public void AddItems(ItemStack items)
@@ -71,14 +74,28 @@ namespace SubGame.Entities.InventoryManagement
             }
         }
 
-        public void RemoveItems(string itemId, int amount)
+        public void RemoveItems(ItemStack items)
         {
-            throw new System.NotImplementedException();
+            var index = ItemIndex(items.ItemId);
+            if (index == -1)
+            {
+                return;
+            }
+
+            var amountInInventory = Inventory[index].Amount;
+            if (items.Amount >= amountInInventory)
+            {
+                Inventory.RemoveAt(index);
+            }
+            else if (items.Amount < amountInInventory)
+            {
+                Inventory[index] = Inventory[index].RemoveAmount(items.Amount);
+            }
         }
 
         public bool HasItem(string itemId)
         {
-            throw new System.NotImplementedException();
+            return ItemIndex(itemId) != -1;
         }
     }
 }

@@ -29,8 +29,7 @@ namespace SubGameTests.SimpleInventoryTests
 
             // Assert
             Assert.That(item, Is.Not.Null);
-            Assert.That(item.ItemId, Is.EqualTo("test_id"));
-            Assert.That(item.Amount, Is.EqualTo(3));
+            Assert.That(item, Is.EqualTo(new ItemStack("test_id", 3)));
         }
     }
 }

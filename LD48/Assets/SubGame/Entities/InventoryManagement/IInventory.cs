@@ -19,9 +19,8 @@ namespace SubGame.Entities.InventoryManagement
 
         /// <summary>
         /// Removes a specific amount of items from the inventory. 
-        /// If none are left, the item is replaced by void items.
         /// </summary>
-        public void RemoveItems(string itemId, int amount);
+        public void RemoveItems(ItemStack items);
 
         public bool HasItem(string itemId);
     }
