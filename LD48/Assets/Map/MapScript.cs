@@ -1,14 +1,21 @@
 using Assets.Map.Infrastructure;
 using Assets.Map.Presentation;
 using Assets.Ressources;
-using System;
 using UnityEngine;
 
 namespace Assets.Map
 {
-    public class MapScript : MonoBehaviour
+    public interface IMap
     {
-        public static MapScript Instance { get; private set; }
+        float MapSizeBoundries();
+
+        void RemoveRessource(IRessource ressource);
+    }
+    
+
+    public class MapScript : MonoBehaviour, IMap
+    {
+        public static IMap Instance { get; private set; }
 
         [SerializeField] private MapConfig mapConfiguration;
 
@@ -23,6 +30,11 @@ namespace Assets.Map
         public float MapSizeBoundries()
         {
             return mapPageSize;
+        }
+
+        public void RemoveRessource(IRessource ressource)
+        {
+            mapController.RemoveRessource(ressource);
         }
 
         private void Awake()
@@ -59,9 +71,6 @@ namespace Assets.Map
             mapShapeGameObject.GetComponent<MeshCollider>().sharedMesh = newMesh;
         }
 
-        internal void RemoveRessource(IRessource ressource)
-        {
-            mapController.RemoveRessource(ressource);
-        }
+        
     }
 }

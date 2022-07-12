@@ -10,7 +10,7 @@ namespace Assets.Map.Infrastructure
 
         }
 
-        public int width = 100;
+        public int width = 20;
 
         // https://www.desmos.com/calculator/vdhgxngtsd
         public float baseNoiseSize = 10;

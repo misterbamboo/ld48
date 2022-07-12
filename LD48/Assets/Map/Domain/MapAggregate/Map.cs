@@ -67,16 +67,28 @@ namespace Assets.Map.Domain
 
         private void PlaceRessource(float x, float y)
         {
-            IEnumerable<MapCellType> possibleRessources = RessourceChances.GetPossibilities((int)y);
-            float count = possibleRessources.Count();
-            float value = GetRessourceNoiseValue(config.width, x, y);
+            var mapCellType = GetRessourceFromPossibilities(x, y);
+
             var coord = new Tuple<int, int>((int)x, (int)y);
             var previousValue = mapCells[coord].value;
             mapCells[coord] = new MapCell
             {
-                mapCellType = possibleRessources.ElementAt((int)(value * count)),
+                mapCellType = mapCellType,
                 value = previousValue
             };
+        }
+
+        private MapCellType GetRessourceFromPossibilities(float x, float y)
+        {
+            IEnumerable<MapCellType> possibleRessources = RessourceChances.GetPossibilities((int)y);
+            if (!possibleRessources.Any())
+            {
+                return MapCellType.Terrain;
+            }
+
+            float count = possibleRessources.Count();
+            float value = GetRessourceNoiseValue(config.width, x, y);
+            return possibleRessources.ElementAt((int)(value * count));
         }
 
         private bool ShouldPlaceRessource(float x, float y)
