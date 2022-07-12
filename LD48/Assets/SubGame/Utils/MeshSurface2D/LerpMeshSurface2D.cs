@@ -43,9 +43,9 @@ namespace MeshSurface2D
             triangles.Clear();
             verticesIndex = 0;
 
-            for (int x = (int)ValueProvider.Left; x < (int)ValueProvider.Width - 1; x++)
+            for (int x = (int)ValueProvider.Left; x < (int)ValueProvider.Right - 1; x++)
             {
-                for (int y = (int)ValueProvider.Bottom; y < (int)ValueProvider.Height - 1; y++)
+                for (int y = (int)ValueProvider.Bottom; y < (int)ValueProvider.Top - 1; y++)
                 {
                     CreateTriangles(x, y);
                 }

@@ -93,13 +93,45 @@ namespace Assets.SubGameTests.MapTests
             Setup(size: 10);
 
             // Act
-            MapPaging.UpdatePlayerPosition(new Vector2(-10f, 0));
+            MapPaging.UpdatePlayerPosition(new Vector2(-1f, 0));
 
             // Assert
             var bottomLeft = PageInfo.FromPoint();
             var topRight = PageInfo.ToPoint();
             Assert.That(bottomLeft, Is.EqualTo(new Vector2(-20, -10)));
             Assert.That(topRight, Is.EqualTo(new Vector2(10, 20)));
+        }
+
+        [Test]
+        public void WhenPlayerReachedTop_VisibleRange_IsShifOnePageUp()
+        {
+            // Arrange
+            Setup(size: 10);
+
+            // Act
+            MapPaging.UpdatePlayerPosition(new Vector2(0f, 10f));
+
+            // Assert
+            var bottomLeft = PageInfo.FromPoint();
+            var topRight = PageInfo.ToPoint();
+            Assert.That(bottomLeft, Is.EqualTo(new Vector2(-10, 0)));
+            Assert.That(topRight, Is.EqualTo(new Vector2(20, 30)));
+        }
+
+        [Test]
+        public void WhenPlayerReachedBottom_VisibleRange_IsShifOnePageDown()
+        {
+            // Arrange
+            Setup(size: 10);
+
+            // Act
+            MapPaging.UpdatePlayerPosition(new Vector2(0f, -1f));
+
+            // Assert
+            var bottomLeft = PageInfo.FromPoint();
+            var topRight = PageInfo.ToPoint();
+            Assert.That(bottomLeft, Is.EqualTo(new Vector2(-10, -20)));
+            Assert.That(topRight, Is.EqualTo(new Vector2(20, 10)));
         }
     }
 }

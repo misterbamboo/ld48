@@ -18,7 +18,6 @@ namespace Assets.Map
 
         [SerializeField] private MapConfig mapConfiguration;
 
-        [SerializeField] private int mapPageSize = 100;
         [SerializeField] private Transform playerPosition;
 
         [SerializeField] private GameObject mapShapeMeshPrefab;
@@ -28,7 +27,7 @@ namespace Assets.Map
 
         public float MapSizeBoundries()
         {
-            return mapPageSize;
+            return mapConfiguration.mapPageSize;
         }
 
         public void RemoveRessource(int x, int y)
@@ -43,7 +42,7 @@ namespace Assets.Map
 
         private void Start()
         {
-            mapController = new MapController(mapConfiguration, mapPageSize);
+            mapController = new MapController(mapConfiguration);
             mapController.MapDisplayedMeshChanged += MapController_MapDisplayedMeshChanged1;
         }
 
@@ -69,7 +68,5 @@ namespace Assets.Map
             mapShapeGameObject.GetComponent<MeshFilter>().sharedMesh = newMesh;
             mapShapeGameObject.GetComponent<MeshCollider>().sharedMesh = newMesh;
         }
-
-
     }
 }

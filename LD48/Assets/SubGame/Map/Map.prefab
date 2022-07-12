@@ -215,14 +215,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapConfiguration:
-    width: 50
+    width: 255
+    mapPageSize: 255
+    mapDisplayScale: 0.2
     baseNoiseSize: 10
     deepnessK: 0.02
     deepnessWeight: 2
     ressourceNoiseSize: 25
     ressourceDensityValueMultiplicator: 0.1
     ressourceDensityValueHeightShift: 0.1
-  mapPageSize: 100
   playerPosition: {fileID: 0}
   mapShapeMeshPrefab: {fileID: 550244002490297407}
 --- !u!1001 &3258562836162956226

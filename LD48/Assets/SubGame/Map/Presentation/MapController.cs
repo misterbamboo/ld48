@@ -13,11 +13,11 @@ namespace Assets.Map.Presentation
         private MapMeshDrawer mapMeshDrawer;
         private MapPaging mapPaging;
 
-        public MapController(MapConfig mapConfiguration, int mapPageSize)
+        public MapController(MapConfig mapConfiguration)
         {
             map = new Domain.Map(mapConfiguration);
-            mapMeshDrawer = new MapMeshDrawer(map);
-            mapPaging = new MapPaging(mapPageSize);
+            mapMeshDrawer = new MapMeshDrawer(map, mapConfiguration);
+            mapPaging = new MapPaging(mapConfiguration.mapPageSize);
             mapPaging.PageChanged += MapPaging_PageChanged;
         }
 
@@ -28,8 +28,10 @@ namespace Assets.Map.Presentation
 
         private void MapPaging_PageChanged(MapPaging.MapPageInfo pageInfo)
         {
-            map.GenerateRegion(pageInfo.FromPoint(), pageInfo.ToPoint());
-            mapMeshDrawer.RedrawRegion(pageInfo.FromPoint(), pageInfo.ToPoint());
+            var from = pageInfo.FromPoint();
+            var to = pageInfo.ToPoint();
+            map.GenerateRegion(from, to);
+            mapMeshDrawer.RedrawRegion(from, to);
 
             MapDisplayedMeshChanged?.Invoke(mapMeshDrawer.Mesh);
         }

@@ -69,8 +69,8 @@ namespace Assets.Map.Application
 
             public MapPageInfo(Vector3 pagePos, int mapPageSize)
             {
-                XIndex = (int)pagePos.x;
-                YIndex = (int)pagePos.y;
+                XIndex = (int)Math.Floor(pagePos.x);
+                YIndex = (int)Math.Floor(pagePos.y);
                 MapPageSize = mapPageSize;
             }
 

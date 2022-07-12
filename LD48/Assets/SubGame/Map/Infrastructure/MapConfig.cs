@@ -10,7 +10,9 @@ namespace Assets.Map.Infrastructure
 
         }
 
-        public int width = 50;
+        public int width = 255;
+        public int mapPageSize = 255;
+        public float mapDisplayScale = 0.1f;
 
         // https://www.desmos.com/calculator/vdhgxngtsd
         public float baseNoiseSize = 10;
