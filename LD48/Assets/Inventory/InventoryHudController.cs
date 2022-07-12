@@ -30,17 +30,21 @@ public class InventoryHudController : MonoBehaviour
 
     private void ShowInventory()
     {
+        /*
         textGoldInventory.text = Inventory.Instance.goldQuantity.ToString();
         textPlatinumInventory.text = Inventory.Instance.platinumQuantity.ToString();
         textCopperInventory.text = Inventory.Instance.copperQuantity.ToString();
         textIronInventory.text = Inventory.Instance.ironQuantity.ToString();
         textDiamondInventory.text = Inventory.Instance.diamondQuantity.ToString();
         textCash.text = Inventory.Instance.inventoryReward.ToString();
+        */
     }
 
     private void ShowCanSellLabel()
     {
+        /*
         bool showLabel = Inventory.Instance.canSell && Game.Instance.State == GameState.InAction;
         textSellInventory.gameObject.SetActive(showLabel);
+        */
     }
 }

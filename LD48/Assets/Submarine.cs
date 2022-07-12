@@ -129,6 +129,8 @@ namespace Assets
 
         public bool TrySpendMoneyAmount(int spendMoneyAmount)
         {
+            return true;
+            /*
             if (Inventory.Instance.inventoryReward >= spendMoneyAmount)
             {
                 Inventory.Instance.inventoryReward -= spendMoneyAmount;
@@ -138,7 +140,7 @@ namespace Assets
             {
                 return false;
             }
-
+            */
         }
     }
 }
