@@ -1,6 +1,5 @@
 ﻿using Assets.Map.Application;
 using Assets.Map.Infrastructure;
-using Assets.Ressources;
 using System;
 using UnityEngine;
 
@@ -35,9 +34,9 @@ namespace Assets.Map.Presentation
             MapDisplayedMeshChanged?.Invoke(mapMeshDrawer.Mesh);
         }
 
-        public void RemoveRessource(IRessource ressource)
+        public void RemoveRessourceAt(int x, int y)
         {
-            map.RemoveRessource(ressource);
+            map.RemoveRessourceAt(x, y);
         }
     }
 }

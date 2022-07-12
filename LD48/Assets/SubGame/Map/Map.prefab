@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapConfiguration:
-    width: 20
+    width: 50
     baseNoiseSize: 10
     deepnessK: 0.02
     deepnessWeight: 2

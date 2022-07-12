@@ -9,14 +9,15 @@ namespace Assets.Map.Application
 
         private readonly int mapPageSize;
         private string currentPageKey;
-        private Vector3 playerPosition;
+        private Vector2 playerPosition;
 
         public MapPaging(int mapPageSize)
         {
             this.mapPageSize = mapPageSize;
+            currentPageKey = GetPageKey();
         }
 
-        public void UpdatePlayerPosition(Vector3 playerPosition)
+        public void UpdatePlayerPosition(Vector2 playerPosition)
         {
             this.playerPosition = playerPosition;
             CheckIfPageChanged();
@@ -46,6 +47,11 @@ namespace Assets.Map.Application
         private void UpdateMapPage()
         {
             PageChanged?.Invoke(GetPageInfo());
+        }
+
+        public MapPageInfo GetCurrentPageInfo()
+        {
+            return GetPageInfo();
         }
 
         private MapPageInfo GetPageInfo()

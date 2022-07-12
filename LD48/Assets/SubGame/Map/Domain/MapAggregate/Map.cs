@@ -1,5 +1,4 @@
 ﻿using Assets.Map.Infrastructure;
-using Assets.Ressources;
 using MeshSurface2D;
 using System;
 using System.Collections.Generic;
@@ -118,9 +117,9 @@ namespace Assets.Map.Domain
             return Mathf.PerlinNoise(xRatio, yRatio);
         }
 
-        public void RemoveRessource(IRessource ressource)
+        public void RemoveRessourceAt(int x, int y)
         {
-            var coord = new Tuple<int, int>(ressource.SpawnX, ressource.SpawnY);
+            var coord = new Tuple<int, int>(x, y);
             var previousValue = mapCells[coord].value;
             mapCells[coord] = new MapCell
             {
