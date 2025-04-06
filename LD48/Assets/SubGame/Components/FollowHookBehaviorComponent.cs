@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class FollowHookBehavior : MonoBehaviour, IHookable
+public class FollowHookBehaviorComponent : MonoBehaviour, IHookable
 {
     [SerializeField] private string key;
     public string Key => key;

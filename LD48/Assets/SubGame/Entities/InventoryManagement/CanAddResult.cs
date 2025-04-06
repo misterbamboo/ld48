@@ -24,7 +24,7 @@ namespace SubGame.Entities.InventoryManagement
             Remainder = remainder;
         }
 
-        public bool CanAdd() => Fit == AddFit.Full || Fit == AddFit.Partial;
+        public bool CanAdd => Fit == AddFit.Full || Fit == AddFit.Partial;
 
         public static CanAddResult Full(ItemStack addable)
         {
